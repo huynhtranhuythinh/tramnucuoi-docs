@@ -29,18 +29,18 @@ Repository này **không phải source-code repository**.
 
 Source/product code được lưu riêng tại:
 
-`~/dev/tnc`
+`~/dev/tramnucuoi`
 
 Documentation canonical được lưu tại:
 
-`~/dev/tnc-docs`
+`~/dev/tramnucuoi-docs`
 
 ---
 
 # 2. REPOSITORY STRUCTURE
 
 ```text
-tnc-docs/
+tramnucuoi-docs/
 ├── 00_INDEX/
 ├── 01_PRODUCT_VISION/
 ├── 02_PLATFORM/
