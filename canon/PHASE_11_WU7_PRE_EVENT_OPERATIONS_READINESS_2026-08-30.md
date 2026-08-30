@@ -201,14 +201,24 @@ Canonical product `main` changes for WU7:
 2. `src/routes/_authenticated/admin.journeys.tsx`
    - passes Journey `capacity` into `ApplicationManager`.
 
-Canonical source commits:
+3. `src/lib/journeys/admin-queries.ts`
+   - defensive `confirmApplication()` precondition: only `accepted` or already-`confirmed` applications can enter the confirmation path;
+   - preserves idempotency for already-confirmed rows.
+
+Initial canonical source commits:
 
 - `186a29a2dd1db6d2fabb66914d91380c49c4b880`
 - `4518eaf65518a1a470b232bbfcc544bbf8a3808a`
 
-Canonical product HEAD after WU7 source sync:
+### Canonical parity repair discovered during P11-WU8 preflight
 
-`4518eaf65518a1a470b232bbfcc544bbf8a3808a`
+During WU8 preflight, CTO verification found that the Builder implementation of the WU7 defensive `confirmApplication()` precondition had not been copied into canonical product `main`, although the WU7 UI controls were already canonical. This was a source-parity omission, not a production-data failure.
+
+The missing guard was restored to canonical `main` in commit:
+
+- `b5f74a77c5edb7df83d9829eba283ced029e6dad`
+
+That commit also carries the WU8 Field Update defensive publish guard in the same file; the WU7 behavior itself is unchanged from the previously reviewed Builder implementation.
 
 Builder QA on the intended WU7 implementation:
 
