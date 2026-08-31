@@ -57,6 +57,38 @@ Handoff index: `08_HANDOFF/00_PHASE_8_HANDOFF_INDEX.md`
 
 - `PHASE_8_3_PRIVACY_TRUST_RELEASE_READINESS.md` — live phase record
 
+## Phase 12 — Living Community OS Foundation — COMPLETE / PASS
+
+Canonical chain:
+
+1. `canon/PHASE_12_COMMUNITY_OS_CONTINUATION_PLAN_2026-08-31.md`
+2. `canon/PHASE_12_WU1_COMMUNITY_IDENTITY_JOURNEY_LINK_2026-08-31.md`
+3. `canon/PHASE_12_WU2_COMMUNITY_ONBOARDING_PARTICIPANT_CLAIM_2026-08-31.md`
+4. `canon/PHASE_12_WU3_MY_JOURNEY_MEMORY_2026-08-31.md`
+5. `canon/PHASE_12_WU4_JOURNEY_NATIVE_COMMUNITY_INTERACTION_2026-08-31.md`
+6. `canon/PHASE_12_WU5_CONTRIBUTION_HISTORY_2026-08-31.md`
+7. `canon/PHASE_12_WU6_COMMUNITY_ROLES_HOST_NETWORK_2026-08-31.md`
+8. `canon/PHASE_12_WU7_IMPACT_NETWORK_CLOSEOUT_2026-08-31.md`
+9. `canon/PHASE_12_FINAL_CLOSEOUT_2026-08-31.md`
+10. `evidence/PHASE_12_LIVING_COMMUNITY_OS_EVIDENCE_2026-08-31.md`
+11. `handoff/PHASE_12_TO_PHASE_13_HANDOFF_2026-08-31.md`
+
+Phase 12 final product HEAD:
+`75f9511de8442fcd632429b21cfc56fb727aed7b`
+
+## Phase 13 — Community Experience & Living UI — ACTIVE
+
+Entry documents:
+
+1. `canon/PHASE_13_COMMUNITY_EXPERIENCE_KICKOFF_2026-08-31.md`
+2. `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
+
+P13-WU1 status: **COMPLETE / PASS**
+
+Next work unit: **P13-WU2 — Personal Community Home / My TNC**
+
+Phase 13 inherits the Phase 12 truth model and must not weaken identity, attendance, Memory, Contribution, relationship, permission or impact semantics for UI convenience.
+
 ## Other Document Sets
 
 - `01_PRODUCT_VISION/` — project rules, content guideline, future roadmap
