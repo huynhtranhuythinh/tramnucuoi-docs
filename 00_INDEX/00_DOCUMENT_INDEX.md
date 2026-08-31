@@ -119,6 +119,38 @@ The earlier WU6 implementation record/evidence documented the pre-deploy PENDING
 
 Phase 13 is closed without waiting for the 2026-09-11 pilot. The P11 live-pilot operational lane remains independently authoritative.
 
+## Phase 14 — Real Community Activation & Member Lifecycle
+
+### P14-WU1 — Auth & Email Production Readiness — COMPLETE / PASS
+
+Canonical chain:
+1. `canon/PHASE_14_WU1_AUTH_EMAIL_PRODUCTION_READINESS_2026-08-31.md`
+2. `evidence/PHASE_14_WU1_AUTH_EMAIL_PRODUCTION_EVIDENCE_2026-08-31.md`
+
+WU1 result:
+- production Site URL verified;
+- exact `/auth`, `/cong-dong`, `/en/community` redirect allowlist verified;
+- dedicated Resend SMTP configured for Supabase Auth;
+- production Magic Link delivery PASS;
+- desktop token/session/logout/reuse behavior PASS;
+- VI/EN redirect acceptance PASS;
+- resend throttle PASS;
+- mobile browser Magic Link flow PASS;
+- bilingual Magic Link template applied;
+- no Community truth facts manufactured by Auth testing.
+
+Product main remains unchanged from Phase 13:
+`b8c0fd597bbe411bee3165e5741471ea443c529e`
+
+Activation state after WU1:
+- My TNC public Auth: **OFF / EXPLICITLY GATED**;
+- `VITE_APP_COMMUNITY_AUTH_ENABLED=false`;
+- Supabase Auth SMTP: **ON / OPERATIONAL**;
+- Turnstile: OFF.
+
+NEXT:
+**P14-WU2 — Controlled My TNC Activation**
+
 ## Other Document Sets
 
 - `01_PRODUCT_VISION/` — project rules, content guideline, future roadmap
