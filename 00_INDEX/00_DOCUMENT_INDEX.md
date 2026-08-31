@@ -86,15 +86,23 @@ Canonical chain so far:
 4. `evidence/PHASE_13_WU2_MY_TNC_EVIDENCE_2026-08-31.md`
 5. `canon/PHASE_13_WU3_JOURNEY_COMMUNITY_EXPERIENCE_2026-08-31.md`
 6. `evidence/PHASE_13_WU3_JOURNEY_EXPERIENCE_EVIDENCE_2026-08-31.md`
+7. `canon/PHASE_13_WU4_COMMUNITY_PEOPLE_RELATIONSHIP_UI_2026-08-31.md`
+8. `evidence/PHASE_13_WU4_COMMUNITY_RELATIONSHIP_UI_EVIDENCE_2026-08-31.md`
 
 Status:
 - P13-WU1 — Community Experience Architecture: **COMPLETE / PASS**
 - P13-WU2 — Personal Community Home / My TNC: **COMPLETE / PASS**
 - P13-WU3 — Journey Community Experience: **COMPLETE / PASS**
-- P13-WU4 — Community People & Relationship UI: **NEXT**
+- P13-WU4 — Community People & Relationship UI: **COMPLETE / PASS**
+- P13-WU5 — Living Community Surface: **NEXT**
 
-Product main after WU3:
-`75706af5b2dfa5e9b01b34150aa2e440406640e4`
+Product main after WU4:
+`cb465399f4860e4dfa842e2008e62547dbce8fde`
+
+WU4 publication boundary:
+- verified internal relationship does not automatically authorize public identity publication;
+- no public people directory was created;
+- wider Community storytelling must remain privacy-safe and evidence-backed.
 
 Phase 13 inherits the Phase 12 truth model and must not weaken identity, attendance, Memory, Contribution, relationship, permission or impact semantics for UI convenience.
 
