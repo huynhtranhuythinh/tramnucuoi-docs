@@ -79,6 +79,8 @@ Canonical chain so far:
 8. `evidence/PHASE_13_WU4_COMMUNITY_RELATIONSHIP_UI_EVIDENCE_2026-08-31.md`
 9. `canon/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_2026-08-31.md`
 10. `evidence/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_EVIDENCE_2026-08-31.md`
+11. `canon/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_2026-08-31.md`
+12. `evidence/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_EVIDENCE_2026-08-31.md`
 
 Status:
 - P13-WU1 — Community Experience Architecture: **COMPLETE / PASS**
@@ -86,21 +88,22 @@ Status:
 - P13-WU3 — Journey Community Experience: **COMPLETE / PASS**
 - P13-WU4 — Community People & Relationship UI: **COMPLETE / PASS**
 - P13-WU5 — Living Community Surface: **COMPLETE / PASS**
-- P13-WU6 — Public Activation & Polish: **NEXT**
+- P13-WU6 — Public Activation & Polish: **IMPLEMENTATION COMPLETE / PASS — PRODUCTION DEPLOY + OWNER REVIEW PENDING**
 
-Product main after WU5:
-`029d444a32529b23cc0171309e8bc81ae9792957`
+Product main after WU6 implementation:
+`1072c11366222847ca931ab392b04862c947cfca`
 
-Phase 13 publication boundary:
-- public Living Community reads only already-public RLS-backed sources;
-- public Reflection is identity-minimized;
-- verified internal relationship does not automatically authorize public identity publication;
-- no public people directory was created;
-- no fake Community activity may be seeded to fill empty states.
+WU6 activation split:
+- public Living Community: merged/source-ready, indexable and navigable;
+- My TNC public Magic Link/Auth: fail-closed via `VITE_APP_COMMUNITY_AUTH_ENABLED=false` until production Auth delivery is proven;
+- no public people directory;
+- no fake Community activity;
+- no production Community fact rows were created by WU6.
 
-Phase 13 inherits the Phase 12 truth model and must not weaken identity, attendance, Memory, Contribution, relationship, permission or impact semantics for UI convenience.
+PR #31 / CI #148: PASS.
+Post-merge main CI #149: PASS.
 
-Community public activation remains gated while Email is OFF. P13-WU6 owns the final activation and production-polish review.
+Phase 13 is not yet declared COMPLETE because the WU6 Cloudflare production deploy, live smoke QA and Owner visual review have not been evidenced.
 
 ## Other Document Sets
 
