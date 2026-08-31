@@ -40,7 +40,8 @@ Before the real event we may build identity/account/memory/community infrastruct
 - documentary evidence;
 - impact claims;
 - Community Reflections attributed to real people;
-- Contribution History attributed to real people.
+- Contribution History attributed to real people;
+- Host / Partner relationships attributed to real people without verification.
 
 ## 4. Canonical Phase 12 sequence
 
@@ -85,7 +86,7 @@ Record meaningful contribution beyond attendance: volunteer time, skills, media,
 
 Canonical rules:
 - only admin-verified Contribution History in WU5;
-- an active verified Community identity link is required;
+- an active verified Community identity relationship is required;
 - a contribution must belong to a real Journey and/or Project context;
 - Journey canonical Project mapping is authoritative;
 - attendance does not automatically become contribution;
@@ -94,14 +95,32 @@ Canonical rules:
 - unlike units are never blindly combined into one impact number;
 - documentary verification accepts only approved documentary media;
 - verified source facts are immutable;
-- corrections revoke the old record and create a replacement;
-- if all Community identity links are later revoked, member history access fails closed while admin audit remains intact.
+- corrections revoke the old record and create a replacement.
 
-### P12-WU6 — Community Roles & Host Network — NEXT
+WU6 later generalized the verified Community identity anchor beyond participation so a verified Host/Partner representative may also receive verified Contribution History without fabricating past Journey participation.
+
+### P12-WU6 — Community Roles & Host Network — COMPLETE / PASS
 Allow one identity to accumulate real participant/contributor/host/partner relationships without conflating those roles with CMS authorization.
 
-### P12-WU7 — Impact Network
+Canonical WU6 role model:
+- **Explorer** — base Community relationship for an authenticated Community account;
+- **Participant** — derived from evidence-backed attended Memory, never manually assigned from registration;
+- **Contributor** — derived from active verified Contribution History;
+- **Host** — staff-verified personal assignment to a real Journey;
+- **Partner representative** — staff-verified personal relationship to a real Project;
+- **Admin / Editor** — CMS authorization only, kept in the separate existing `user_roles` / `app_role` layer.
+
+Key rule:
+> **Community role does not equal CMS permission.**
+
+A Host or Partner representative may enter the TNC Community network without having been a Participant first, but must activate their own Community Profile and be staff-verified. WU6 does not fabricate a historical Journey participation record.
+
+Organization/CSR Partner master data remains deferred to WU7; `partner_representative` in WU6 is a personal relationship only.
+
+### P12-WU7 — Impact Network — NEXT
 Connect verified Journey, Memory, Contribution, Project and Partner records into credible impact/data storytelling for CSR, funds and institutional partners.
+
+WU7 must remain a layer serving the Community OS graph. It must not turn the product back into an impact/compliance system detached from People, Journey, Memory and Contribution.
 
 ## 5. Product gate
 
@@ -233,7 +252,72 @@ Performance:
 Detailed WU5 evidence:
 `canon/PHASE_12_WU5_CONTRIBUTION_HISTORY_2026-08-31.md`
 
-## 10. Current status
+## 10. P12-WU6 checkpoint
+
+Product main after WU6:
+`a0467fabcac57a7b1ee9853bef51dd103e3b3b30`
+
+PR:
+- #25 `P12-WU6 Community Roles & Host Network`
+
+Production migration:
+`20260831024125 p12_wu6_community_roles_host_network`
+
+Implemented:
+- verified `host` and `partner_representative` personal relationship assignments;
+- Journey/Project graph authority enforced in the database;
+- future Host scheduling supported without treating it as past participation;
+- immutable verified facts with revoke+replace correction;
+- staff-only actor audit;
+- member-own relationship visibility;
+- Participant remains derived from verified attended Memory;
+- Contributor remains derived from active verified Contribution History;
+- generalized verified Community identity anchor accepts active participant link OR verified Host/Partner assignment;
+- profile alone is not sufficient identity evidence for Contribution History;
+- `profiles` hardened to remove unused anon SELECT and authenticated DELETE grants;
+- bilingual Community role surface on `/cong-dong` and `/en/community`;
+- admin verification console on `/admin/community-roles`;
+- `app_role` remains exactly `admin` / `editor`.
+
+Quality gates:
+- PR CI #131: PASS;
+- post-merge main CI #132: PASS;
+- dedicated WU6 database QA: PASS;
+- build: PASS;
+- typecheck: PASS;
+- Cloudflare dry-run: PASS;
+- no Cloudflare production deployment.
+
+Production remains fact-clean after WU6:
+- profiles = 0;
+- Community participant links = 0;
+- Memory rows = 0;
+- Contribution rows = 0;
+- Reflection rows = 0;
+- Community relationship assignments = 0;
+- Community relationship audit events = 0;
+- pilot = `registration_open`, capacity 30, 1 confirmed row / 1 confirmed person;
+- attendance-resolved rows = 0;
+- `pg_graphql` OFF.
+
+Security:
+- WU6 relationship and audit tables have RLS ON;
+- anon cannot read relationship assignments;
+- authenticated cannot DELETE relationship assignments;
+- authenticated cannot mutate audit rows;
+- relationship guard is `SECURITY INVOKER`, `search_path=''`, with no direct anon/authenticated EXECUTE;
+- sealed audit helper is private `SECURITY DEFINER`, `search_path=''`, with no direct anon/authenticated EXECUTE;
+- verified Community identity helper is `SECURITY INVOKER`, `search_path=''`, authenticated-only as required by policy/guard evaluation;
+- no WU6 Security Advisor regression.
+
+Performance:
+- no new WU6 unindexed-FK lint;
+- WU6 indexes are naturally reported unused while the new relationship tables remain empty.
+
+Detailed WU6 evidence:
+`canon/PHASE_12_WU6_COMMUNITY_ROLES_HOST_NETWORK_2026-08-31.md`
+
+## 11. Current status
 
 P12 roadmap realignment: COMPLETE.
 
@@ -242,7 +326,7 @@ P12 roadmap realignment: COMPLETE.
 - P12-WU3 — My Journey Memory: **COMPLETE / PASS**
 - P12-WU4 — Journey-native Community Interaction: **COMPLETE / PASS**
 - P12-WU5 — Contribution History: **COMPLETE / PASS**
-- Next product work: **P12-WU6 — Community Roles & Host Network**
-- P12-WU7 — Impact Network: PLANNED
+- P12-WU6 — Community Roles & Host Network: **COMPLETE / PASS**
+- Next product work: **P12-WU7 — Impact Network**
 
-P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence, Reflection, Contribution and impact remain unresolved until legitimate real-world operation and closeout.
+P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence, Reflection, Contribution, Host/Partner relationships and impact remain unresolved until legitimate real-world operation and closeout.
