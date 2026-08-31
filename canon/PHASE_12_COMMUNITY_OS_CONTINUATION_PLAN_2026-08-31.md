@@ -42,12 +42,12 @@ Before the real event we may build identity/account/memory infrastructure, but w
 
 ## 4. Canonical Phase 12 sequence
 
-### P12-WU1 — Community Identity & Journey Link Foundation
+### P12-WU1 — Community Identity & Journey Link Foundation — COMPLETE / PASS
 Create a privacy-safe, verified relationship between an authenticated person and an operational Journey participant snapshot.
 
 Key rule: do **not** rewrite `journey_participants.user_id` for historical/anonymous participation. Journey operational truth remains intact; Community identity is a separate verified relationship.
 
-### P12-WU2 — Community Account Onboarding & Participant Claim
+### P12-WU2 — Community Account Onboarding & Participant Claim — NEXT
 Create a public community-account path and a separately verified claim flow for existing Journey participants.
 
 Staff `/auth` remains a staff UX. Community accounts receive no CMS role by default.
@@ -81,13 +81,22 @@ Production audit on 2026-08-31 found that the first pilot's current confirmed pa
 
 Therefore a simple `auth.uid()`-based “My Memories” implementation would not serve the first real pilot participant.
 
-P12-WU1 must first create a verified identity-link layer between a community account and an existing participant snapshot.
+P12-WU1 first created a verified identity-link layer between a community account and an existing participant snapshot.
 
 The existing `profiles` table remains the base personal profile record. `user_roles` remains staff authorization only (`admin` / `editor`). A community user does not receive a CMS role merely by having a community account.
 
-## 7. P12-WU1 implementation boundary
+## 7. P12-WU1 implementation outcome
 
-Planned/implemented on product branch `p12-wu1-community-identity-foundation`:
+Product main:
+- merge SHA: `e48262879be0c7d4448dbfceb2c69147f982e64f`
+- PR #18: `P12-WU1 community identity and Journey link foundation`
+- canonical migration: `db/migrations/0032_p12_wu1_community_identity_foundation.sql`
+- dedicated QA: `scripts/p12-wu1-db-qa.sql`
+
+Production Supabase:
+- migration: `20260831004142 p12_wu1_community_identity_foundation`
+
+Implemented:
 - additive `community_participant_links` table;
 - no duplicated applicant email/phone/name;
 - own-link read via RLS;
@@ -101,10 +110,32 @@ Planned/implemented on product branch `p12-wu1-community-identity-foundation`:
 - no Memory creation in WU1;
 - no production Journey data mutation.
 
+Quality gates:
+- PR CI #102: PASS — P9 QA, P10 runtime QA, P11-WU11 DB QA, P12-WU1 DB QA, typecheck, build, Cloudflare dry-run.
+- main CI #103 after merge: PASS with the same gates.
+- no Cloudflare production deployment.
+
+Production postflight:
+- `community_participant_links` exists, RLS enabled;
+- link rows = 0 (no fake identity claim);
+- anon SELECT = false;
+- authenticated DELETE = false;
+- private identity guard is `SECURITY INVOKER`, `search_path=''`, and directly executable by neither anon nor authenticated;
+- pilot remains `registration_open`, capacity 30, confirmed rows 1, confirmed people 1;
+- current real participant `participant_user_id = NULL` and `application_user_id = NULL` remain unchanged;
+- global application/participant semantic drift = 0;
+- `pg_graphql` remains OFF.
+
+Advisor result:
+- Security Advisor: no new P12-WU1 security lint; existing project warning remains `Leaked Password Protection Disabled`.
+- Performance Advisor: existing project warnings remain; the new empty-table lookup index is naturally reported as unused immediately after creation. This is not treated as a reason to remove the index before the feature has traffic.
+
 ## 8. Current status
 
-P12 roadmap realignment: DONE on implementation branch.
+P12 roadmap realignment: COMPLETE.
 
-P12-WU1 implementation: IN PROGRESS pending CI / merge / production migration verification.
+P12-WU1 — Community Identity & Journey Link Foundation: **COMPLETE / PASS**.
 
-P11-WU6: ACTIVE; real pilot facts remain unresolved until real-world operation.
+Next product work: **P12-WU2 — Community Account Onboarding & Participant Claim**.
+
+P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence and impact remain unresolved until real-world operation.
