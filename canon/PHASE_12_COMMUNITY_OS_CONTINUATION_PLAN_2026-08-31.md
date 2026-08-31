@@ -33,13 +33,14 @@ P11-WU6 — LIVE PILOT OPERATIONS remains ACTIVE for the real Journey on 2026-09
 
 Phase 12 may progress in parallel only when it does not fabricate or pre-empt pilot facts.
 
-Before the real event we may build identity/account/memory infrastructure, but we must not manufacture:
+Before the real event we may build identity/account/memory/community infrastructure, but we must not manufacture:
 - attendance;
 - no-show facts;
 - personal Memories;
 - documentary evidence;
 - impact claims;
-- Community Reflections attributed to real people.
+- Community Reflections attributed to real people;
+- Contribution History attributed to real people.
 
 ## 4. Canonical Phase 12 sequence
 
@@ -79,10 +80,24 @@ A Reflection requires:
 
 Public publication is identity-minimized. Generic feed, followers, chat and detached gamification remain out of scope.
 
-### P12-WU5 — Contribution History — NEXT
+### P12-WU5 — Contribution History — COMPLETE / PASS
 Record meaningful contribution beyond attendance: volunteer time, skills, media, knowledge and resources.
 
-### P12-WU6 — Community Roles & Host Network
+Canonical rules:
+- only admin-verified Contribution History in WU5;
+- an active verified Community identity link is required;
+- a contribution must belong to a real Journey and/or Project context;
+- Journey canonical Project mapping is authoritative;
+- attendance does not automatically become contribution;
+- future promises are not history;
+- optional quantities require explicit units;
+- unlike units are never blindly combined into one impact number;
+- documentary verification accepts only approved documentary media;
+- verified source facts are immutable;
+- corrections revoke the old record and create a replacement;
+- if all Community identity links are later revoked, member history access fails closed while admin audit remains intact.
+
+### P12-WU6 — Community Roles & Host Network — NEXT
 Allow one identity to accumulate real participant/contributor/host/partner relationships without conflating those roles with CMS authorization.
 
 ### P12-WU7 — Impact Network
@@ -153,13 +168,13 @@ Advisor result:
 
 ## 8. P12-WU4 checkpoint
 
-Latest product main after WU4:
+Product main after WU4:
 `b94692c544d5703f7052971ac818b69c5e1e1eb8`
 
 Production migration:
 `20260831014537 p12_wu4_journey_reflections_foundation`
 
-Production remains fact-clean after WU4:
+Production remained fact-clean after WU4:
 - community identity links = 0;
 - Memory rows = 0;
 - Memory-eligible rows = 0;
@@ -173,7 +188,52 @@ Production remains fact-clean after WU4:
 Detailed WU4 evidence:
 `canon/PHASE_12_WU4_JOURNEY_NATIVE_COMMUNITY_INTERACTION_2026-08-31.md`
 
-## 9. Current status
+## 9. P12-WU5 checkpoint
+
+Product main after WU5:
+`ec525c889c8e931f7fe2ab3ab50c91a53f7633aa`
+
+PR:
+- #24 `P12-WU5 verified Contribution History`
+
+Production migration:
+`20260831020939 p12_wu5_contribution_history`
+
+Quality gates:
+- initial PR CI #128 failed only because the ephemeral QA fixture did not mirror production SELECT grants required by the SECURITY INVOKER guard; production was not mutated;
+- production privileges were verified read-only and fixture parity corrected without weakening the guard;
+- final PR CI #129: PASS;
+- post-merge main CI #130: PASS;
+- build/typecheck/Cloudflare dry-run: PASS;
+- no Cloudflare production deployment.
+
+Production after WU5 remains fact-clean:
+- Community links = 0;
+- Memory rows = 0;
+- Reflection rows = 0;
+- Reflection publications = 0;
+- Contribution rows = 0;
+- Contribution audit events = 0;
+- pilot = `registration_open`, capacity 30, 1 confirmed row / 1 confirmed person;
+- attendance-resolved rows = 0;
+- `pg_graphql` OFF.
+
+Security:
+- both WU5 tables RLS ON;
+- anon cannot read Contribution History or audit;
+- member cannot delete source or mutate audit;
+- guard is SECURITY INVOKER with `search_path=''` and no direct API-role EXECUTE;
+- sealed audit helper is private SECURITY DEFINER with `search_path=''` and no direct API-role EXECUTE;
+- no WU5 Security Advisor regression.
+
+Performance:
+- no new WU5 unindexed-FK lint;
+- WU5 indexes are naturally reported unused while the new tables remain empty.
+
+Detailed WU5 evidence:
+`canon/PHASE_12_WU5_CONTRIBUTION_HISTORY_2026-08-31.md`
+
+## 10. Current status
 
 P12 roadmap realignment: COMPLETE.
 
@@ -181,6 +241,8 @@ P12 roadmap realignment: COMPLETE.
 - P12-WU2 — Community Account Onboarding & Participant Claim: **COMPLETE / PASS**
 - P12-WU3 — My Journey Memory: **COMPLETE / PASS**
 - P12-WU4 — Journey-native Community Interaction: **COMPLETE / PASS**
-- Next product work: **P12-WU5 — Contribution History**
+- P12-WU5 — Contribution History: **COMPLETE / PASS**
+- Next product work: **P12-WU6 — Community Roles & Host Network**
+- P12-WU7 — Impact Network: PLANNED
 
-P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence, Reflection and impact remain unresolved until legitimate real-world operation and closeout.
+P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence, Reflection, Contribution and impact remain unresolved until legitimate real-world operation and closeout.
