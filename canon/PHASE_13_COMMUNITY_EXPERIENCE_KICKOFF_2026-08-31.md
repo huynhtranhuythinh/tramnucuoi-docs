@@ -3,7 +3,7 @@
 # CANONICAL KICKOFF
 
 Date: 2026-08-31
-Status: **ACTIVE**
+Status: **ACTIVE — WU1/WU2 COMPLETE / PASS; WU3 NEXT**
 
 ## 1. Phase objective
 
@@ -45,51 +45,56 @@ Every user-facing Phase 13 surface must be designed for VI / EN from the start.
 
 ## 3. Existing source reality at kickoff
 
-Current Community routes:
+At Phase 13 kickoff, Community routes were:
 - `/cong-dong`
 - `/en/community`
 
-Current Vietnamese route composes four large surfaces sequentially:
+The Vietnamese route composed four large surfaces sequentially:
 1. `CommunityAccountPage`
 2. `CommunityRolesPanel`
 3. `CommunityContributionsPanel`
 4. `CommunityReflectionsPanel`
 
-The current Community Account component also owns:
-- Magic Link sign-in;
-- participant claim flow;
-- My Journey archive projection;
-- attendance-state explanation;
-- sign-out.
+That source was functionally correct but still a foundation/demo surface rather than a coherent Personal Community Home.
 
-This implementation is functionally correct but is still a **foundation/demo surface**, not yet a coherent Personal Community Home.
+P13-WU2 has now replaced route ownership with a shared `CommunityExperienceShell` and established MY TNC as the signed-in personal Community home while preserving the same stable bilingual routes and Phase 12 truth semantics.
 
-Current public Journey detail remains primarily an editorial story page. It does not yet express a full Community lifecycle of Before / During / After for a signed-in person.
-
-Therefore Phase 13 starts with information architecture and experience hierarchy, not a database migration.
+Public Journey detail still requires the next experience layer: Before / During / After Community lifecycle integration.
 
 ## 4. Phase sequence
 
-### P13-WU1 — Community Experience Architecture — ACTIVE
+### P13-WU1 — Community Experience Architecture — COMPLETE / PASS
 
-Define:
+Defined:
 - signed-out vs signed-in experience;
 - Community route ownership;
 - personal-home hierarchy;
-- Journey lifecycle UX;
+- Journey lifecycle UX direction;
 - empty/pending/resolved states;
 - relationship/privacy presentation rules;
 - bilingual visual/content architecture;
 - source/component refactor boundary;
 - activation boundary while Email remains OFF.
 
-No production mutation required.
+Canonical record:
+`canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
 
-### P13-WU2 — Personal Community Home / My TNC
+### P13-WU2 — Personal Community Home / My TNC — COMPLETE / PASS
 
-Build the coherent signed-in personal home around verified relationship data.
+Implemented one coherent signed-in personal home around verified relationship data.
 
-### P13-WU3 — Journey Community Experience
+Canonical closeout:
+`canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
+
+Evidence:
+`evidence/PHASE_13_WU2_MY_TNC_EVIDENCE_2026-08-31.md`
+
+Product main after WU2:
+`a6f3dfa4d3033d5855b1e3906d6d48beec7619ef`
+
+Public activation remains gated while Email is OFF.
+
+### P13-WU3 — Journey Community Experience — NEXT
 
 Integrate Before / During / After Journey states while preserving registration/attendance/Memory semantics.
 
@@ -130,17 +135,26 @@ Phase 13 is successful when:
 6. Public Community storytelling can grow from verified facts without exposing private identity or becoming a social feed.
 7. The experience remains distinctly TRẠM NỤ CƯỜI: warm, documentary, editorial, trustworthy and bilingual.
 
+WU2 materially satisfies criteria 1, 2, 4 and 5 at source level behind the activation gate. WU3 is the next dependency for criterion 3.
+
 ## 7. Canonical dependency
 
 Phase 13 must read together with:
 - `canon/PHASE_12_FINAL_CLOSEOUT_2026-08-31.md`
 - `evidence/PHASE_12_LIVING_COMMUNITY_OS_EVIDENCE_2026-08-31.md`
 - `handoff/PHASE_12_TO_PHASE_13_HANDOFF_2026-08-31.md`
+- `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
+- `canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
+- `evidence/PHASE_13_WU2_MY_TNC_EVIDENCE_2026-08-31.md`
 
-## 8. Kickoff declaration
+## 8. Current declaration
 
 **PHASE 13 — COMMUNITY EXPERIENCE & LIVING UI: ACTIVE**
 
-**P13-WU1 — COMMUNITY EXPERIENCE ARCHITECTURE: ACTIVE**
+**P13-WU1 — COMMUNITY EXPERIENCE ARCHITECTURE: COMPLETE / PASS**
 
-No Phase 13 production mutation has occurred at kickoff.
+**P13-WU2 — PERSONAL COMMUNITY HOME / MY TNC: COMPLETE / PASS**
+
+**P13-WU3 — JOURNEY COMMUNITY EXPERIENCE: NEXT**
+
+Community public activation remains gated while Email is OFF.
