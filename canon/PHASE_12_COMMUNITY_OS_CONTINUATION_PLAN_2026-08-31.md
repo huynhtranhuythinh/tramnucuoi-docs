@@ -38,7 +38,8 @@ Before the real event we may build identity/account/memory infrastructure, but w
 - no-show facts;
 - personal Memories;
 - documentary evidence;
-- impact claims.
+- impact claims;
+- Community Reflections attributed to real people.
 
 ## 4. Canonical Phase 12 sequence
 
@@ -47,18 +48,38 @@ Create a privacy-safe, verified relationship between an authenticated person and
 
 Key rule: do **not** rewrite `journey_participants.user_id` for historical/anonymous participation. Journey operational truth remains intact; Community identity is a separate verified relationship.
 
-### P12-WU2 — Community Account Onboarding & Participant Claim — NEXT
+### P12-WU2 — Community Account Onboarding & Participant Claim — COMPLETE / PASS
 Create a public community-account path and a separately verified claim flow for existing Journey participants.
 
 Staff `/auth` remains a staff UX. Community accounts receive no CMS role by default.
 
-### P12-WU3 — My Journey Memory
-Turn verified participation into a personal Journey archive using real source records: Journey history, verified attendance when available, and published Field Updates/documentary media.
+Operational activation remains gated while Email is OFF.
 
-### P12-WU4 — Journey-native Community Interaction
-Add constrained reflection/comment/reaction capabilities around real Journey context after identity is proven.
+### P12-WU3 — My Journey Memory — COMPLETE / PASS
+Turn verified participation into a personal Journey archive using real source records: Journey history and verified attendance when available.
 
-### P12-WU5 — Contribution History
+Canonical attendance semantics:
+- `NULL` = unresolved;
+- `0` = verified no-show;
+- `>0` = verified attended / Memory eligible.
+
+No attendance is inferred from confirmation or identity linkage.
+
+### P12-WU4 — Journey-native Community Interaction — COMPLETE / PASS
+Add constrained interaction around real Journey context after identity and attendance are proven.
+
+First interaction primitive: **Journey Reflection**.
+
+A Reflection requires:
+- verified identity ownership;
+- evidence-backed attended Memory;
+- completed operational Journey;
+- member-authored content;
+- staff moderation before public publication.
+
+Public publication is identity-minimized. Generic feed, followers, chat and detached gamification remain out of scope.
+
+### P12-WU5 — Contribution History — NEXT
 Record meaningful contribution beyond attendance: volunteer time, skills, media, knowledge and resources.
 
 ### P12-WU6 — Community Roles & Host Network
@@ -130,12 +151,36 @@ Advisor result:
 - Security Advisor: no new P12-WU1 security lint; existing project warning remains `Leaked Password Protection Disabled`.
 - Performance Advisor: existing project warnings remain; the new empty-table lookup index is naturally reported as unused immediately after creation. This is not treated as a reason to remove the index before the feature has traffic.
 
-## 8. Current status
+## 8. P12-WU4 checkpoint
+
+Latest product main after WU4:
+`b94692c544d5703f7052971ac818b69c5e1e1eb8`
+
+Production migration:
+`20260831014537 p12_wu4_journey_reflections_foundation`
+
+Production remains fact-clean after WU4:
+- community identity links = 0;
+- Memory rows = 0;
+- Memory-eligible rows = 0;
+- Reflection rows = 0;
+- moderation events = 0;
+- public Reflection publications = 0;
+- pilot = `registration_open`, capacity 30, 1 confirmed row / 1 confirmed person;
+- attendance-resolved rows = 0;
+- `pg_graphql` OFF.
+
+Detailed WU4 evidence:
+`canon/PHASE_12_WU4_JOURNEY_NATIVE_COMMUNITY_INTERACTION_2026-08-31.md`
+
+## 9. Current status
 
 P12 roadmap realignment: COMPLETE.
 
-P12-WU1 — Community Identity & Journey Link Foundation: **COMPLETE / PASS**.
+- P12-WU1 — Community Identity & Journey Link Foundation: **COMPLETE / PASS**
+- P12-WU2 — Community Account Onboarding & Participant Claim: **COMPLETE / PASS**
+- P12-WU3 — My Journey Memory: **COMPLETE / PASS**
+- P12-WU4 — Journey-native Community Interaction: **COMPLETE / PASS**
+- Next product work: **P12-WU5 — Contribution History**
 
-Next product work: **P12-WU2 — Community Account Onboarding & Participant Claim**.
-
-P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence and impact remain unresolved until real-world operation.
+P11-WU6: **ACTIVE**; real pilot attendance, Memory, evidence, Reflection and impact remain unresolved until legitimate real-world operation and closeout.
