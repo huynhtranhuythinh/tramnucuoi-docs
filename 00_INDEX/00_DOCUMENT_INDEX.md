@@ -78,16 +78,24 @@ Phase 12 final product HEAD:
 
 ## Phase 13 — Community Experience & Living UI — ACTIVE
 
-Entry documents:
+Canonical chain so far:
 
 1. `canon/PHASE_13_COMMUNITY_EXPERIENCE_KICKOFF_2026-08-31.md`
 2. `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
+3. `canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
+4. `evidence/PHASE_13_WU2_MY_TNC_EVIDENCE_2026-08-31.md`
 
-P13-WU1 status: **COMPLETE / PASS**
+Status:
+- P13-WU1 — Community Experience Architecture: **COMPLETE / PASS**
+- P13-WU2 — Personal Community Home / My TNC: **COMPLETE / PASS**
+- P13-WU3 — Journey Community Experience: **NEXT**
 
-Next work unit: **P13-WU2 — Personal Community Home / My TNC**
+Product main after WU2:
+`a6f3dfa4d3033d5855b1e3906d6d48beec7619ef`
 
 Phase 13 inherits the Phase 12 truth model and must not weaken identity, attendance, Memory, Contribution, relationship, permission or impact semantics for UI convenience.
+
+Community public activation remains gated while Email is OFF.
 
 ## Other Document Sets
 
