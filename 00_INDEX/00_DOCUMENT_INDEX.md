@@ -84,14 +84,17 @@ Canonical chain so far:
 2. `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
 3. `canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
 4. `evidence/PHASE_13_WU2_MY_TNC_EVIDENCE_2026-08-31.md`
+5. `canon/PHASE_13_WU3_JOURNEY_COMMUNITY_EXPERIENCE_2026-08-31.md`
+6. `evidence/PHASE_13_WU3_JOURNEY_EXPERIENCE_EVIDENCE_2026-08-31.md`
 
 Status:
 - P13-WU1 — Community Experience Architecture: **COMPLETE / PASS**
 - P13-WU2 — Personal Community Home / My TNC: **COMPLETE / PASS**
-- P13-WU3 — Journey Community Experience: **NEXT**
+- P13-WU3 — Journey Community Experience: **COMPLETE / PASS**
+- P13-WU4 — Community People & Relationship UI: **NEXT**
 
-Product main after WU2:
-`a6f3dfa4d3033d5855b1e3906d6d48beec7619ef`
+Product main after WU3:
+`75706af5b2dfa5e9b01b34150aa2e440406640e4`
 
 Phase 13 inherits the Phase 12 truth model and must not weaken identity, attendance, Memory, Contribution, relationship, permission or impact semantics for UI convenience.
 
