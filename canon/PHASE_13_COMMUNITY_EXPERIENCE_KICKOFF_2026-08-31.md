@@ -3,7 +3,7 @@
 # CANONICAL KICKOFF
 
 Date: 2026-08-31
-Status: **ACTIVE — WU1/WU2/WU3/WU4 COMPLETE / PASS; WU5 NEXT**
+Status: **ACTIVE — WU1/WU2/WU3/WU4/WU5 COMPLETE / PASS; WU6 NEXT**
 
 ## 1. Phase objective
 
@@ -22,73 +22,39 @@ Phase 13 should make a person feel:
 ## 2. Product principles
 
 ### Experience before feature count
-
-Phase 13 should first organize existing capabilities into understandable journeys before creating new primitives.
+Phase 13 first organizes existing capabilities into understandable journeys before creating new primitives.
 
 ### Real-world truth remains authoritative
-
-UI state must follow Phase 12 semantics. Do not make the interface more emotionally impressive by weakening truth boundaries.
+UI state follows Phase 12 semantics. Emotional presentation never weakens truth boundaries.
 
 ### Personal first, public second
-
-The first high-value experience is a person's own relationship with Trạm: their Journey history, Memory, Contribution and roles.
-
-Public Community surfaces come after the personal experience is coherent.
+The first high-value experience is a person's own relationship with Trạm. Public Community surfaces follow only after the personal experience is coherent.
 
 ### Editorial, not social-feed
-
-The visual language remains documentary/editorial and human. Community does not mean infinite feed, follower mechanics or engagement gamification.
+Community remains documentary/editorial and human. No infinite feed, follower mechanics or engagement gamification.
 
 ### Bilingual by architecture
+Every user-facing Phase 13 surface is designed for VI / EN from the start.
 
-Every user-facing Phase 13 surface must be designed for VI / EN from the start.
+## 3. Progress
 
-## 3. Existing source reality and progress
+At kickoff, `/cong-dong` and `/en/community` exposed Phase 12 capabilities as separate technical panels.
 
-At Phase 13 kickoff, Community routes were:
-- `/cong-dong`
-- `/en/community`
+P13-WU2 replaced that with one `CommunityExperienceShell` and established **My TNC** as the signed-in personal home.
 
-The Vietnamese route composed four large surfaces sequentially:
-1. `CommunityAccountPage`
-2. `CommunityRolesPanel`
-3. `CommunityContributionsPanel`
-4. `CommunityReflectionsPanel`
+P13-WU3 added an authenticated Before / During / After relationship layer to operational Journey detail while keeping Field Journal editorial routes separate.
 
-That source was functionally correct but still a foundation/demo surface rather than a coherent Personal Community Home.
+P13-WU4 added a private-by-default Relationship Map that presents Explorer / Participant / Contributor / Host / Partner representative from source truth without creating a public people directory.
 
-P13-WU2 replaced route ownership with a shared `CommunityExperienceShell` and established MY TNC as the signed-in personal Community home while preserving the same stable bilingual routes and Phase 12 truth semantics.
-
-P13-WU3 then integrated a personal Before / During / After lifecycle into the operational Journey detail routes:
-- `/journeys/$slug`
-- `/en/journeys/$slug`
-
-The Field Journal/editorial routes remain separate. Signed-out operational Journey pages do not promote Community authentication while Email remains OFF.
-
-P13-WU4 added a privacy-safe person-centered Relationship Map to My TNC. It presents Explorer / Participant / Contributor / Host / Partner representative from existing verified source truth without creating a public people directory or interpreting internal relationship verification as consent to publish identity.
+P13-WU5 added the wider **Living Community Surface**, composed only from already-public RLS-backed Journey facts, published Field Updates and identity-minimized Reflection publications. It deliberately does not expose private people/relationship data merely to make the Community look populated.
 
 ## 4. Phase sequence
 
 ### P13-WU1 — Community Experience Architecture — COMPLETE / PASS
-
-Defined:
-- signed-out vs signed-in experience;
-- Community route ownership;
-- personal-home hierarchy;
-- Journey lifecycle UX direction;
-- empty/pending/resolved states;
-- relationship/privacy presentation rules;
-- bilingual visual/content architecture;
-- source/component refactor boundary;
-- activation boundary while Email remains OFF.
-
 Canonical record:
 `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
 
 ### P13-WU2 — Personal Community Home / My TNC — COMPLETE / PASS
-
-Implemented one coherent signed-in personal home around verified relationship data.
-
 Canonical closeout:
 `canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
 
@@ -99,9 +65,6 @@ Product main after WU2:
 `a6f3dfa4d3033d5855b1e3906d6d48beec7619ef`
 
 ### P13-WU3 — Journey Community Experience — COMPLETE / PASS
-
-Implemented authenticated personal Journey lifecycle context on the operational Journey detail while preserving registration/attendance/Memory separation.
-
 Canonical closeout:
 `canon/PHASE_13_WU3_JOURNEY_COMMUNITY_EXPERIENCE_2026-08-31.md`
 
@@ -113,13 +76,10 @@ Product main after WU3:
 
 Key lifecycle rule:
 - Before: confirmed participation is not attendance or Memory;
-- During: requires operational `preparing` status plus Vietnam date window; event time alone is not attendance evidence;
-- After: unresolved / no-show / attended / Memory / Reflection states remain evidence-backed and distinct.
+- During: event time alone is not attendance evidence;
+- After: unresolved / no-show / attended / Memory / Reflection remain distinct evidence-backed states.
 
 ### P13-WU4 — Community People & Relationship UI — COMPLETE / PASS
-
-Implemented a private-by-default Relationship Map inside My TNC.
-
 Canonical closeout:
 `canon/PHASE_13_WU4_COMMUNITY_PEOPLE_RELATIONSHIP_UI_2026-08-31.md`
 
@@ -130,60 +90,88 @@ Product main after WU4:
 `cb465399f4860e4dfa842e2008e62547dbce8fde`
 
 Key relationship rules:
-- Explorer remains the base authenticated relationship only;
-- Participant is derived from evidence-backed attended Memory;
-- Contributor is derived from active verified Contribution;
-- Host / Partner representative come only from verified relationship assignments;
+- Participant derives from evidence-backed attended Memory;
+- Contributor derives from active verified Contribution;
+- Host / Partner representative come only from verified assignments;
 - role never grants CMS permission;
-- own display name is not legal identity proof and is not automatically public;
-- verified internal relationship does not itself authorize public identity publication;
+- internal relationship verification does not authorize public identity publication;
 - no public Community member directory was created.
 
-Public activation remains gated while Email is OFF.
+### P13-WU5 — Living Community Surface — COMPLETE / PASS
 
-### P13-WU5 — Living Community Surface — NEXT
+Implemented the wider editorial Community layer on the existing bilingual Community routes.
 
-Build a wider editorial Community surface that reveals real activity and relationships without becoming a generic feed.
+Canonical closeout:
+`canon/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_2026-08-31.md`
 
-WU5 must preserve the WU4 publication boundary. It may use public Journey/Project facts, approved documentary evidence, moderated public Reflections and privacy-safe relationship narratives, but must not expose a person's identity merely because an internal relationship is verified.
+Evidence:
+`evidence/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_EVIDENCE_2026-08-31.md`
 
-### P13-WU6 — Public Activation & Polish
+Product main after WU5:
+`029d444a32529b23cc0171309e8bc81ae9792957`
 
-Close responsive, bilingual, accessibility, SEO/noindex, motion, production activation and Owner Review gates.
+Key public-surface rules:
+- source only from public operational Journeys, published Journey Updates and `journey_reflection_publications`;
+- public Reflection remains identity-minimized and is never reverse-joined to a person;
+- no public people directory;
+- no feed/follower/rank/impact-score mechanics;
+- missing Reflection/Contribution/relationship facts render as truthful empty states;
+- no fake Community activity is seeded;
+- VI/EN share the same architecture;
+- Reflection text is not machine-translated or rewritten.
+
+WU5 production audit at implementation time showed real public Journey/Field content but zero public Reflection publications and zero verified Community relationship/Contribution rows, so the empty states are a canonical part of the real experience.
+
+### P13-WU6 — Public Activation & Polish — NEXT
+
+WU6 is the final Phase 13 gate.
+
+It must review, not blindly enable:
+- responsive/mobile polish;
+- accessibility;
+- bilingual parity;
+- loading/error/empty states;
+- navigation placement;
+- SEO / `noindex` decision;
+- Supabase Auth Site URL / redirect URLs;
+- production Magic Link / email delivery readiness;
+- privacy copy and identity-publication boundary;
+- Cloudflare production deployment readiness;
+- production smoke QA;
+- Owner Review.
+
+Email/Auth activation and Community navigation promotion remain gated until WU6 explicitly passes the required checks.
 
 ## 5. Phase 13 guardrails
 
 Phase 13 must preserve:
-- P11-WU6 pilot operational authority;
+- P11 live-pilot operational authority;
 - Email OFF until separately activated;
 - Turnstile OFF until separately activated;
 - Community Auth activation gate;
 - `pg_graphql` OFF;
 - CMS roles exactly `admin | editor`;
 - zero fabricated attendance/Memory/Contribution/relationship/impact facts;
-- verified relationship existence is not automatic identity-publication consent.
-
-UI work may use truthful empty states and clearly labeled preview/development treatment, but must not seed fake production facts.
+- verified relationship existence is not automatic identity-publication consent;
+- public Community presentation reads only sources already authorized for publication.
 
 ## 6. Success criteria
 
 Phase 13 is successful when:
+1. Community feels like a coherent product rather than technical panels;
+2. a signed-in person understands their relationship to Trạm;
+3. Journey lifecycle is clear Before / During / After;
+4. Memory remains emotionally valuable and evidence-backed;
+5. Contribution and roles are meaningful without scorekeeping;
+6. public Community storytelling grows from verified/public facts without exposing private identity or becoming a social feed;
+7. the experience remains warm, documentary, editorial, trustworthy and bilingual;
+8. production activation passes explicit auth/email/privacy/navigation/deployment review.
 
-1. `/cong-dong` and `/en/community` feel like a real Community product rather than four technical panels stacked together.
-2. A signed-in person can immediately understand their relationship to Trạm.
-3. Journey lifecycle state is clear before, during and after participation.
-4. Memory is emotionally valuable while still evidence-backed.
-5. Contribution and roles feel meaningful without scorekeeping.
-6. Public Community storytelling can grow from verified facts without exposing private identity or becoming a social feed.
-7. The experience remains distinctly TRẠM NỤ CƯỜI: warm, documentary, editorial, trustworthy and bilingual.
-
-WU2 materially satisfies criteria 1, 2, 4 and 5 at source level behind the activation gate.
-
-WU3 materially satisfies criterion 3 at source level while preserving the same activation gate and truth semantics.
-
-WU4 strengthens criteria 2, 5 and 6 by making the personal relationship graph legible while explicitly separating internal verification from public identity publication.
-
-WU5 is the next dependency for criterion 6: the wider Living Community surface.
+WU2 materially satisfies criteria 1, 2, 4 and 5 at source level.
+WU3 materially satisfies criterion 3.
+WU4 strengthens criteria 2, 5 and the privacy half of criterion 6.
+WU5 materially satisfies the public editorial half of criterion 6.
+WU6 is the remaining activation/polish gate for criteria 7–8 and Phase 13 closeout.
 
 ## 7. Canonical dependency
 
@@ -198,6 +186,8 @@ Phase 13 must read together with:
 - `evidence/PHASE_13_WU3_JOURNEY_EXPERIENCE_EVIDENCE_2026-08-31.md`
 - `canon/PHASE_13_WU4_COMMUNITY_PEOPLE_RELATIONSHIP_UI_2026-08-31.md`
 - `evidence/PHASE_13_WU4_COMMUNITY_RELATIONSHIP_UI_EVIDENCE_2026-08-31.md`
+- `canon/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_2026-08-31.md`
+- `evidence/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_EVIDENCE_2026-08-31.md`
 
 ## 8. Current declaration
 
@@ -211,6 +201,8 @@ Phase 13 must read together with:
 
 **P13-WU4 — COMMUNITY PEOPLE & RELATIONSHIP UI: COMPLETE / PASS**
 
-**P13-WU5 — LIVING COMMUNITY SURFACE: NEXT**
+**P13-WU5 — LIVING COMMUNITY SURFACE: COMPLETE / PASS**
+
+**P13-WU6 — PUBLIC ACTIVATION & POLISH: NEXT**
 
 Community public activation remains gated while Email is OFF.
