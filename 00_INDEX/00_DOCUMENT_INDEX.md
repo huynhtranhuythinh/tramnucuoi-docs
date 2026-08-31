@@ -139,17 +139,41 @@ WU1 result:
 - bilingual Magic Link template applied;
 - no Community truth facts manufactured by Auth testing.
 
-Product main remains unchanged from Phase 13:
-`b8c0fd597bbe411bee3165e5741471ea443c529e`
+### P14-WU2 — Controlled My TNC Activation — COMPLETE / PASS
 
-Activation state after WU1:
-- My TNC public Auth: **OFF / EXPLICITLY GATED**;
-- `VITE_APP_COMMUNITY_AUTH_ENABLED=false`;
-- Supabase Auth SMTP: **ON / OPERATIONAL**;
-- Turnstile: OFF.
+Canonical chain:
+1. `canon/PHASE_14_WU2_CONTROLLED_MY_TNC_ACTIVATION_2026-08-31.md`
+2. `evidence/PHASE_14_WU2_PRODUCTION_ACTIVATION_EVIDENCE_2026-08-31.md`
+
+WU2 result:
+- My TNC production Auth activated behind controlled/reversible release;
+- real Magic Link sign-in, signed-in My TNC, logout and one-time-link reuse rejection PASS;
+- no participant/Memory/Contribution/Reflection/relationship facts manufactured;
+- pre-existing CMS admin role remained independent;
+- product main: `4582e8e6866714711631549ac4ed51cfb2d0c10d`;
+- Worker Version: `a47535cc-b6af-4b92-90d2-e6917f8051a4`.
+
+### P14-WU3 — Real Participant Claim & Identity Reconciliation — COMPLETE / PASS
+
+Canonical chain:
+1. `canon/PHASE_14_WU3_REAL_PARTICIPANT_CLAIM_IDENTITY_RECONCILIATION_2026-08-31.md`
+2. `evidence/PHASE_14_WU3_REAL_PARTICIPANT_CLAIM_IDENTITY_RECONCILIATION_EVIDENCE_2026-08-31.md`
+
+WU3 result:
+- live authenticated claim path exercised with the real verified Community account;
+- five real claim requests returned zero eligible / zero linked;
+- verified account email did not evidence-match the confirmed 2026-09-11 pilot registration;
+- reconciliation therefore correctly preserved the account and participant as separate identities;
+- no admin/cosmetic link was manufactured;
+- pilot attendance remains unresolved;
+- no Memory, Contribution, Reflection, Community relationship or CMS permission drift;
+- claim RPC/RLS fail-closed security model verified in production;
+- no product code, migration, RLS or deploy change required;
+- product main remains `4582e8e6866714711631549ac4ed51cfb2d0c10d`;
+- Worker Version remains `a47535cc-b6af-4b92-90d2-e6917f8051a4`.
 
 NEXT:
-**P14-WU2 — Controlled My TNC Activation**
+**P14-WU4 — Real My TNC Member Experience**
 
 ## Other Document Sets
 
