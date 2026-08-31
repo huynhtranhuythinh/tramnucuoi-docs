@@ -66,9 +66,9 @@ Canonical chain:
 Phase 12 final product HEAD:
 `75f9511de8442fcd632429b21cfc56fb727aed7b`
 
-## Phase 13 — Community Experience & Living UI — ACTIVE
+## Phase 13 — Community Experience & Living UI — COMPLETE / PASS
 
-Canonical chain so far:
+Canonical chain:
 1. `canon/PHASE_13_COMMUNITY_EXPERIENCE_KICKOFF_2026-08-31.md`
 2. `canon/PHASE_13_WU1_COMMUNITY_EXPERIENCE_ARCHITECTURE_2026-08-31.md`
 3. `canon/PHASE_13_WU2_PERSONAL_COMMUNITY_HOME_2026-08-31.md`
@@ -81,6 +81,9 @@ Canonical chain so far:
 10. `evidence/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_EVIDENCE_2026-08-31.md`
 11. `canon/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_2026-08-31.md`
 12. `evidence/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_EVIDENCE_2026-08-31.md`
+13. `canon/PHASE_13_WU6_PRODUCTION_CLOSEOUT_ADDENDUM_2026-08-31.md`
+14. `evidence/PHASE_13_WU6_PRODUCTION_HOTFIX_OWNER_REVIEW_EVIDENCE_2026-08-31.md`
+15. `canon/PHASE_13_FINAL_CLOSEOUT_2026-08-31.md`
 
 Status:
 - P13-WU1 — Community Experience Architecture: **COMPLETE / PASS**
@@ -88,22 +91,33 @@ Status:
 - P13-WU3 — Journey Community Experience: **COMPLETE / PASS**
 - P13-WU4 — Community People & Relationship UI: **COMPLETE / PASS**
 - P13-WU5 — Living Community Surface: **COMPLETE / PASS**
-- P13-WU6 — Public Activation & Polish: **IMPLEMENTATION COMPLETE / PASS — PRODUCTION DEPLOY + OWNER REVIEW PENDING**
+- P13-WU6 — Public Activation & Polish: **COMPLETE / PASS**
 
-Product main after WU6 implementation:
-`1072c11366222847ca931ab392b04862c947cfca`
+Final Phase 13 product main:
+`b8c0fd597bbe411bee3165e5741471ea443c529e`
 
-WU6 activation split:
-- public Living Community: merged/source-ready, indexable and navigable;
-- My TNC public Magic Link/Auth: fail-closed via `VITE_APP_COMMUNITY_AUTH_ENABLED=false` until production Auth delivery is proven;
+Final Cloudflare Worker Version ID:
+`23bacfb3-5ec0-4aa8-88e7-df8008ba1b81`
+
+WU6 final production evidence:
+- PR #32 duplicate-header hotfix merged;
+- PR CI #150 PASS;
+- post-merge main CI #151 PASS;
+- production desktop VI/EN visual smoke PASS;
+- production mobile VI/EN visual smoke PASS;
+- Owner Review PASS.
+
+Final activation split:
+- public Living Community: **ON**;
+- My TNC public Magic Link/Auth: **OFF / fail-closed** via `VITE_APP_COMMUNITY_AUTH_ENABLED=false`;
+- Email: OFF;
+- Turnstile: OFF;
 - no public people directory;
-- no fake Community activity;
-- no production Community fact rows were created by WU6.
+- no fake Community activity.
 
-PR #31 / CI #148: PASS.
-Post-merge main CI #149: PASS.
+The earlier WU6 implementation record/evidence documented the pre-deploy PENDING state. The WU6 production closeout addendum and final Phase 13 closeout supersede that pending status.
 
-Phase 13 is not yet declared COMPLETE because the WU6 Cloudflare production deploy, live smoke QA and Owner visual review have not been evidenced.
+Phase 13 is closed without waiting for the 2026-09-11 pilot. The P11 live-pilot operational lane remains independently authoritative.
 
 ## Other Document Sets
 
