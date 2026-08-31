@@ -3,7 +3,7 @@
 # CANONICAL KICKOFF
 
 Date: 2026-08-31
-Status: **ACTIVE — WU1/WU2/WU3/WU4/WU5 COMPLETE / PASS; WU6 NEXT**
+Status: **ACTIVE — WU1/WU2/WU3/WU4/WU5 COMPLETE / PASS; WU6 IMPLEMENTATION COMPLETE / PASS — PRODUCTION DEPLOY + OWNER REVIEW PENDING**
 
 ## 1. Phase objective
 
@@ -47,6 +47,8 @@ P13-WU3 added an authenticated Before / During / After relationship layer to ope
 P13-WU4 added a private-by-default Relationship Map that presents Explorer / Participant / Contributor / Host / Partner representative from source truth without creating a public people directory.
 
 P13-WU5 added the wider **Living Community Surface**, composed only from already-public RLS-backed Journey facts, published Field Updates and identity-minimized Reflection publications. It deliberately does not expose private people/relationship data merely to make the Community look populated.
+
+P13-WU6 established a split activation model: the public editorial Living Community layer becomes indexable/navigable at source level while personal My TNC Magic Link/Auth remains fail-closed behind `VITE_APP_COMMUNITY_AUTH_ENABLED`. The implementation and full CI have passed, but Phase 13 remains ACTIVE until the merged bundle is deployed to the canonical Cloudflare Worker, smoke-tested and visually reviewed by the Owner.
 
 ## 4. Phase sequence
 
@@ -122,25 +124,38 @@ Key public-surface rules:
 
 WU5 production audit at implementation time showed real public Journey/Field content but zero public Reflection publications and zero verified Community relationship/Contribution rows, so the empty states are a canonical part of the real experience.
 
-### P13-WU6 — Public Activation & Polish — NEXT
+### P13-WU6 — Public Activation & Polish — IMPLEMENTATION COMPLETE / PASS — PRODUCTION DEPLOY + OWNER REVIEW PENDING
 
-WU6 is the final Phase 13 gate.
+Canonical record:
+`canon/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_2026-08-31.md`
 
-It must review, not blindly enable:
-- responsive/mobile polish;
-- accessibility;
-- bilingual parity;
-- loading/error/empty states;
-- navigation placement;
-- SEO / `noindex` decision;
-- Supabase Auth Site URL / redirect URLs;
-- production Magic Link / email delivery readiness;
-- privacy copy and identity-publication boundary;
-- Cloudflare production deployment readiness;
-- production smoke QA;
-- Owner Review.
+Evidence:
+`evidence/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_EVIDENCE_2026-08-31.md`
 
-Email/Auth activation and Community navigation promotion remain gated until WU6 explicitly passes the required checks.
+Product main after WU6 implementation:
+`1072c11366222847ca931ab392b04862c947cfca`
+
+Implemented:
+- public Community VI/EN route mapping;
+- indexable canonical/hreflang metadata;
+- Community promotion in desktop/mobile navigation and footer;
+- public `PageShell` Community presentation;
+- explicit fail-closed `VITE_APP_COMMUNITY_AUTH_ENABLED` gate;
+- public Community access explanation while My TNC sign-in is OFF;
+- keyboard `focus-visible` baseline while preserving reduced-motion behavior;
+- permanent P13-WU6 activation source QA in CI.
+
+Activation decision:
+- **Living Community editorial layer: source-ready for public production deployment**;
+- **My TNC public Magic Link/Auth: remains OFF** until Site URL, redirect allowlist and production email delivery are proven.
+
+CI:
+- PR #31 / CI #148: PASS;
+- post-merge main CI #149: PASS.
+
+Production data postflight remains fact-clean at zero Community profiles/links/claims/Memories/Reflections/Contributions/verified relationships.
+
+Production Cloudflare deployment and live Owner Review are not yet evidenced; Phase 13 therefore remains ACTIVE.
 
 ## 5. Phase 13 guardrails
 
@@ -148,7 +163,7 @@ Phase 13 must preserve:
 - P11 live-pilot operational authority;
 - Email OFF until separately activated;
 - Turnstile OFF until separately activated;
-- Community Auth activation gate;
+- My TNC public Community Auth gate;
 - `pg_graphql` OFF;
 - CMS roles exactly `admin | editor`;
 - zero fabricated attendance/Memory/Contribution/relationship/impact facts;
@@ -171,7 +186,7 @@ WU2 materially satisfies criteria 1, 2, 4 and 5 at source level.
 WU3 materially satisfies criterion 3.
 WU4 strengthens criteria 2, 5 and the privacy half of criterion 6.
 WU5 materially satisfies the public editorial half of criterion 6.
-WU6 is the remaining activation/polish gate for criteria 7–8 and Phase 13 closeout.
+WU6 materially satisfies the source/architecture/accessibility/navigation/SEO portions of criteria 7–8 while deliberately keeping My TNC Auth OFF. Production deploy, live smoke QA and Owner Review remain the final evidence needed to close criterion 8 and Phase 13.
 
 ## 7. Canonical dependency
 
@@ -188,6 +203,8 @@ Phase 13 must read together with:
 - `evidence/PHASE_13_WU4_COMMUNITY_RELATIONSHIP_UI_EVIDENCE_2026-08-31.md`
 - `canon/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_2026-08-31.md`
 - `evidence/PHASE_13_WU5_LIVING_COMMUNITY_SURFACE_EVIDENCE_2026-08-31.md`
+- `canon/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_2026-08-31.md`
+- `evidence/PHASE_13_WU6_PUBLIC_ACTIVATION_POLISH_EVIDENCE_2026-08-31.md`
 
 ## 8. Current declaration
 
@@ -203,6 +220,6 @@ Phase 13 must read together with:
 
 **P13-WU5 — LIVING COMMUNITY SURFACE: COMPLETE / PASS**
 
-**P13-WU6 — PUBLIC ACTIVATION & POLISH: NEXT**
+**P13-WU6 — PUBLIC ACTIVATION & POLISH: IMPLEMENTATION COMPLETE / PASS — PRODUCTION DEPLOY + OWNER REVIEW PENDING**
 
-Community public activation remains gated while Email is OFF.
+Public Living Community is ready in merged source. My TNC public Auth remains fail-closed while production Auth delivery is unproven.
