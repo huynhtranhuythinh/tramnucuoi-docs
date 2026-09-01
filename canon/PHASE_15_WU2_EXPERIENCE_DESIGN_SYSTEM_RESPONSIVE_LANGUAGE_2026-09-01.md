@@ -2,14 +2,16 @@
 # EXPERIENCE DESIGN SYSTEM & RESPONSIVE LANGUAGE
 
 Date: 2026-09-01
-Status: IMPLEMENTED ON BRANCH / CI GATE IN PROGRESS
+Status: COMPLETE / PASS — SOURCE & CANONICAL
+Production activation status: NOT DECLARED / NOT VERIFIED IN THIS WU
 
 ## Purpose
 
 Establish the shared experience language required before page-level Phase 15 redesign. This work evolves the existing Living Ecosystem Editorial system rather than replacing the TRẠM NỤ CƯỜI visual identity.
 
-## Product branch
+## Product implementation
 
+Product branch:
 `p15-wu2-experience-design-system`
 
 Base product main SHA:
@@ -18,8 +20,11 @@ Base product main SHA:
 Product PR:
 `#43 — P15-WU2: Experience Design System & Responsive Language`
 
-Initial PR head SHA:
+PR head SHA:
 `79de2ceb88708007e6f2361976b4f1d0e6a3d624`
+
+Merged product main SHA:
+`d5edaf1014df28178a0942be065a4cf3a16a1bbc`
 
 ## Foundation implemented
 
@@ -102,8 +107,30 @@ The gate verifies:
 - exact unresolved and verified no-show language
 - evidence-first authority comment
 
-CI now includes:
+CI includes:
 `P15-WU2 experience design system QA`
+
+## CI evidence
+
+- Product PR #43: MERGED
+- PR CI #177: PASS
+- Post-main CI #178: PASS
+- Product main SHA: `d5edaf1014df28178a0942be065a4cf3a16a1bbc`
+- P15-WU2 experience design system QA: PASS
+- P15-WU1A own-data boundary QA: PASS
+- P14-WU5A attendance date-authority source QA: PASS
+- P14-WU5A attendance date-authority DB QA: PASS
+- build: PASS
+- typecheck: PASS
+- Cloudflare dry-run: PASS
+
+## Production boundary
+
+The product repository currently contains only `.github/workflows/ci.yml`; there is no GitHub production deployment workflow. The CI Cloudflare step is explicitly a dry-run and does not upload or deploy the Worker.
+
+Therefore this WU declares only the source/main and canonical design-system gate as PASS. It does **not** claim that Worker production or the live website has been updated or visually verified with this WU2 source.
+
+Production activation and visual verification must be recorded separately through an actual deployment path. No Worker version is fabricated or inferred here.
 
 ## Truth preserved
 
@@ -126,9 +153,11 @@ CI now includes:
 - no page-level redesign yet
 - no social feed, directory, gamification or vanity counters
 
-## Gate
+## Closeout
 
-WU2 becomes COMPLETE / PASS only after PR CI, merge, post-main CI and canonical docs merge are all PASS.
+P15-WU2 is COMPLETE / PASS for source and canonical architecture.
 
-NEXT after closeout:
+NEXT:
 **P15-WU3 — Public Story World Editorial Elevation**
+
+P15-WU3 must continue to use this foundation and must not silently redefine truth states or bypass the privacy/date-authority gates established in P15-WU1A and P14-WU5A.
