@@ -172,8 +172,31 @@ WU3 result:
 - product main remains `4582e8e6866714711631549ac4ed51cfb2d0c10d`;
 - Worker Version remains `a47535cc-b6af-4b92-90d2-e6917f8051a4`.
 
+### P14-WU4 — Real My TNC Member Experience — COMPLETE / PASS
+
+Canonical chain:
+1. `canon/PHASE_14_WU4_REAL_MY_TNC_MEMBER_EXPERIENCE_2026-09-01.md`
+2. `evidence/PHASE_14_WU4_REAL_MY_TNC_MEMBER_EXPERIENCE_EVIDENCE_2026-09-01.md`
+
+WU4 result:
+- real verified My TNC account validated end to end on production;
+- truthful no-Journey lane PASS;
+- display name save/reload and fresh-session persistence PASS;
+- desktop VI/EN PASS;
+- mobile VI/EN PASS;
+- logout/reload/re-login PASS;
+- source audit found and fixed a My TNC own-data privacy boundary for accounts with broader CMS staff access;
+- product PR #34 merged;
+- PR CI #156 PASS; post-main CI #157 PASS;
+- product main: `6c36d0e9035ec583ca9b3bd67300d4d3c20f1b9d`;
+- Worker Version: `c010f061-3ff2-4ffe-93af-ccd6263ae392`;
+- no database migration or RLS mutation;
+- final truth remains 0 participant links / 0 Memories / 0 Contributions / 0 Reflections / 0 verified Community relationships;
+- pilot attendance remains unresolved;
+- VI/EN hydration flicker and repeated zero-result claim audit rows are recorded as non-blocking follow-up work.
+
 NEXT:
-**P14-WU4 — Real My TNC Member Experience**
+**P14-WU5 — Post-Journey Memory & Reflection Operations**
 
 ## Other Document Sets
 
