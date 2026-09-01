@@ -2,14 +2,15 @@
 # PRIVACY OWNERSHIP HOTFIX & CANONICAL INTEGRITY
 
 Date: 2026-09-01
-Status: IMPLEMENTED ON BRANCH / CI GATE PENDING AT DOCUMENT CREATION
+Status: COMPLETE / PASS
 
 ## Trigger
 
 P15-WU1 found that `JourneyRelationshipExperience` queried four personal Community datasets by Journey only and relied on RLS for ownership isolation. P14-WU4 had already established that Community staff/admin-capable accounts may have broader read policies, so Journey personal context requires the same explicit own-user boundary as My TNC.
 
-## Product branch
+## Product implementation
 
+Product branch:
 `p15-wu1a-privacy-hotfix`
 
 Base main SHA:
@@ -18,8 +19,11 @@ Base main SHA:
 Product PR:
 `#42 — P15-WU1A: harden Journey personal ownership boundary`
 
-Initial PR head SHA:
+PR head SHA:
 `084bc15454b955b31e888593997f7a572f2544b8`
+
+Merged product main SHA:
+`be6ed2d505faf903002f132a498235ee9695ce9e`
 
 ## Source hardening
 
@@ -42,6 +46,19 @@ The QA fails if any of the four explicit `user_id = signed-in user` filters disa
 Repository CI now runs:
 `P15-WU1A Journey own-data boundary QA`
 
+## CI evidence
+
+- Product PR CI #175: PASS
+- Product PR #42: MERGED
+- Post-main CI #176: PASS
+- Post-main SHA: `be6ed2d505faf903002f132a498235ee9695ce9e`
+- P15-WU1A own-data boundary QA: PASS
+- P14-WU5A attendance date-authority source QA: PASS
+- P14-WU5A attendance date-authority DB QA: PASS
+- build: PASS
+- typecheck: PASS
+- Cloudflare dry-run: PASS
+
 ## Non-scope
 
 - no Supabase migration
@@ -62,13 +79,11 @@ Repository CI now runs:
 - Reflection remains evidence-gated
 - P14-WU5A attendance date authority remains intact
 
-## Closeout gate
+## Closeout
 
-WU1A may be declared COMPLETE / PASS only after:
-1. PR CI PASS
-2. PR merged to main
-3. post-main CI PASS
-4. exact main SHA recorded
-5. canonical docs merged
+P15-WU1A privacy/source gate is COMPLETE / PASS. Canonical reconciliation includes the missing P14-WU5A record and the P15-WU1 UX foundation record.
 
-P15-WU2 may begin after the privacy/canonical gate is clean. Visual redesign must not be mixed into this hotfix.
+NEXT:
+**P15-WU2 — Experience Design System & Responsive Language**
+
+P14-WU5 Post-Journey Memory & Reflection Operations remains an independent evidence-gated workstream and must not be closed using fabricated post-Journey data.
