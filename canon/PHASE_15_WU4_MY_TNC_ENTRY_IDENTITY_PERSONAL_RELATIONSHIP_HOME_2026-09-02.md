@@ -2,7 +2,7 @@
 # MY TNC ENTRY, IDENTITY & PERSONAL RELATIONSHIP HOME
 
 Date: 2026-09-02
-Status: SOURCE GATE IN PROGRESS
+Status: COMPLETE / PASS — SOURCE & CANONICAL
 Production activation status: NOT DECLARED / NOT VERIFIED IN THIS WU
 
 ## Purpose
@@ -17,7 +17,7 @@ Core experience statement:
 
 My TNC is not a social network, achievement dashboard or proof of attendance. It is a private continuity surface built from records that genuinely belong to the signed-in person.
 
-## Product scope
+## Product implementation
 
 Product branch:
 `p15-wu4-my-tnc-relationship-home`
@@ -28,11 +28,11 @@ Base product main SHA:
 Product PR:
 `#45 — P15-WU4: My TNC Entry, Identity & Personal Relationship Home`
 
-Current PR head:
-`c581b5142ead187c22401c448e203f3e91cdc135`
+Final PR head SHA:
+`be972e34e33c7a79637be5eb49a1f0931de0a372`
 
 Merged product main SHA:
-`PENDING SOURCE GATE`
+`4efa77bf5a9dff39121ff4fbabe74380c4c9f218`
 
 ## Experience work
 
@@ -120,6 +120,24 @@ Canonical truth remains:
 - Reflection eligibility remains Memory-eligible + completed Journey
 - P14-WU5A attendance date authority remains authoritative
 
+## P14-WU2 regression-contract reconciliation
+
+The first WU4 PR run, CI #184, correctly failed at the older `P14-WU2 controlled Community Auth activation QA`.
+
+The failure was not a runtime auth failure. The old WU2 source gate still required legacy Magic Link onboarding to live in `CommunityExperienceShell` with `shouldCreateUser: true`. P14-WU4A had already superseded that architecture by moving canonical account lifecycle into `CommunityAccountGateway`, where signup is explicit and Magic Link is existing-account-only with `shouldCreateUser: false`.
+
+WU4 therefore reconciled `scripts/p14-wu2-controlled-activation-qa.ts` to the active canonical architecture instead of restoring obsolete implicit signup behavior. The reconciled gate now requires:
+- the Community activation feature gate remains fail-closed by default
+- VI/EN routes retain `CommunityAccountGateway`, `CommunityExperienceShell` and Living Community composition
+- explicit `auth.signUp` remains in the gateway
+- Magic Link remains in the gateway
+- locale-specific auth callbacks remain
+- Magic Link must use `shouldCreateUser: false`
+- neither gateway nor signed-in shell may restore `shouldCreateUser: true`
+- My TNC must not grant CMS/admin roles
+
+CI #185 and post-main CI #186 both pass the reconciled P14-WU2 gate together with P14-WU4A, confirming the reconciliation did not weaken the canonical account lifecycle.
+
 ## Regression QA
 
 Added:
@@ -138,6 +156,27 @@ The WU4 gate checks:
 - Reflection eligibility remains evidence-first
 - prohibited social/gamification patterns do not enter Personal Home
 
+## CI evidence
+
+- Product PR #45: MERGED
+- Initial PR CI #184: FAIL at stale P14-WU2 legacy source contract; no merge occurred
+- Final PR head: `be972e34e33c7a79637be5eb49a1f0931de0a372`
+- PR CI #185: PASS
+- Merged product main: `4efa77bf5a9dff39121ff4fbabe74380c4c9f218`
+- Post-main CI #186: PASS
+- P15-WU4 My TNC relationship-home QA: PASS
+- P15-WU3 public Story World editorial QA: PASS
+- P15-WU2 experience design system QA: PASS
+- P15-WU1A Journey own-data boundary QA: PASS
+- P14-WU5A attendance date-authority source + DB QA: PASS
+- P14-WU4 own-data boundary QA: PASS
+- P14-WU4A account credential lifecycle QA: PASS
+- reconciled P14-WU2 controlled Community Auth activation QA: PASS
+- all earlier database regression gates: PASS
+- build: PASS
+- typecheck: PASS
+- Cloudflare dry-run: PASS
+
 ## Non-scope
 
 - no database migration
@@ -150,19 +189,24 @@ The WU4 gate checks:
 - no social feed or member directory
 - no points, badges, leaderboard or vanity counters
 
-## CI evidence
+## WU5 lifecycle follow-up
 
-PENDING SOURCE GATE.
+WU4 deliberately does not expand into Journey lifecycle authority. P15-WU5 must reconcile the remaining lifecycle presentation details as part of its broader Journey redesign, including:
+- ensuring all date-relative UI decisions use the canonical Vietnam date perspective rather than generic UTC client-date shortcuts
+- making explicit canonical attendance states take precedence over any purely date-derived presentation label
+- removing remaining implementation-field vocabulary from Journey-facing human copy where it does not add value
+
+These are WU5 presentation/lifecycle follow-ups. They do not change WU4 ownership, auth, attendance, Memory or Reflection source truth.
 
 ## Production boundary
 
 The product repository has no GitHub production deployment workflow. CI's Cloudflare command is a configuration dry-run only; it does not upload or deploy the Worker.
 
-Therefore WU4 must not declare production activation or live visual verification without a separate real deployment path and evidence. No Worker version will be inferred or fabricated.
+Therefore WU4 does **not** declare production activation or live visual verification. No Worker version is inferred or fabricated.
 
 ## Closeout
 
-PENDING SOURCE GATE.
+P15-WU4 is COMPLETE / PASS for source and canonical architecture.
 
-NEXT after PASS:
+NEXT:
 **P15-WU5 — Journey Lifecycle Experience Redesign**
