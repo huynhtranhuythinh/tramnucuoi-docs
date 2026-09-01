@@ -221,15 +221,55 @@ Non-blocking debt:
 - reduce repeated idempotent claim-request audit noise;
 - QA signup accounts may be cleaned up only through an explicit controlled action.
 
-NEXT:
-**P14-WU5 — Post-Journey Memory & Reflection Operations**
+### P14-WU5A — Attendance Date Authority Hardening — COMPLETE / PASS
+
+Canonical record:
+- `canon/PHASE_14_WU5_POST_JOURNEY_READINESS_2026-09-01.md`
+
+WU5A result:
+- Admin UI and PostgreSQL independently block attendance before the Journey start date;
+- Vietnam calendar (`Asia/Ho_Chi_Minh`) is authoritative;
+- status alone cannot manufacture attendance;
+- product WU5A release baseline: `fbe8f0d85f8b28b13760b1f84307342d6c2d9fc0`;
+- Worker Version: `1f31cd53-be12-4075-9e01-cbb58d0fedf5`;
+- post-main CI #174 PASS;
+- production runtime verification PASS;
+- pilot attendance remained unresolved.
+
+### P14-WU5 — Post-Journey Memory & Reflection Operations — PRE-EVENT READY
+
+Phase-level pre-closeout chain:
+1. `00_INDEX/PHASE_14_PRE_CLOSEOUT_INDEX_2026-09-01.md`
+2. `canon/PHASE_14_CURRENT_CANON_2026-09-01.md`
+3. `evidence/PHASE_14_PRE_EVENT_EVIDENCE_2026-09-01.md`
+4. `handoff/PHASE_14_POST_JOURNEY_CLOSEOUT_HANDOFF_2026-09-01.md`
+5. `04_ROADMAP/PHASE_14_TO_PHASE_15_SEQUENCING_2026-09-01.md`
+
+Current Phase 14 status:
+
+**PRE-EVENT READY / ENGINEERING COMPLETE / FINAL CLOSEOUT PENDING REAL EVENT EVIDENCE.**
+
+Pilot Journey:
+- ID: `19539f36-3ed4-4a22-96b9-c8a9b73c5283`
+- date: `2026-09-11`
+- attendance: unresolved
+- Memory: unresolved / not eligible
+- Reflection count: 0
+
+Final P14-WU5 / Phase 14 closeout must use real post-Journey attendance, Memory and Reflection evidence. It must not be simulated.
+
+Final documents expected after the real event:
+- `canon/PHASE_14_FINAL_CLOSEOUT_2026-09-11.md`
+- `evidence/PHASE_14_FINAL_EVIDENCE_2026-09-11.md`
+
+Phase 15 product-experience work may proceed in parallel, but it does not close or supersede this Phase 14 real-event evidence lane.
 
 ## Other Document Sets
 
 - `01_PRODUCT_VISION/` — project rules, content guideline, future roadmap
 - `02_PLATFORM/` — CMS structure, Community OS blueprint, Journey platform spec, identity/role model, journey lifecycle, visual direction
 - `03_OPERATIONS/` — operating model, journey operations guide, community governance
-- `04_ROADMAP/` — community feature roadmap, Journey MVP product spec
+- `04_ROADMAP/` — community feature roadmap, Journey MVP product spec, Phase 14→15 sequencing
 - `05_DATABASE_DESIGN/` — Journey database architecture, technical & Supabase plans
 - `06_AUDIT/` — codebase and system audits
 - `07_JOURNEY_MVP/` — Journey MVP spec, operations, engineering, QA/release, implementation
