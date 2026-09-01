@@ -2,7 +2,7 @@
 # PUBLIC STORY WORLD EDITORIAL ELEVATION
 
 Date: 2026-09-01
-Status: SOURCE GATE IN PROGRESS
+Status: COMPLETE / PASS — SOURCE & CANONICAL
 Production activation status: NOT DECLARED / NOT VERIFIED IN THIS WU
 
 ## Purpose
@@ -29,10 +29,10 @@ Product PR:
 `#44 — P15-WU3: Public Story World Editorial Elevation`
 
 PR head SHA:
-`d0f17d5956568593cd885b5622a7294036714d57`
+`5fa9b9bd18e1603c75ad2c10620de28081ddf5d0`
 
 Merged product main SHA:
-`PENDING SOURCE GATE`
+`f1d98844b7c2b15245ce73e9b975551674f83055`
 
 ## Editorial elevation implemented
 
@@ -74,6 +74,8 @@ The former catalog-like project list is now an alternating documentary compositi
 
 `cover_suppressed` remains fail-closed. A suppressed media record is never replaced by stock/fallback imagery.
 
+A no-image project is also a valid composition: when media is suppressed, the text reflows into a deliberate editorial column instead of leaving a broken grid.
+
 ### 4. Project detail as documentary dossier
 
 `src/components/pages/project-detail-page.tsx`
@@ -88,6 +90,8 @@ The project experience is now explicitly ordered as:
 7. related projects
 
 Empty narrative/evidence still stays empty. No content is invented to make a page look fuller.
+
+Documentary framing is applied to imagery rather than enclosing real CMS captions/metadata in card chrome.
 
 ### 5. Mobile and bilingual resilience
 
@@ -144,17 +148,40 @@ The gate verifies:
 
 ## CI evidence
 
-PENDING SOURCE GATE.
+Product PR #44: MERGED
+
+PR CI:
+- `#182`: PASS
+- head SHA: `5fa9b9bd18e1603c75ad2c10620de28081ddf5d0`
+
+Post-main CI:
+- `#183`: PASS
+- main SHA: `f1d98844b7c2b15245ce73e9b975551674f83055`
+
+Verified PASS in both final gates:
+- P15-WU3 public Story World editorial QA
+- P15-WU2 experience design system QA
+- P15-WU1A Journey own-data boundary QA
+- P14-WU5A attendance date-authority source QA
+- P14-WU5A attendance date-authority DB QA
+- earlier source and ephemeral DB regression suites
+- production build
+- TypeScript typecheck
+- Cloudflare configuration dry-run
 
 ## Production boundary
 
 The product repository still has no GitHub production deployment workflow. CI's Cloudflare step is a dry-run only and does not upload or deploy the Worker.
 
-Therefore WU3 must not declare production activation or live visual verification unless a separate real deployment path is executed and recorded. No Worker version is inferred or fabricated here.
+Therefore this WU declares the source/main and canonical editorial gate as PASS. It does **not** claim that the Worker production or live website has been updated or visually verified with WU3 source.
+
+No Worker version is inferred or fabricated here.
 
 ## Closeout
 
-PENDING SOURCE GATE.
+P15-WU3 is COMPLETE / PASS for source and canonical architecture.
 
-NEXT after PASS:
+NEXT:
 **P15-WU4 — My TNC Entry, Identity & Personal Relationship Home**
+
+WU4 must preserve the privacy ownership boundary established in P15-WU1A and all attendance/Memory/Reflection truth semantics established before Phase 15.
