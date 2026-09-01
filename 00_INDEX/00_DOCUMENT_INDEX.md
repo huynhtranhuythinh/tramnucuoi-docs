@@ -177,6 +177,7 @@ WU3 result:
 Canonical chain:
 1. `canon/PHASE_14_WU4_REAL_MY_TNC_MEMBER_EXPERIENCE_2026-09-01.md`
 2. `evidence/PHASE_14_WU4_REAL_MY_TNC_MEMBER_EXPERIENCE_EVIDENCE_2026-09-01.md`
+3. `canon/PHASE_14_WU4A_ACCOUNT_AUTH_LIFECYCLE_ADDENDUM_2026-09-01.md`
 
 WU4 result:
 - real verified My TNC account validated end to end on production;
@@ -188,12 +189,37 @@ WU4 result:
 - source audit found and fixed a My TNC own-data privacy boundary for accounts with broader CMS staff access;
 - product PR #34 merged;
 - PR CI #156 PASS; post-main CI #157 PASS;
-- product main: `6c36d0e9035ec583ca9b3bd67300d4d3c20f1b9d`;
-- Worker Version: `c010f061-3ff2-4ffe-93af-ccd6263ae392`;
+- product main at original WU4 close: `6c36d0e9035ec583ca9b3bd67300d4d3c20f1b9d`;
+- Worker Version at original WU4 close: `c010f061-3ff2-4ffe-93af-ccd6263ae392`;
 - no database migration or RLS mutation;
-- final truth remains 0 participant links / 0 Memories / 0 Contributions / 0 Reflections / 0 verified Community relationships;
-- pilot attendance remains unresolved;
-- VI/EN hydration flicker and repeated zero-result claim audit rows are recorded as non-blocking follow-up work.
+- VI/EN hydration flicker and repeated claim audit rows are recorded as non-blocking follow-up work.
+
+WU4A auth-lifecycle addendum result:
+- account signup + email confirmation PASS;
+- unconfirmed password login correctly blocked;
+- password login PASS;
+- Magic Link remains available for existing accounts only;
+- password recovery and reset PASS;
+- MFA/TOTP AAL2 challenge PASS for recovery, password login and Magic Link when required;
+- explicit Check Email signup-success UX PASS;
+- desktop EN PASS;
+- mobile VI/EN auth/signup layout PASS;
+- final product main: `272fd07d4b5697a22ace650e0e8b87943f1b4276`;
+- post-main CI #172 PASS;
+- final Worker Version: `d6d564c9-12d0-46c5-b9db-edbe0768e1cd`;
+- no database migration or RLS mutation.
+
+WU4A truth postflight:
+- a real QA account using the exact pilot-registration email evidence-matched the confirmed participant and created one active verified-email participant link;
+- attendance remains unresolved (`attended_party_size = NULL`, no attendance timestamp);
+- corresponding Memory row remains `attendance_state = unresolved` and `memory_eligible = false`;
+- no active Contribution, Reflection or verified Community relationship was created;
+- therefore account/claim truth remains distinct from attendance and Memory eligibility.
+
+Non-blocking debt:
+- normalize all Supabase Auth email templates to consistent VI/EN branded copy;
+- reduce repeated idempotent claim-request audit noise;
+- QA signup accounts may be cleaned up only through an explicit controlled action.
 
 NEXT:
 **P14-WU5 — Post-Journey Memory & Reflection Operations**
