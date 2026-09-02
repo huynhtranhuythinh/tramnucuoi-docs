@@ -2,8 +2,8 @@
 # PHASE 16 / P16-WU5 — JOURNEY INTERACTION V1
 
 Date: 2026-09-02
-Status: **SOURCE / ARCHITECTURE COMPLETE / PASS — PRODUCTION MIGRATION PENDING OWNER GATE**
-Production database mutation: **NONE IN WU5 SO FAR**
+Status: **COMPLETE / PASS — SOURCE, ARCHITECTURE & PRODUCTION DATABASE FOUNDATION**
+Production database mutation: **CONTROLLED / VERIFIED PASS**
 Journey Interaction v1 UX: **OFF**
 Cloudflare Worker deploy: **NONE**
 
@@ -177,11 +177,11 @@ Environment flag:
 
 Therefore WU5 is fail-closed unless Community Auth + Journey Community Room + WU5 Interaction flag are all explicitly enabled.
 
-Production currently remains OFF.
+Production remains **OFF** after database verification. No Worker deploy occurred in WU5.
 
 ## Source migrations
 
-Canonical source contains:
+Canonical source:
 
 - `db/migrations/0047_p16_wu5_journey_interaction_v1.sql`
 - `db/migrations/0048_p16_wu5_interaction_moderation_actor_privacy.sql`
@@ -191,9 +191,7 @@ Associated rollback artifacts:
 - `db/rollbacks/p16_wu5_journey_interaction_v1.sql`
 - `db/rollbacks/p16_wu5_interaction_moderation_actor_privacy.sql`
 
-**Neither 0047 nor 0048 has been applied to production at this source closeout stage.**
-
-## QA evidence
+## Source QA evidence
 
 Feature branch:
 
@@ -207,7 +205,11 @@ Final PR head:
 
 `5809de4122c3969c599a0895c29613cc59c7bff2`
 
-PR CI run #221 / workflow run `33627110672` PASS:
+PR CI run #221 / workflow run `33627110672`: **PASS**.
+
+Post-merge `main` CI run #222 / workflow run `33627267685`: **SUCCESS** on exact merged main SHA.
+
+Passed:
 
 - all inherited source QA
 - P16-WU5 source contract QA
@@ -217,20 +219,16 @@ PR CI run #221 / workflow run `33627110672` PASS:
 - TypeScript typecheck
 - Cloudflare deployment-config dry-run
 
-Post-merge `main` CI run #222 / workflow run `33627267685` also completed **SUCCESS** on the exact merged main SHA.
+### QA findings corrected before merge
 
-### Issues discovered and corrected during QA
+1. package lock drift corrected; no dependency drift retained
+2. Reply guard retained internal helper ACL boundaries instead of loosening permissions
+3. rollback privacy hardening no longer recreates public moderator UUID
+4. exact optional TypeScript prop typing corrected
 
-1. **Package lock drift** — an accidental dependency/devDependency change caused frozen-lock install failure. Dependencies were restored to canonical main; WU5 retained scripts only.
-2. **Reply guard helper ACL** — an invoker trigger initially called a deliberately non-client-executable low-level block helper. Final guard reuses the governed `tnc_can_view_journey_interaction()` authorization helper instead of loosening internal ACLs.
-3. **Privacy rollback** — the first hardening rollback attempted to recreate a public moderator UUID field. Final paired rollback intentionally does not re-expose staff identity before deleting WU5 tables.
-4. **Exact optional TypeScript typing** — one UI prop was corrected to explicitly accept `undefined` under the repository's exact optional property semantics.
+## Source merge
 
-These failures were treated as QA findings; no production WU5 mutation occurred while fixing them.
-
-## Merge
-
-PR #54 was squash-merged to product `main` as:
+PR #54 squash-merged to product `main`:
 
 `b926d72f89fd516e70b268fd9528efda861e9de1`
 
@@ -238,27 +236,182 @@ Main tree SHA:
 
 `95201148b4c85a6a1051141ba11da2725942efdd`
 
-Merge message preserves the release boundary:
+## Owner production approval
 
-> Production migrations remain unapplied pending Owner gate.
-
-## Source / architecture closeout
-
-P16-WU5 source and architecture are now **COMPLETE / PASS**.
-
-The remaining work is a separate production database gate, not additional source discovery or redesign.
-
-## Remaining production gate
-
-1. Owner separately approves production migrations 0047 + 0048
-2. re-confirm production Truth Ledger and current migration ledger immediately before DDL
-3. apply exact canonical 0047 followed by 0048 under controlled QA
-4. verify new tables, RLS, grants, policies and private moderation audit
-5. verify anon denied and client cannot DELETE / forge moderation audit
-6. verify Journey truth counts unchanged and zero interactions created automatically
-7. rerun Security / Performance Advisors
-8. keep Interaction UX OFF until a separate release/activation decision
-
-## Next production gate wording
+Owner explicitly approved:
 
 > APPROVE P16-WU5 DIRECT PRODUCTION MIGRATION — apply 0047/0048 under controlled QA, preserve all Journey truth, keep Journey Interaction v1 UX OFF until production verification PASS.
+
+## Production migration execution
+
+Production Supabase project:
+
+`iwiqprhoohkxvjyxojto`
+
+Pre-flight confirmed:
+
+- WU4 migration 0046 present
+- `journey_interactions` absent
+- `journey_interaction_appreciations` absent
+- private moderation ledger absent
+- no hidden WU5 migration drift
+
+Applied exact canonical migrations in order:
+
+1. `20260902124423` — `0047_p16_wu5_journey_interaction_v1`
+2. `20260902124444` — `0048_p16_wu5_interaction_moderation_actor_privacy`
+
+Both migration operations returned success.
+
+## Production verification
+
+### Tables and RLS
+
+Production now contains:
+
+- `public.journey_interactions`
+- `public.journey_interaction_appreciations`
+- `private.journey_interaction_moderation_events`
+
+RLS:
+
+- `journey_interactions`: ON
+- `journey_interaction_appreciations`: ON
+
+### Client privileges
+
+Anon:
+
+- interactions SELECT: false
+- interactions INSERT: false
+- governed helper EXECUTE: false
+
+Authenticated:
+
+- interactions SELECT: true
+- interactions INSERT: true
+- interactions UPDATE: true
+- interactions DELETE: false
+- appreciations SELECT: true
+- appreciations INSERT: true
+- appreciations UPDATE: true
+- appreciations DELETE: false
+
+### Policies verified
+
+Interactions:
+
+- `Journey interactions governed read`
+- `Journey interactions active-presence insert`
+- `Journey interactions owner or admin update`
+
+Appreciations:
+
+- `Journey appreciations own read`
+- `Journey appreciations own insert`
+- `Journey appreciations own update`
+
+### Privacy hardening verified
+
+The final public `journey_interactions` columns do **not** include `moderated_by`.
+
+Private moderation ledger access:
+
+- anon SELECT: false
+- authenticated SELECT: false
+- service_role SELECT: true
+
+Triggers verified present:
+
+- `journey_interactions_guard`
+- `journey_interactions_moderation_audit`
+- `journey_interaction_appreciations_guard`
+
+`social_reports.target_interaction_id` exists in production.
+
+Authenticated can execute only the governed authorization helpers required by RLS:
+
+- `tnc_can_write_journey_interaction(uuid,uuid)`
+- `tnc_can_view_journey_interaction(uuid)`
+
+Anon cannot execute those helpers.
+
+## Zero-fabrication verification
+
+Immediately after production migration:
+
+- Journey interactions: **0**
+- Appreciations: **0**
+- private moderation events: **0**
+
+No interaction, appreciation, moderation event, attendance, shared-experience edge, Memory, Reflection, Contribution or impact record was fabricated by migration.
+
+## Pilot Journey truth preservation
+
+Pilot Journey:
+
+`19539f36-3ed4-4a22-96b9-c8a9b73c5283`
+
+Pre/post production truth remained identical:
+
+- participants = 1
+- attendance unresolved = 1
+- verified no-show = 0
+- verified attended rows = 0
+- verified attended people = 0
+- social identities = 0
+- Journey presences = 0
+- shared-experience edges = 0
+- relationship consents = 0
+- participant links = 1
+- Memories = 1
+- Reflections = 0
+- Reflection publications = 0
+- Contributions = 0
+- WU5 interactions = 0
+- WU5 appreciations = 0
+
+Therefore WU5 production migration preserved all Journey operational truth.
+
+## Advisor verification
+
+### Security Advisor
+
+No WU5-created security warning.
+
+The only security warning remains the pre-existing project-level:
+
+- `auth_leaked_password_protection` — Leaked Password Protection Disabled
+
+Reference:
+
+https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
+
+### Performance Advisor
+
+Legacy performance findings remain.
+
+WU5-specific findings after migration:
+
+- INFO: unindexed FK on `private.journey_interaction_moderation_events.interaction_id`
+- INFO: several new WU5 indexes reported unused because the feature has zero production rows and UX remains OFF
+
+The missing private-audit FK index is a performance follow-up, not a correctness/security regression. It is intentionally **not** silently fixed under the 0047/0048 Owner approval because doing so would require a new production migration outside the approved migration set.
+
+## Final WU5 closeout
+
+P16-WU5 is **COMPLETE / PASS — SOURCE, ARCHITECTURE & PRODUCTION DATABASE FOUNDATION**.
+
+The following remain OFF / not performed:
+
+- Journey Interaction v1 UX activation
+- production Worker deploy for WU5
+- any real Question / Reply / Appreciation content
+
+Any future UI activation remains a separate release decision.
+
+## Next Phase 16 work unit
+
+**P16-WU6 — Notifications & Return Loop**
+
+WU6 must consume governed interaction/social events without turning them into popularity mechanics, spam, fake urgency, attendance evidence or public relationship proof.
