@@ -2,9 +2,10 @@
 # PHASE 16 / P16-WU3 — JOURNEY COMMUNITY ROOM & TYPED JOURNEY STREAM
 
 Date: 2026-09-02  
-Status: **SOURCE IMPLEMENTED / PR #52 CI RE-RUN PENDING / PRODUCTION UX OFF**  
+Status: **COMPLETE / PASS — SOURCE & ARCHITECTURE**  
 Database mutation: **NONE**  
-Production social UX activation: **OFF**
+Production Worker deploy: **NONE**  
+Production Journey Room UX activation: **OFF / SEPARATE OWNER GATE**
 
 ## 1. PURPOSE
 
@@ -12,7 +13,7 @@ P16-WU3 converts the P16 Journey-Based Social Network thesis and the WU2 privacy
 
 The primary product object remains the Journey, not a generic post and not a person profile.
 
-The work unit introduces:
+WU3 implements:
 
 - a Journey Community Room composed into Journey detail;
 - a typed Journey Stream derived from already-governed Journey truth/publication sources;
@@ -34,7 +35,7 @@ WU3 intentionally does NOT introduce a generic social posting model.
 >
 > **Public visibility is always a separate consent/publication decision from private operational truth.**
 
-WU3 adds one further implementation rule:
+WU3 adds:
 
 > **Typed Stream projection != a new source of truth.**
 
@@ -42,23 +43,23 @@ A Stream item exists only because an already-governed source row has an appropri
 
 ## 3. ARCHITECTURE DECISION — NO GENERIC POSTS TABLE
 
-WU3 does not create a `social_posts`, generic feed, status-update or user-posting table.
+WU3 creates no `social_posts`, generic feed, status-update or user-posting table.
 
-Existing sources already carry distinct semantics:
+Existing source semantics remain distinct:
 
 - `journey_updates` — operational factual Journey updates;
 - Field Notes — editorial publication;
 - `journey_media` / `media_assets` — documentary evidence/media relation;
 - `journey_reflection_publications` — identity-minimized published Reflection projection.
 
-The Journey Stream is therefore a typed projection over these sources rather than a new content truth ledger.
+The Journey Stream is a typed projection over these sources, not a new content truth ledger.
 
-This avoids semantic collapse such as treating:
+Therefore WU3 does not collapse:
 
-- a staff Field Update as a social post;
-- an editorial Field Note as member-generated content;
-- a documentary photo as proof of attendance;
-- a published Reflection as a generic status update.
+- a staff Field Update into a social post;
+- an editorial Field Note into member-generated content;
+- a documentary photo into proof of attendance;
+- a published Reflection into a generic status update.
 
 ## 4. TYPED JOURNEY STREAM V1
 
@@ -77,101 +78,78 @@ Canonical time bases:
 
 ### 4.1 Field Update
 
-A published Journey Update enters the chronological Stream only when it has a real `happened_at`.
+A Journey Update enters the chronological Stream only when it has a real `happened_at`.
 
-WU3 MUST NOT substitute `created_at` or `published_at` and imply that an event happened at that time.
-
-Time label:
-
-- VI: `thời điểm sự việc`
-- EN: `event time`
+WU3 does not substitute creation/publication timestamps and imply that an event occurred then.
 
 ### 4.2 Field Note
 
-A Field Note is an editorial publication.
-
-Its chronological placement uses publication time and MUST NOT be presented as the time the real-world event occurred.
-
-Time label:
-
-- VI: `thời điểm xuất bản`
-- EN: `publication time`
+A Field Note is an editorial publication. Its Stream placement uses publication time, explicitly not real-world event time.
 
 ### 4.3 Documentary Moment
 
-Journey-level media may enter the Stream only when:
+Journey-level media enters the Stream only when:
 
-- it has a real `captured_at`; and
-- it is not already attached to a Journey Update.
+- `captured_at` exists; and
+- the media is not already attached to a Journey Update.
 
-Media without `captured_at` may remain documentary/context material elsewhere on the Journey page but does not become a fabricated chronological event.
+Media without `captured_at` can remain documentary/context material elsewhere but cannot become a fabricated chronological event.
 
-Media already attached to a Field Update is not duplicated into a second Stream item.
-
-Time label:
-
-- VI: `thời điểm ghi nhận`
-- EN: `capture time`
+Update-attached media is not duplicated as a second Stream item.
 
 ### 4.4 Published Reflection
 
-Only `journey_reflection_publications` may enter the WU3 Stream.
+Only `journey_reflection_publications` enters the WU3 Stream.
 
 Private `journey_reflections` source rows are not read by the Room.
 
-The publication layer is already identity-minimized and public under the Reflection trust model.
-
-Its time basis is publication time, not Journey event time.
+The time basis is publication time, not Journey event time.
 
 ## 5. EXPLICIT STREAM EXCLUSIONS
 
-WU3 MUST NOT turn any of the following into a Journey Stream item:
+WU3 does not turn any of the following into Stream activity:
 
-- Journey registration/application;
+- registration/application;
 - confirmed registration;
 - participant status;
-- attendance unresolved / no-show / attended state;
+- unresolved/no-show/attended state;
 - attendance count;
-- Memory state or Memory eligibility;
-- private Contribution records;
+- Memory or Memory eligibility;
+- private Contribution;
 - operational relationship assignments;
 - social identity activation;
 - Journey Presence join/withdraw events;
 - block/report/moderation events;
 - generic user status posts;
-- follower/friend activity;
+- Friend/Follow activity;
 - reaction counters;
 - online status;
 - live or precise location.
 
-These objects retain their own truth/privacy semantics.
+These keep their own truth/privacy semantics.
 
 ## 6. JOURNEY COMMUNITY ROOM
 
 The Journey Room is composed into the existing Journey detail experience. It does not replace Story, lifecycle, registration, Field Updates, Evidence, Impact or Field Notes.
 
-The Room has two distinct layers:
+The Room contains two distinct concepts:
 
 1. typed Journey Stream;
 2. consented people-in-this-Journey-space layer.
 
-The Room is Journey-scoped. There is no global social feed in WU3.
+There is no global feed in WU3.
 
 ## 7. SOCIAL IDENTITY ACTIVATION
 
 Account existence does not create social visibility.
 
-A signed-in person may explicitly enable a social identity with consent version:
+A signed-in person must explicitly enable a social identity with consent version:
 
 `p16-social-consent-v1`
 
-Canonical activation copy:
-
-### VI
+Canonical intent remains:
 
 > Bật hồ sơ cộng đồng để tham gia các không gian Journey. Hồ sơ này không tự động công khai và không xác nhận rằng bạn đã tham dự bất kỳ Journey nào.
-
-### EN
 
 > Enable your community identity to take part in Journey spaces. This does not make your account publicly discoverable and does not claim that you attended any Journey.
 
@@ -179,7 +157,7 @@ The Room does not read `profiles` to manufacture a public social person.
 
 ## 8. PER-JOURNEY PRESENCE CONSENT
 
-Enabling a social identity does not automatically make the person visible in every Journey.
+Social identity activation does not automatically publish the person into every Journey.
 
 Joining each Journey space is a separate explicit decision using:
 
@@ -189,19 +167,14 @@ Joining each Journey space is a separate explicit decision using:
 
 Canonical CTA:
 
-### VI
-
-**THAM GIA KHÔNG GIAN JOURNEY**
-
-### EN
-
-**JOIN THE JOURNEY SPACE**
+- VI: **THAM GIA KHÔNG GIAN JOURNEY**
+- EN: **JOIN THE JOURNEY SPACE**
 
 Canonical meaning:
 
 > I choose to be visible in this Journey's digital community context.
 
-It MUST NOT mean:
+It does NOT mean:
 
 - I attended;
 - I completed the Journey;
@@ -220,45 +193,41 @@ It is explicitly NOT:
 - a follower graph;
 - proof of shared real-world experience.
 
-The Room reads only WU2 social projections governed by RLS:
+The Room reads WU2 social projections governed by RLS:
 
-- `social_identities` for the current user's private source;
+- own `social_identities` source;
 - `journey_social_presences`;
 - `social_identity_cards`.
 
-It does not read operational/private Journey sources to render people.
+It does not read operational/private Journey participant or attendance sources to render people.
 
 ## 10. SAFETY ENTRY POINTS
 
-Because WU3 begins showing consented people to one another, WU2 safety controls are available from the Room before richer interaction launches.
+Because WU3 begins showing consented people to one another, WU2 safety controls are present before richer member-generated interaction launches.
 
 ### Block
-
-A user may block another visible social identity.
 
 Block suppresses governed social visibility/interactions but does not rewrite Journey operational history.
 
 ### Report
 
-A user may submit a reporter-private social safety report against another visible Journey social identity/presence.
+A user can submit a reporter-private social safety report against another visible Journey social identity/presence. Review remains under the WU2 admin model.
 
-The report is reviewed through the existing WU2 admin model.
-
-The reported target does not gain access to reporter identity/details through the report table.
+The target cannot read reporter identity/details through the report table.
 
 ## 11. WITHDRAWAL / DISABLE CONTRACT
 
-A user may:
+A user can:
 
 - leave a Journey space;
-- disable the social identity;
+- disable social identity;
 - block another person.
 
-Canonical invariant:
+Immutable rule:
 
 > **Rút chia sẻ không xóa lịch sử thật của Journey.**
 
-Leaving or disabling social visibility does not mutate:
+None of these social actions mutates:
 
 - application/registration;
 - participant record;
@@ -266,71 +235,72 @@ Leaving or disabling social visibility does not mutate:
 - Memory;
 - Reflection source;
 - Contribution;
-- verified relationship truth.
+- verified operational relationship truth.
 
 ## 12. RELEASE SAFETY
 
-WU3 introduces a dedicated fail-closed Room flag:
+WU3 adds a dedicated fail-closed Room flag:
 
 `VITE_APP_JOURNEY_COMMUNITY_ROOM_ENABLED`
 
-The Room is enabled only when BOTH are true:
+The Room renders only when BOTH are true:
 
 - `VITE_APP_COMMUNITY_AUTH_ENABLED=true`
 - `VITE_APP_JOURNEY_COMMUNITY_ROOM_ENABLED=true`
 
-Therefore source code may be merged to `main` while Journey Room remains invisible in production until a separate activation decision.
+This means WU3 source can exist on `main` while production Journey Room UX stays off.
 
-Controlled scripts prepared:
+Controlled commands now exist:
 
 - `cf:p16-wu3:activate:dry-run`
 - `cf:p16-wu3:activate:deploy`
 - `cf:p16-wu3:rollback:dry-run`
 - `cf:p16-wu3:rollback:deploy`
 
-Rollback keeps Community Auth available while setting the Room flag false.
+Rollback preserves Community Auth while disabling only the Journey Room flag.
 
-No production deploy is part of source implementation/merge.
+No production Worker deployment occurred in WU3 closeout.
 
 ## 13. DATABASE / RLS DECISION
 
 WU3 requires no database migration.
 
-It reuses WU2 production social foundation and existing Journey publication/evidence tables.
+It reuses WU2 production social foundation plus existing Journey publication/evidence sources.
 
-No production database row was created, updated or deleted by WU3 implementation work.
+No WU3 production data mutation was performed.
 
-RLS remains the authorization boundary for client social reads/writes.
+RLS remains the client authorization boundary. No service-role key is introduced into browser code.
 
-No service-role key is introduced into browser code.
-
-## 14. REAL JOURNEY 2026-09-11 SNAPSHOT
+## 14. REAL JOURNEY 2026-09-11 TRUTH
 
 Journey:
 
 - id: `19539f36-3ed4-4a22-96b9-c8a9b73c5283`
 - date: 2026-09-11
-- status at WU3 implementation time: `registration_open`
+- current lifecycle at WU3 closeout: BEFORE / registration open
 
-Read-only production snapshot during WU3 discovery:
+Read-only WU3 discovery/post-flight evidence:
 
+- participant count: 1
+- attendance unresolved: 1
+- verified attended: 0
 - published Journey Updates: 0
-- Field Notes: 0
+- Field Notes: 0 at discovery
 - Reflection publications: 0
-- Contributions: 0
-- impact items: 0
+- social identities: 0
+- social identity cards: 0
 - Journey social presences: 0
 - active Journey-only presences: 0
-- Journey media relations: 1
+- blocks: 0
+- reports: 0
+- Journey media relations: 1 at discovery
 
-The one Journey media relation is approved public documentation but has `captured_at = NULL`.
+The one documentary relation had `captured_at = NULL`, so it does not become a chronological Stream item.
 
-Therefore it MUST NOT become a chronological `documentary_media` Stream item.
+Truthful expected Room state before additional real evidence/publication exists:
 
-Expected truthful WU3 Room state for this real Journey before additional real evidence/publication exists:
-
-- BEFORE-stage Journey context;
-- quiet/empty typed Stream;
+- BEFORE-stage context;
+- quiet/empty Stream;
 - no fake people;
 - no fake activity;
 - no attendance claim;
@@ -338,25 +308,25 @@ Expected truthful WU3 Room state for this real Journey before additional real ev
 
 ## 15. REALTIME DECISION
 
-Realtime is NOT enabled in WU3 v1.
+Realtime is not enabled in WU3 v1.
 
-The product does not need live social presence, online status, typing indicators, instant reactions or live location to establish the Journey Room concept.
+No online status, typing indicator, instant reaction, live presence or precise location is required to establish the Journey Room concept.
 
-Realtime may be considered later only where it serves a clear Journey need and preserves privacy/safety boundaries.
+Future realtime use requires a Journey-specific need plus privacy/safety review.
 
 ## 16. WU5 BOUNDARY
 
-WU3 does not introduce member-generated Question / Reply / Appreciation interaction.
+WU3 does not introduce member-generated Question / Reply / Appreciation.
 
-Those belong to:
+Those remain sequenced for:
 
 **P16-WU5 — Interaction v1: Journey Question / Reply / Appreciation**
 
-This sequencing ensures people visibility and safety boundaries exist before member-generated interaction is activated.
+People visibility and safety therefore precede member-generated interaction.
 
-## 17. SOURCE IMPLEMENTATION
+## 17. SOURCE IMPLEMENTATION / MERGE
 
-Product branch:
+Implementation branch:
 
 `p16-wu3-journey-community-room-typed-stream`
 
@@ -368,7 +338,13 @@ Pull request:
 
 `#52 — P16-WU3: Journey Community Room and typed Journey stream`
 
-Primary source artifacts:
+PR #52 was squash-merged after full PR CI PASS.
+
+Canonical product `main` SHA after merge:
+
+`2683e937accde7b8c1e22acca2fd87ff3ed736f2`
+
+Primary source artifacts on `main`:
 
 - `src/lib/journeys/community-room.ts`
 - `src/lib/journeys/community-room-activation.ts`
@@ -380,58 +356,86 @@ Primary source artifacts:
 
 ## 18. AUTOMATED QA CONTRACT
 
-`qa:p16-wu3` verifies at minimum:
+`qa:p16-wu3` verifies:
 
 - Community Auth + Room double activation gate;
 - exact typed Stream kinds;
 - truthful event/publication/capture time bases;
-- no private/operational truth source reads by Room UI;
-- social identity + Journey Presence consent use;
+- no private/operational truth reads by Room UI;
+- social identity + Journey Presence consent;
 - block/report integration;
 - no generic social primitives;
-- explicit Journey Presence != attendance language;
+- explicit Journey Presence != attendance copy;
 - no-time Field Update excluded;
 - no-time media excluded;
 - update-attached media not duplicated;
-- Field Note canonical routing;
-- published Reflection chronological behavior;
+- canonical Field Note routing;
+- Reflection chronological behavior;
 - deterministic descending Stream ordering.
 
-CI additionally runs all existing P9-P15 source and ephemeral database regression gates, production build, TypeScript typecheck and Cloudflare dry-run.
+Inherited CI also executes all existing P9-P15 source and ephemeral DB regression gates, production build, typecheck and Cloudflare dry-run.
 
-## 19. CI HISTORY DURING IMPLEMENTATION
+## 19. CI EVIDENCE
 
-Initial PR #52 CI run #209:
+### PR run #209
 
-- P16-WU3 dedicated QA: PASS
-- existing regression source QA: PASS
-- existing ephemeral database QA: PASS
+- WU3 QA: PASS
+- inherited source/DB QA: PASS
 - build: PASS
 - typecheck: FAIL
 
-The only compiler failure was strict TypeScript env-property access:
+The only issue was TypeScript strict env-property access (`TS4111`) for the new Room flag.
 
-`TS4111` for `VITE_APP_JOURNEY_COMMUNITY_ROOM_ENABLED`.
+The fix changed only the env lookup to bracket access; no product/security behavior changed.
 
-The implementation was corrected to bracket access without changing product behavior or architecture.
+### PR re-run #210
 
-PR CI re-run #210 is the current closeout gate.
+- WU3 QA: PASS
+- all inherited source QA: PASS
+- all inherited ephemeral database QA: PASS
+- build: PASS
+- typecheck: PASS
+- Cloudflare dry-run: PASS
+- result: **SUCCESS**
 
-## 20. CLOSEOUT GATE
+### Post-merge main run #211
 
-P16-WU3 may be marked `COMPLETE / PASS` only after:
+Executed on exact `main` SHA `2683e937accde7b8c1e22acca2fd87ff3ed736f2`.
 
-1. PR #52 WU3 QA PASS;
-2. all inherited regression QA PASS;
-3. build PASS;
-4. typecheck PASS;
-5. Cloudflare dry-run PASS;
-6. source merged into production `main`;
-7. post-merge `main` CI PASS;
-8. production Room UX remains OFF unless separately activated by Owner approval.
+- WU3 QA: PASS
+- all inherited source QA: PASS
+- all inherited ephemeral database QA: PASS
+- build: PASS
+- typecheck: PASS
+- Cloudflare dry-run: PASS
+- result: **SUCCESS**
 
-Next product gate after WU3 source closeout:
+The Cloudflare step was dry-run only; no Worker upload/deploy occurred.
+
+## 20. CLOSEOUT DECISION
+
+- Journey is primary social object: **PASS / IMMUTABLE**
+- generic posts/feed model introduced: **NO**
+- typed Journey Stream: **PASS**
+- truthful source timestamps: **PASS**
+- quiet empty state rather than fabricated activity: **PASS**
+- social identity explicit opt-in: **PASS**
+- per-Journey Presence explicit opt-in: **PASS**
+- People list != attendee list: **PASS / IMMUTABLE**
+- Journey Presence != attendance: **PASS / IMMUTABLE**
+- block/report entry points: **PASS**
+- no private operational truth reads in Room: **PASS**
+- database migration: **NONE**
+- production DB mutation: **NONE**
+- PR CI: **PASS**
+- post-merge `main` CI: **PASS**
+- product Source of Truth merged to `main`: **PASS**
+- production Journey Room deployment/activation: **OFF / NOT PART OF CLOSEOUT**
+
+# P16-WU3 — COMPLETE / PASS
+
+Next gate:
 
 **P16-WU4 — JOURNEY PRESENCE & SHARED-EXPERIENCE GRAPH**
 
-WU4 MUST derive shared real-world experience only from appropriate attendance evidence, never from Journey social Presence alone.
+WU4 MUST derive shared real-world experience only from appropriate attendance evidence. `journey_social_presences` may express consented digital context but can never, by itself, establish that two people actually went on a Journey together.
