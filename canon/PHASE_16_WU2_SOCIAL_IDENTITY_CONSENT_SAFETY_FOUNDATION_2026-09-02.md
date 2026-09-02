@@ -1,15 +1,20 @@
 # TRẠM NỤ CƯỜI — WEBSITE 2026
 # PHASE 16 / P16-WU2 — SOCIAL IDENTITY, CONSENT & SAFETY FOUNDATION
 
-Date: 2026-09-02
-Status: **ARCHITECTURE LOCKED / IMPLEMENTATION PREPARED / STAGING QA PENDING**
-Production mutation: **NONE**
+Date: 2026-09-02  
+Status: **COMPLETE / PASS**  
+Production mutation: **CONTROLLED / VERIFIED PASS**  
+Social UX activation: **OFF / NOT PART OF WU2**
 
-## 1. PURPOSE
+## 1. OWNER APPROVAL
 
-P16-WU2 establishes the privacy and safety substrate required before Journey Community Room, Journey Stream, shared-experience graph or member-generated interactions can be activated.
+Owner explicitly approved direct controlled production migration:
 
-The governing P16 thesis remains:
+> **APPROVE P16-WU2 DIRECT PRODUCTION MIGRATION — apply 0042/0043 under controlled QA, preserve all Journey truth, no social UX activation until verification PASS.**
+
+During controlled verification, two additive hardening migrations (`0044`, `0045`) were added before closeout. They narrow audit/consent mutation paths and provide self-cleaning production QA; they do not expand social product scope.
+
+## 2. GOVERNING PRODUCT CANON
 
 > **TRẠM NỤ CƯỜI is a Journey-Based Social Network.**
 >
@@ -21,512 +26,297 @@ The governing P16 thesis remains:
 >
 > **Public visibility is always a separate consent/publication decision from private operational truth.**
 
-WU2 converts those principles into an enforceable social identity, consent, blocking, reporting and moderation architecture.
+P16-WU2 adds the privacy/safety substrate required before Journey Community Room, Journey Stream, shared-experience graph or member-generated interactions can be activated.
 
-## 2. CURRENT PRODUCTION FINDINGS
+## 3. IMMUTABLE WU2 RULES
 
-Production was inspected read-only before design.
+- `social identity != account identity`
+- `Journey Presence != attendance`
+- `social visibility != operational truth`
+- registration != attendance
+- confirmed registration != attendance
+- attendance NULL = unresolved
+- attendance 0 = verified no-show
+- attendance > 0 = verified attended
+- participant claim != attendance
+- participant claim != Memory eligibility
+- account != participant
+- account != attendance
+- Memory only arises from appropriate real evidence
+- Reflection remains evidence-gated
+- withdrawal, blocking, reporting or moderation MUST NOT rewrite registration, participant, attendance, Memory, Reflection, Contribution or verified relationship truth
 
-Existing privacy boundaries remain strong and should NOT be weakened:
+## 4. PRODUCTION DATA MODEL ACTIVATED
 
-- `profiles` is own/admin readable; it is not a public member directory.
-- `journey_participants` is operational/admin-only.
-- `community_participant_links` separates account identity from operational Journey participant truth.
-- `community_journey_memories` remains owner-scoped.
-- `journey_reflections` remains private author/staff source.
-- `journey_reflection_publications` is a separate identity-minimized public projection.
-- existing Community code already keeps participant/attendance/Memory distinctions explicit.
-- existing staff MFA foundation is present.
+Seven additive social tables now exist in production:
 
-Security Advisor currently reports one account-security warning:
+1. `social_identities`
+2. `social_identity_cards`
+3. `journey_social_presences`
+4. `social_blocks`
+5. `social_consent_events`
+6. `social_reports`
+7. `social_moderation_controls`
 
-- Supabase leaked-password protection is disabled.
+### `social_identities`
 
-This does not invalidate WU2 architecture, but it should be resolved before broad social/account rollout when plan capability permits.
+Private user-controlled social source, separate from `profiles` and `auth.users`.
 
-## 3. WU2 CONSTITUTIONAL RULES
+Account existence does not create social visibility. Social participation is explicit opt-in.
 
-### 3.1 Social identity is not account identity
+### `social_identity_cards`
 
-`auth.users` and `profiles` remain private account/operational identity layers.
+Identity-minimized Journey-social projection. It deliberately excludes auth UUID, email, registration PII, participant id, attendance, Memory id, Contribution data and moderator identifiers.
 
-A new social identity is an explicit, optional projection chosen by the person.
+It is not a global member directory.
 
-Account existence MUST NOT automatically create a visible social person.
+### `journey_social_presences`
 
-### 3.2 Journey Presence is not attendance
+Explicit per-Journey digital presence choice.
 
-A person may explicitly appear in a Journey digital context before the real event.
+WU2 scopes:
 
-That state means only:
+- `private`
+- `journey_only`
 
-> **I choose to be visible in this Journey's digital community context.**
+Presence means only that a person chooses to be visible in that Journey's digital community context. It may exist before the real Journey occurs and MUST NOT assert attendance.
 
-It MUST NOT mean:
+### `social_consent_events`
 
-- I attended;
-- I completed the Journey;
-- I have a Memory;
-- I created impact;
-- I have a verified shared-experience relationship.
+System-written consent/visibility event ledger. It is not attendance evidence.
 
-### 3.3 Social visibility is not operational truth
+### `social_blocks`
 
-Withdrawing social visibility, blocking another person or being hidden by moderation MUST NOT mutate:
+Block applies to social visibility/interactions only. It does not erase or rewrite shared operational history.
 
-- Journey registration/application;
-- participant record;
-- attendance evidence;
-- Memory eligibility;
-- Reflection eligibility/source;
-- Contribution evidence;
-- verified operational relationship.
+### `social_reports`
 
-### 3.4 Consent can expand visibility; moderation cannot
+Reporter-private / admin-review safety reports. Report targets have no policy exposing reporter/report details.
 
-Only the user may opt into or expand their own social visibility.
+### `social_moderation_controls`
 
-Staff moderation may only:
+Admin-only controls:
 
-- reduce visibility;
-- hide a social projection;
-- temporarily suspend social capability;
-- later restore the prior user-controlled capability.
+- `hide_identity`
+- `hide_presence`
+- `social_suspend`
 
-Staff moderation MUST NOT grant social consent on behalf of a user.
+Moderation can reduce or restore social visibility. It cannot grant consent or mutate Journey truth.
 
-### 3.5 Fail closed
+## 5. PRODUCTION MIGRATIONS
 
-No social identity or Journey Presence becomes visible by default.
+Applied successfully to Supabase project `iwiqprhoohkxvjyxojto`:
 
-No anonymous public member directory is introduced in WU2.
+- `20260902085800` — `0042_p16_wu2_social_identity_consent_safety`
+- `20260902085811` — `0043_p16_wu2_social_guard_hardening`
+- `20260902085936` — `0044_p16_wu2_social_identity_transition_hardening`
+- `20260902090136` — `0045_p16_wu2_production_qa`
 
-No public participant presence is introduced in WU2.
-
-## 4. CANONICAL DATA MODEL
-
-Implementation is prepared on product branch:
+Product source branch:
 
 `p16-wu2-social-identity-consent-safety`
 
-based directly on production `main` SHA:
+Base production SHA:
 
 `d9a67f58ef25f650fe2e378683b6d92fb36a0137`
 
-### 4.1 `social_identities`
-
-Private user-controlled source.
-
-Purpose:
-
-- separate social presentation from `profiles`;
-- store optional display name/avatar/short bilingual intro;
-- explicit social enable/disable;
-- fail-closed default visibility settings;
-- record current consent-copy version.
-
-Key rule:
-
-> `social_identities.user_id` is private ownership mapping and never becomes Journey-visible social output.
-
-### 4.2 `social_identity_cards`
-
-Identity-minimized Journey-social projection.
-
-It contains only social presentation fields and deliberately excludes:
-
-- auth UUID;
-- email;
-- registration PII;
-- participant id;
-- attendance;
-- Memory id;
-- Contribution data;
-- moderator/staff identifiers.
-
-It is readable only through Journey-context authorization.
-
-It is NOT a global public profile directory.
-
-### 4.3 `journey_social_presences`
-
-One durable user-controlled social-presence choice per Journey.
-
-Canonical scopes for WU2:
-
-- `private`;
-- `journey_only`.
-
-`public` participant presence is deliberately not enabled yet.
-
-Presence state:
-
-- `active`;
-- `withdrawn`.
-
-There is intentionally no `attended`, `no_show` or `unresolved` state in this table.
-
-Eligibility to create Journey Presence is derived from verified Journey context, such as:
-
-- an active verified participant link to a confirmed Journey participant; or
-- a verified Journey host relationship.
-
-Eligibility does not create attendance truth.
-
-### 4.4 `social_consent_events`
-
-System-written append-only ledger for:
-
-- social identity activation/deactivation;
-- social profile changes;
-- default visibility changes;
-- Journey Presence activation;
-- Journey Presence visibility change;
-- Journey Presence withdrawal.
-
-This ledger is NOT attendance evidence.
-
-### 4.5 `social_blocks`
-
-Private blocker-owned social control.
-
-Block semantics are bidirectional on social discovery/visibility/interactions:
-
-> if A blocks B, A and B should no longer be socially exposed to each other through TNC surfaces governed by this layer.
-
-Block existence/reason is not shown to the blocked person.
-
-Blocking never changes shared operational history.
-
-### 4.6 `social_reports`
-
-Reporter-private / admin-review safety report.
-
-Initial categories:
-
-- harassment;
-- privacy;
-- impersonation;
-- unsafe content;
-- spam;
-- other.
-
-The reported person must not receive reporter identity/details from this table.
-
-### 4.7 `social_moderation_controls`
-
-Admin-only append-oriented controls:
-
-- hide social identity;
-- hide a specific Journey Presence;
-- suspend social capability.
-
-Controls preserve actor/time/reason audit and are revoked rather than silently overwritten.
-
-They cannot grant consent or edit operational Journey evidence.
-
-## 5. SOCIAL IDENTIFIER ARCHITECTURE
-
-WU2 introduces a social identity UUID distinct from `auth.users.id`.
-
-This is intentional.
-
-Journey/community clients should work with:
-
-`social_identity_id`
-
-instead of exposing:
-
-`auth.users.id`.
-
-This reduces coupling between social surfaces and the authentication identity and prevents a future Journey Room from becoming a thin public wrapper around private account records.
-
-## 6. RLS / SECURITY CONTRACT
-
-### Social source
-
-`social_identities`
-
-- owner read;
-- owner insert;
-- owner update;
-- admin read for support/safety;
-- no anonymous access;
-- no ordinary staff grant of another user's consent.
-
-### Social identity card
-
-`social_identity_cards`
-
-- authenticated only;
-- own identity may read own card;
-- another identity may read only when both identities have valid active Journey-only social presence in the same Journey;
-- blocking or moderation suppresses visibility;
-- no anonymous read.
-
-### Journey Presence
-
-`journey_social_presences`
-
-- owner may create only with verified Journey context;
-- owner may withdraw/change own visibility;
-- another member may read only through valid shared Journey social context;
-- no anonymous read;
-- block/moderation suppresses social visibility.
-
-### Consent events
-
-- owner/admin read;
-- system-trigger write only;
-- no client update/delete.
-
-### Blocks
-
-- blocker owns create/read/delete;
-- blocked person cannot query the block through this table;
-- admin may inspect for safety.
-
-### Reports
-
-- reporter may submit/read own reports;
-- admin may review/update status;
-- target has no read policy.
-
-### Moderation controls
-
-- admin-only read/write;
-- no community user access.
-
-## 7. CONSENT UX CONTRACT
-
-### 7.1 Social identity activation
-
-Canonical activation intent:
-
-**VI**
-
-> Bật hồ sơ cộng đồng để tham gia các không gian Journey. Hồ sơ này không tự động công khai và không xác nhận rằng bạn đã tham dự bất kỳ Journey nào.
-
-**EN**
-
-> Enable your community identity to take part in Journey spaces. This does not make your account publicly discoverable and does not claim that you attended any Journey.
-
-Consent version for first implementation should be explicit and versioned, for example:
-
-`p16-social-consent-v1`
-
-### 7.2 Journey Presence opt-in
-
-Preferred Vietnamese CTA:
-
-> **THAM GIA KHÔNG GIAN JOURNEY**
-
-Supporting copy:
-
-> Cho phép những người cũng chọn hiện diện trong Journey này nhìn thấy tên, ảnh đại diện và phần giới thiệu cộng đồng của bạn. Đây là hiện diện trong không gian số của Journey — không phải xác nhận attendance.
-
-Preferred English CTA:
-
-> **JOIN THE JOURNEY SPACE**
-
-Supporting copy:
-
-> Let other people who also choose to be present in this Journey space see your community name, avatar and short introduction. This is digital Journey presence — not proof of attendance.
-
-### 7.3 BEFORE-stage social language
-
-Allowed:
-
-- `Đang chuẩn bị cùng Journey`
-- `Có mặt trong không gian Journey`
-- `Preparing around this Journey`
-- `In this Journey space`
-
-Forbidden before attendance evidence:
-
-- `Đã cùng đi`
-- `Đã tham dự`
-- `Đồng hành thực tế`
-- `Attended together`
-- `Went together`
-
-## 8. WITHDRAWAL CONTRACT
-
-A user can:
-
-- leave/withdraw Journey social presence;
-- disable social identity;
-- block another social identity.
-
-Disabling social identity must automatically withdraw all active Journey Presence rows so a future re-enable cannot silently republish previous presence choices.
-
-Withdrawal does not delete or falsify operational truth.
-
-Canonical explanation:
-
-> **Rút chia sẻ không xóa lịch sử thật của Journey.**
-
-## 9. SAFETY CONTRACT
-
-WU2 intentionally provides safety before member-generated social interaction.
-
-Launch boundaries:
-
-- no DM/private messaging;
-- no global public member search;
-- no public participant directory;
-- no follower/friend system;
-- no generic status posting;
-- no reaction counters;
-- no online status;
-- no real-time location;
-- no precise live location;
-- no anonymous social identity access.
-
-For minors or vulnerable people, WU2 makes no age inference from profile data and creates no public exposure path. Any future age/guardian-specific feature requires an explicit policy and data model rather than inference.
-
-Existing media/privacy consent remains a separate publication decision.
-
-## 10. RELATIONSHIP WITH WU3 / WU4
-
-### WU3 may use WU2 for
-
-- Journey Room participant presence;
-- Journey-only identity cards;
-- Journey-scoped visibility;
-- blocked-person filtering;
-- safety reporting entry points.
-
-### WU4 may use WU2 for
-
-- consented Journey Connection visibility;
-- evidence-backed shared-experience graph presentation.
-
-WU4 MUST NOT derive a real-world shared-experience edge merely from `journey_social_presences`.
-
-Shared real-world experience still requires appropriate attendance evidence from the Truth Ledger.
-
-## 11. REAL 2026-09-11 JOURNEY PILOT
-
-The real Journey dated 2026-09-11 remains in BEFORE phase at WU2 authoring time.
-
-WU2 may support:
-
-- an eligible participant choosing a social identity;
-- opting into the Journey's digital space;
-- seeing consented co-presence if another real eligible participant later opts in.
-
-WU2 must NOT pre-create:
-
-- attendance;
-- attended Memory;
-- shared-experience edge;
-- `đã cùng đi` language;
-- impact claims.
-
-## 12. IMPLEMENTATION ARTIFACTS PREPARED
-
-Product branch:
-
-`p16-wu2-social-identity-consent-safety`
-
-Prepared migrations:
+Source artifacts:
 
 - `db/migrations/0042_p16_wu2_social_identity_consent_safety.sql`
 - `db/migrations/0043_p16_wu2_social_guard_hardening.sql`
-
-Prepared rollback:
-
+- `db/migrations/0044_p16_wu2_social_identity_transition_hardening.sql`
+- `db/migrations/0045_p16_wu2_production_qa.sql`
 - `db/rollbacks/p16_wu2_social_identity_consent_safety.sql`
 
-All remain unapplied to production.
+## 6. HARDENING ADDED DURING CONTROLLED MIGRATION
 
-## 13. BRANCH / BUILDER SAFETY FINDING
+### 0043 — audit-field hardening
 
-Repository production truth remains `main`, but GitHub repository default branch is currently `develop`.
+- grants only the required private suspension helper to authenticated callers;
+- prevents ordinary client updates from rewriting social activation/deactivation timestamps;
+- prevents ordinary Journey Presence updates from rewriting presence audit timestamps and consent provenance outside legitimate decisions.
 
-At WU2 discovery, `develop` is strongly diverged from `main`.
+### 0044 — transition hardening
 
-Therefore:
+Further closes the enabled -> disabled edge:
 
-> **Lovable must not be allowed to implement WU2 blindly against the repository default branch.**
+- `activated_at` / `deactivated_at` remain system-controlled;
+- a new social consent version is accepted only on a real disabled -> enabled transition;
+- profile edits and withdrawal preserve the prior consent provenance.
 
-Any Builder implementation must originate from the P16 WU2 branch created directly from production `main` SHA or another explicitly verified equivalent base.
+## 7. PRODUCTION QA — PASS
 
-This is a release-safety gate, not a product decision.
+`0045_p16_wu2_production_qa` is a self-cleaning production QA migration. Any failed assertion would abort the migration transaction.
 
-## 14. SUPABASE STAGING GATE
+Verified successfully:
 
-No Supabase development branch currently exists for this project.
+- all 7 social tables have RLS enabled;
+- anonymous SELECT is denied on all 7 social tables;
+- account existence alone creates no social identity/card;
+- social activation creates only the explicit social projection;
+- client-provided fake activation timestamps are neutralized;
+- consent activation is audited;
+- a confirmed participant may opt into Journey digital presence while attendance is still unresolved;
+- therefore Journey Presence is demonstrably separate from attendance;
+- profile edits cannot rewrite consent/audit provenance;
+- Journey Presence withdrawal cannot rewrite historical joined/consent provenance;
+- explicit re-enable can record a new consent version and system-stamped join time;
+- visibility changes can carry a new consent decision;
+- blocking suppresses target social visibility;
+- reports begin `open`;
+- non-admin moderation attempts are rejected by the trigger;
+- admin suspension prevents social visibility expansion;
+- disabling social identity removes its card and withdraws active Journey Presence;
+- social actions do not mutate participant attendance or Memory truth;
+- synthetic QA rows are fully deleted before migration success.
 
-Supabase reported branch cost at WU2 time:
+## 8. BASELINE / POST-FLIGHT TRUTH
 
-**USD 0.01344/hour.**
+### Before WU2
 
-Per operational safety, the prepared DDL should be applied and destructively/non-destructively QA-tested on a temporary Supabase development branch before production.
+- `journey_participants`: 1
+- `community_journey_memories`: 1
+- `community_participant_links`: 1
+- `journey_reflections`: 0
+- `journey_reflection_publications`: 0
+- `community_contributions`: 0
+- `community_relationship_assignments`: 0
+- attendance unresolved: 1
+- verified attended: 0
+- attended people: 0
+- social tables: none
 
-Creating that branch requires explicit Owner cost approval.
+### After WU2 + production QA
 
-## 15. REQUIRED STAGING QA
+Social foundation rows:
 
-Before WU2 can be `COMPLETE / PASS`, verify at minimum:
+- social identities: 0
+- social identity cards: 0
+- Journey social presences: 0
+- blocks: 0
+- consent events: 0
+- reports: 0
+- moderation controls: 0
 
-1. all new public tables have RLS enabled;
-2. anon receives zero social identity/presence/report/block access;
-3. user A cannot read private source for user B;
-4. user A cannot create/update social identity for user B;
-5. account/profile existence alone creates no social projection;
-6. active social card contains no auth UUID/email/participant/attendance data;
-7. ineligible user cannot create Journey Presence;
-8. verified confirmed participant may explicitly opt in;
-9. Journey Presence does not mutate `journey_participants`;
-10. presence creation does not change attendance fields;
-11. presence creation does not create Memory eligibility;
-12. two users without shared active Journey presence cannot see each other's card;
-13. two eligible users with mutual active Journey-only presence can see the permitted cards/presence;
-14. block suppresses social visibility both directions;
-15. block leaves Journey operational truth unchanged;
-16. reported target cannot read reporter/report details;
-17. admin can triage reports;
-18. admin hide/suspend reduces social visibility;
-19. admin moderation cannot enable user consent;
-20. disabling social identity withdraws active Journey presences;
-21. re-enabling social identity does not silently reactivate old Journey presences;
-22. consent events are append-only/client-unwritable;
-23. audit timestamps cannot be rewritten by ordinary client update;
-24. rollback removes only P16-WU2 additive objects;
-25. Security Advisor and Performance Advisor reviewed after DDL;
-26. generated TypeScript database types regenerated after staging PASS.
+Operational truth remains:
 
-## 16. SECURITY HARDENING FOLLOW-UP
+- `journey_participants`: 1
+- `community_journey_memories`: 1
+- `community_participant_links`: 1
+- `journey_reflections`: 0
+- `journey_reflection_publications`: 0
+- `community_contributions`: 0
+- `community_relationship_assignments`: 0
+- attendance unresolved: 1
+- verified attended: 0
+- attended people: 0
+- Memory state: `unresolved`
+- `memory_eligible=false`
 
-Before broad social launch:
+**Result: Journey truth preserved exactly.**
 
-- review/enable leaked-password protection if current Supabase plan supports it;
-- retain staff/admin MFA enforcement;
-- review Auth CAPTCHA/rate limits before increased public account traffic;
-- keep service-role keys out of browser clients;
-- re-run Security Advisor after every social DDL change.
+## 9. RLS / EXPOSURE VERIFICATION
 
-## 17. WU2 CURRENT DECISION
+All seven WU2 social tables have RLS enabled.
 
-- Separate social identity from `profiles`: **APPROVED / IMPLEMENTED IN PREPARED DDL**
-- Distinct social UUID from auth UUID: **APPROVED**
-- Explicit opt-in social identity: **APPROVED**
-- Explicit per-Journey Presence: **APPROVED**
-- Journey Presence != attendance: **IMMUTABLE**
-- `private` + `journey_only` presence in MVP: **APPROVED**
-- public participant presence: **NOT ENABLED**
-- global public people directory: **REJECTED**
-- user-controlled withdrawal: **APPROVED**
-- bidirectional social blocking: **APPROVED**
-- reporter-private/admin-reviewed reports: **APPROVED**
-- moderation may reduce but not grant visibility: **APPROVED**
-- production DDL application: **NOT AUTHORIZED / NOT PERFORMED**
-- staging DDL QA: **PENDING OWNER COST GATE**
+Anonymous table SELECT is denied on every WU2 social table.
 
-## 18. STATUS
+Private helper functions remain in schema `private`.
 
-**P16-WU2 = ARCHITECTURE LOCKED / IMPLEMENTATION PREPARED / STAGING QA PENDING.**
+Anonymous callers have no EXECUTE on WU2 private helpers.
 
-WU3 remains gated until WU2 staging QA demonstrates that social visibility, consent, block/report and moderation behave as designed without weakening Journey truth.
+Authenticated EXECUTE is granted only to helpers required by RLS/client-safe authorization paths; internal guards, audit functions and projection-sync functions remain non-callable directly by authenticated clients.
+
+## 10. SECURITY / PERFORMANCE ADVISORS
+
+### Security Advisor
+
+No new WU2-created security warning was reported.
+
+One pre-existing warning remains:
+
+- `auth_leaked_password_protection` disabled.
+
+This is a separate account-security hardening item and should be resolved before broad social/account rollout when current plan/capability permits.
+
+### Performance Advisor
+
+No WU2-specific missing-FK-index or RLS-initplan warning was introduced.
+
+Several new WU2 indexes are currently reported as unused because the social foundation contains zero real social rows and the feature has not launched. They are retained intentionally for expected Journey/social query paths and MUST NOT be removed merely because they are unused immediately after creation.
+
+Older non-WU2 advisor items remain independently open.
+
+## 11. PRODUCT BOUNDARIES AFTER WU2
+
+Still NOT activated:
+
+- public people directory
+- public participant presence
+- Friend
+- Follow
+- DM/private messaging
+- generic user status posts
+- global infinite feed
+- reaction/like counters
+- online presence
+- real-time location
+- precise live location
+
+No social UI was activated in WU2.
+
+## 12. REAL JOURNEY — 2026-09-11
+
+Journey:
+
+`19539f36-3ed4-4a22-96b9-c8a9b73c5283`
+
+At WU2 closeout:
+
+- participant rows: 1
+- attendance unresolved: 1
+- verified attended: 0
+- attended people: 0
+
+Therefore WU3 may pilot only BEFORE-stage concepts such as Journey Room preparation and explicit Journey digital presence.
+
+Forbidden until real attendance evidence exists:
+
+- `Đã cùng đi`
+- `Đã tham dự`
+- attended Memory
+- shared real-world experience edge
+- impact claims derived from social presence
+
+P14-WU5 remains the independent real-evidence lane for AFTER-stage truth.
+
+## 13. SOURCE / BUILDER SAFETY
+
+Repository production truth is `main`, while repository default branch remains `develop` and is materially diverged.
+
+Therefore Lovable must not implement future social work blindly against the repository default branch. P16 implementation must originate from explicitly verified production `main` or a branch based on the current production-main SHA.
+
+## 14. CLOSEOUT DECISION
+
+- Social identity separate from account/profile identity: **PASS**
+- Distinct social UUID from auth UUID: **PASS**
+- Explicit social opt-in: **PASS**
+- Explicit per-Journey Presence: **PASS**
+- Journey Presence != attendance: **PASS / IMMUTABLE**
+- Private + Journey-only visibility: **PASS**
+- Public member directory: **NOT ENABLED**
+- Withdrawal / consent audit: **PASS**
+- Blocking foundation: **PASS**
+- Reporting foundation: **PASS**
+- Admin moderation foundation: **PASS**
+- Journey truth preservation: **PASS**
+- Production QA: **PASS**
+- Social UX activation: **OFF**
+
+# P16-WU2 — COMPLETE / PASS
+
+Next gate:
+
+**P16-WU3 — JOURNEY COMMUNITY ROOM & TYPED JOURNEY STREAM**
+
+WU3 must build on the WU2 privacy/safety substrate and continue to preserve the Truth Ledger. A Journey Room membership/presence is social context, not proof of attendance.
