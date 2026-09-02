@@ -2,7 +2,7 @@
 # PHASE 16 / P16-WU5 — JOURNEY INTERACTION V1
 
 Date: 2026-09-02
-Status: **SOURCE / ARCHITECTURE MERGED — POST-MERGE CI PENDING / PRODUCTION MIGRATION PENDING OWNER GATE**
+Status: **SOURCE / ARCHITECTURE COMPLETE / PASS — PRODUCTION MIGRATION PENDING OWNER GATE**
 Production database mutation: **NONE IN WU5 SO FAR**
 Journey Interaction v1 UX: **OFF**
 Cloudflare Worker deploy: **NONE**
@@ -207,7 +207,7 @@ Final PR head:
 
 `5809de4122c3969c599a0895c29613cc59c7bff2`
 
-PR CI run #221 / workflow run `33627110672` reached PASS for:
+PR CI run #221 / workflow run `33627110672` PASS:
 
 - all inherited source QA
 - P16-WU5 source contract QA
@@ -216,6 +216,8 @@ PR CI run #221 / workflow run `33627110672` reached PASS for:
 - application build
 - TypeScript typecheck
 - Cloudflare deployment-config dry-run
+
+Post-merge `main` CI run #222 / workflow run `33627267685` also completed **SUCCESS** on the exact merged main SHA.
 
 ### Issues discovered and corrected during QA
 
@@ -232,25 +234,31 @@ PR #54 was squash-merged to product `main` as:
 
 `b926d72f89fd516e70b268fd9528efda861e9de1`
 
+Main tree SHA:
+
+`95201148b4c85a6a1051141ba11da2725942efdd`
+
 Merge message preserves the release boundary:
 
 > Production migrations remain unapplied pending Owner gate.
 
-## Remaining gate
+## Source / architecture closeout
 
-Before declaring WU5 fully complete:
+P16-WU5 source and architecture are now **COMPLETE / PASS**.
 
-1. post-merge `main` CI must PASS on `b926d72f89fd516e70b268fd9528efda861e9de1`
-2. Owner must separately approve production migrations 0047 + 0048
-3. production migration must be applied under controlled QA
-4. RLS / grants / policies / private moderation audit must be verified in production
-5. Journey truth counts must remain unchanged
-6. no interaction must be created automatically
-7. Security / Performance Advisors must be rerun
-8. Interaction UX must remain OFF until its separate release gate
+The remaining work is a separate production database gate, not additional source discovery or redesign.
+
+## Remaining production gate
+
+1. Owner separately approves production migrations 0047 + 0048
+2. re-confirm production Truth Ledger and current migration ledger immediately before DDL
+3. apply exact canonical 0047 followed by 0048 under controlled QA
+4. verify new tables, RLS, grants, policies and private moderation audit
+5. verify anon denied and client cannot DELETE / forge moderation audit
+6. verify Journey truth counts unchanged and zero interactions created automatically
+7. rerun Security / Performance Advisors
+8. keep Interaction UX OFF until a separate release/activation decision
 
 ## Next production gate wording
-
-After post-merge source CI PASS, the appropriate Owner approval is:
 
 > APPROVE P16-WU5 DIRECT PRODUCTION MIGRATION — apply 0047/0048 under controlled QA, preserve all Journey truth, keep Journey Interaction v1 UX OFF until production verification PASS.
