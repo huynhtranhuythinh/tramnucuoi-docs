@@ -2,7 +2,7 @@
 # PHASE 16 / P16-WU4 — JOURNEY PRESENCE & SHARED-EXPERIENCE GRAPH
 
 Date: 2026-09-02  
-Status: **SOURCE / ARCHITECTURE PREPARED — PR #53 QA PENDING**  
+Status: **SOURCE / ARCHITECTURE COMPLETE / PASS — PRODUCTION MIGRATION PENDING OWNER GATE**  
 Production database mutation: **NONE IN WU4 SO FAR**  
 Production Shared-Experience Graph UX: **OFF**
 
@@ -306,18 +306,31 @@ Journey id:
 
 `19539f36-3ed4-4a22-96b9-c8a9b73c5283`
 
-At WU4 implementation time:
+Read-only production baseline captured after source merge and before any WU4 migration:
 
 - participant rows: 1;
 - attendance unresolved: 1;
+- verified no-show rows: 0;
+- verified attended rows: 0;
 - verified attended people: 0;
-- WU2 social identities: 0;
-- Journey social presences: 0.
+- social identities: 0;
+- social identity cards: 0;
+- Journey social presences: 0;
+- social blocks: 0;
+- social reports: 0;
+- social consent events: 0;
+- participant links: 1;
+- Memories: 1;
+- Reflections: 0;
+- Reflection publications: 0;
+- Contributions: 0;
+- `journey_relationship_consents`: does not exist yet;
+- `journey_shared_experience_edges`: does not exist yet.
 
 Therefore the only truthful WU4 result now is:
 
-- shared-experience edge count: 0;
-- visible shared-experience graph: empty/off.
+- shared-experience edge count: not yet materialized / logically 0;
+- visible shared-experience graph: OFF.
 
 WU4 architecture and QA can be completed before 2026-09-11, but no actual “went together” edge may be asserted until real attendance evidence exists.
 
@@ -337,11 +350,18 @@ The graph requires all three layers:
 
 Source merge therefore does not automatically activate the graph.
 
-Prepared release commands keep the graph independently controllable from the Room.
+Prepared release commands:
 
-## 17. SOURCE ARTIFACTS
+- `cf:p16-wu4:activate:dry-run`
+- `cf:p16-wu4:activate:deploy`
+- `cf:p16-wu4:rollback:dry-run`
+- `cf:p16-wu4:rollback:deploy`
 
-Product branch:
+No WU4 Worker deploy occurred during source closeout.
+
+## 17. SOURCE ARTIFACTS / MERGE
+
+Implementation branch:
 
 `p16-wu4-journey-presence-shared-experience-graph`
 
@@ -353,7 +373,13 @@ Pull request:
 
 `#53 — P16-WU4: Journey Presence and shared-experience graph`
 
-Prepared artifacts:
+PR #53 was squash-merged after full PR CI PASS.
+
+Canonical product `main` SHA after merge:
+
+`51f83eebc4794269e753d0b96f20a02905bf7798`
+
+Artifacts now on `main`:
 
 - `db/migrations/0046_p16_wu4_journey_presence_shared_experience_graph.sql`
 - `db/rollbacks/p16_wu4_journey_presence_shared_experience_graph.sql`
@@ -365,40 +391,150 @@ Prepared artifacts:
 - `.github/workflows/ci.yml`
 - `package.json`
 
-## 18. PRODUCTION MUTATION GATE
+## 18. QA EVIDENCE
 
-No P16-WU4 DDL has been applied to canonical Supabase at this status.
+### PR run #212
 
-Migration `0046` requires an explicit production migration gate after source/ephemeral QA passes.
+WU4 source QA found a QA-script false positive in privilege matching. The test incorrectly matched the valid consent-table mutation grant while trying to assert that evidence edges are read-only. No DB permission was loosened. The assertion was narrowed to the evidence table.
 
-Before production migration:
+### PR run #213
 
-- capture baseline Journey/social truth;
-- run advisors;
-- apply only reviewed migration SQL;
-- verify new table RLS/grants;
-- verify real 2026-09-11 Journey has zero evidence edges while attendance is unresolved;
-- verify participant/attendance/Memory truth unchanged;
-- run Security and Performance Advisors again.
+- WU4 source QA: PASS;
+- inherited QA: PASS;
+- WU4 migration behavior scenarios: PASS through rollback entry;
+- rollback: FAIL because edge RLS policy still depended on a WU4 authorization helper.
 
-Shared-Experience Graph UX remains OFF until production DB verification passes and a later activation gate is explicitly approved.
+Rollback was fixed by explicitly dropping the dependent policy before helper removal; `CASCADE` was deliberately not used.
 
-## 19. NEXT CLOSEOUT CONDITIONS
+### PR run #214
 
-WU4 source/architecture may close only after:
+WU4 migration behavior scenarios again passed. Rollback exposed a second explicit dependency: the relationship-consent INSERT policy depended on the verified-attendance helper.
 
-1. dedicated WU4 source QA PASS;
-2. WU4 ephemeral DB migration/behavior/rollback QA PASS;
-3. inherited P9–P16-WU3 regression QA PASS;
-4. build PASS;
-5. typecheck PASS;
-6. Cloudflare dry-run PASS;
-7. PR merged to `main`;
-8. post-merge `main` CI PASS.
+Rollback was fixed by dropping that policy before helper removal, again without `CASCADE`.
 
-Production DB activation remains a separate explicit gate if it has not yet been approved/applied at source closeout.
+### PR run #215 — PASS
 
-Next product work after WU4 architecture/production foundation is validated:
+Executed on PR head `97f1d0fb772349d9d76751e3ae3776c85571a87d`.
+
+PASS:
+
+- P16-WU4 dedicated source contract QA;
+- WU4 ephemeral migration;
+- Journey Presence before attendance creates zero shared-experience edges;
+- consent before verified attendance rejected;
+- one verified attendee is insufficient;
+- two verified attendees create exactly one pair edge;
+- Journey Presence withdrawal does not erase evidence-backed continuity;
+- one-sided relationship consent is insufficient;
+- mutual relationship consent exposes only the verified pair;
+- unrelated identity cannot read the edge/card;
+- block hides social connection in both directions without mutating attendance/evidence;
+- relationship-consent withdrawal hides visibility while preserving evidence and consent provenance;
+- attendance correction revokes the edge;
+- attendance re-verification restores the edge;
+- identity disable suppresses social visibility while evidence remains;
+- clients cannot manufacture evidence edges;
+- admin cannot grant another person's consent;
+- party-size unknown guests do not create phantom graph nodes;
+- a later known linked identity projects only known people;
+- clients cannot forge consent-audit rows;
+- rollback removes WU4 objects, restores WU2 identity-card semantics and preserves attendance truth;
+- all inherited P9–P16-WU3 source/database QA;
+- build;
+- TypeScript typecheck;
+- Cloudflare dry-run.
+
+### Post-merge main run #216 — PASS
+
+Executed on exact `main` SHA `51f83eebc4794269e753d0b96f20a02905bf7798`.
+
+PASS:
+
+- WU4 source QA;
+- WU4 ephemeral migration/behavior/rollback QA;
+- all inherited P9–P16-WU3 QA;
+- build;
+- typecheck;
+- Cloudflare dry-run.
+
+The Cloudflare step was dry-run only; no Worker upload/deploy occurred.
+
+## 19. PRODUCTION ADVISOR BASELINE
+
+Captured read-only before any WU4 DDL.
+
+### Security Advisor
+
+No WU4 object exists yet, so there can be no WU4-created security lint at this baseline.
+
+One pre-existing warning remains:
+
+- `auth_leaked_password_protection` disabled.
+
+Reference:
+
+https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
+
+### Performance Advisor
+
+Existing pre-WU4 performance items remain, including legacy unindexed foreign keys, several older RLS initialization-plan warnings and unused indexes.
+
+Because WU4 objects do not yet exist in production, any new WU4-specific advisor item after migration can be identified against this baseline.
+
+Reference:
+
+https://supabase.com/docs/guides/database/database-linter
+
+## 20. PRODUCTION MUTATION GATE
+
+No P16-WU4 DDL has been applied to canonical Supabase at source/architecture closeout.
+
+Migration:
+
+`0046_p16_wu4_journey_presence_shared_experience_graph.sql`
+
+requires an explicit Owner production gate.
+
+Controlled production sequence after approval:
+
+1. re-confirm current baseline immediately before migration;
+2. fetch exact migration from canonical `main`;
+3. apply migration 0046 through Supabase migration tooling;
+4. verify both new tables exist with RLS enabled;
+5. verify anonymous access is denied;
+6. verify authenticated edge privilege remains SELECT-only;
+7. verify consent remains owner-controlled and evidence-gated;
+8. verify real 2026-09-11 Journey creates zero edges while attendance is unresolved;
+9. verify participant/attendance/Memory/Reflection/Contribution truth is unchanged;
+10. run Security and Performance Advisors again;
+11. keep Shared-Experience Graph UX OFF until production verification PASS and a separate activation decision.
+
+## 21. CLOSEOUT DECISION
+
+- Journey Presence != attendance: **PASS / IMMUTABLE**
+- Journey Presence != shared real-world experience: **PASS / IMMUTABLE**
+- evidence and social consent separated: **PASS**
+- verified-positive-attendance evidence rule: **PASS**
+- mutual relationship visibility consent: **PASS**
+- client-manufactured evidence edges: **REJECTED / TESTED**
+- phantom party guests: **REJECTED / TESTED**
+- block/withdraw/moderation preserve Journey truth: **PASS**
+- attendance correction revokes false current edge: **PASS**
+- continuity after Journey Presence withdrawal: **PASS**
+- source QA: **PASS**
+- ephemeral migration QA: **PASS**
+- rollback QA: **PASS**
+- PR CI: **PASS**
+- post-merge `main` CI: **PASS**
+- Source of Truth merged to `main`: **PASS**
+- production migration 0046: **PENDING OWNER GATE**
+- production graph UX: **OFF**
+
+# P16-WU4 — SOURCE / ARCHITECTURE COMPLETE / PASS
+
+Production foundation remains gated by explicit Owner approval of migration 0046.
+
+After production foundation verification, the next product gate is:
 
 **P16-WU5 — INTERACTION V1: JOURNEY QUESTION / REPLY / APPRECIATION**
 
