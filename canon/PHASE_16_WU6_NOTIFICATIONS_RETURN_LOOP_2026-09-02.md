@@ -2,8 +2,8 @@
 # PHASE 16 / P16-WU6 — NOTIFICATIONS & RETURN LOOP
 
 Date: 2026-09-02
-Status: **SOURCE / ARCHITECTURE COMPLETE / PASS — PRODUCTION MIGRATION PENDING OWNER GATE**
-Production database mutation in WU6: **NONE**
+Status: **COMPLETE / PASS — SOURCE, ARCHITECTURE & PRODUCTION DATABASE FOUNDATION**
+Production database mutation in WU6: **CONTROLLED / VERIFIED PASS**
 Social notification UX: **OFF**
 Social email / push delivery: **OFF / NOT IMPLEMENTED IN WU6 v1**
 Cloudflare Worker deploy in WU6: **NONE**
@@ -119,7 +119,7 @@ Authenticated client privileges are intentionally narrow.
 `social_notification_preferences`:
 
 - SELECT / INSERT / UPDATE for the owning identity
-- no DELETE requirement in v1
+- DELETE: no requirement in v1
 
 The client cannot alter notification actor, recipient, Journey, source, dedupe key or lifecycle state.
 
@@ -136,18 +136,6 @@ WU6 withdraws notification projections when their source becomes socially unavai
 
 This affects only the notification/social projection. It never changes Journey attendance, evidence, Memory or other operational history.
 
-## WU5 performance follow-up
-
-WU5 production verification found one new Performance Advisor INFO:
-
-`private.journey_interaction_moderation_events.interaction_id` lacked a covering index.
-
-WU6 source migration 0049 carries the narrow covering index:
-
-`journey_interaction_moderation_events_interaction_idx`
-
-This is source-only in WU6 and is not yet applied to production.
-
 ## Activation gate
 
 Environment flag:
@@ -163,7 +151,7 @@ Therefore effective activation requires the already fail-closed chain:
 3. Journey Interaction v1 enabled
 4. Social Notifications v1 enabled
 
-Production remains OFF.
+Production Social Notifications UX remains **OFF**. No Cloudflare Worker deployment occurred during the WU6 production database migration sequence.
 
 ## UI / bilingual experience
 
@@ -187,9 +175,19 @@ The screen deliberately does not provide a global notification count/bell as an 
 
 VI/EN copy explicitly states that notifications do not prove attendance, shared real-world experience, Memory, Contribution, relationship or impact, and that social email/push is not enabled in WU6 v1.
 
-## Source migrations
+## Canonical source / merge evidence
 
-Canonical product `main` contains:
+Product production branch: `main`
+
+WU6 product main SHA:
+
+`7e83f9f71ec3787fd94f578542fb7356350a3e68`
+
+Main tree SHA:
+
+`be8843af522f2968c770210b5816a0bd211c021e`
+
+Canonical source migrations:
 
 - `db/migrations/0049_p16_wu6_social_notifications_return_loop.sql`
   - blob SHA: `310f5a0b4fcb62a481012d759651096a544fbd50`
@@ -200,10 +198,6 @@ Associated rollback artifacts:
 
 - `db/rollbacks/p16_wu6_social_notifications_return_loop.sql`
 - `db/rollbacks/p16_wu6_notification_lifecycle_hardening.sql`
-
-**Neither 0049 nor 0050 has been applied to production at this source closeout stage.**
-
-## Source branch / PR / merge
 
 Feature branch:
 
@@ -219,13 +213,7 @@ Final PR head:
 
 PR CI #225 / workflow run `33639587063`: **SUCCESS**
 
-PR #55 squash-merged to product `main` as:
-
-`7e83f9f71ec3787fd94f578542fb7356350a3e68`
-
-Main tree SHA:
-
-`be8843af522f2968c770210b5816a0bd211c021e`
+PR #55 squash-merged to product `main` as the SHA above.
 
 Post-merge main CI #226 / workflow run `33639812252`: **SUCCESS** on exact merged SHA.
 
@@ -241,7 +229,7 @@ Passed gates include:
 
 No CI step connects to canonical Supabase production.
 
-## WU6 database QA evidence
+## WU6 source QA evidence
 
 Ephemeral PostgreSQL 17 QA verifies:
 
@@ -262,41 +250,235 @@ Ephemeral PostgreSQL 17 QA verifies:
 - WU6 rollback removes WU6 notification foundation while preserving WU5 interaction foundation
 - paired rollback can then remove WU5 cleanly
 
-## QA findings corrected before closeout
+### Source QA corrections before merge
 
-### 1. Source-QA brittleness
+1. CI #223 failed before DB QA because a source assertion depended on exact comment formatting. The assertion was rewritten to verify the actual dedupe/lifecycle contract.
+2. Source review found that privileged lifecycle synchronization must stay separate from browser mark-as-read mutation and that Reply validity must depend on the parent Question remaining active. Migration 0050 hardens both cases.
+3. CI #224 passed WU6 behavior then failed only during rollback due dependency order. Rollback was corrected to remove external triggers, then WU6 tables/policies, then helpers, then the carried performance index. No `CASCADE` is used.
+4. CI #225 then passed the full migration / behavior / rollback gate.
 
-CI #223 failed before database QA because one source assertion depended on an exact comment line wrap.
+# PRODUCTION DATABASE VERIFICATION
 
-Correction:
+## Owner approval
 
-The assertion was rewritten to verify the actual dedupe/lifecycle contract instead of comment formatting.
+Owner explicitly approved:
 
-### 2. Lifecycle hardening
+> APPROVE P16-WU6 DIRECT PRODUCTION MIGRATION — apply 0049/0050 under controlled QA, preserve all Journey truth, keep Social Notifications v1 UX OFF and keep social email/push OFF until production verification PASS.
 
-Source review identified two important lifecycle cases before final CI:
+## Preflight production truth
 
-- privileged internal notification lifecycle updates had to stay distinct from browser mark-as-read updates
-- Reply notification validity must depend on the parent Question remaining active
+Production Supabase project:
 
-Migration 0050 hardens both cases without loosening client RLS or grants.
+`iwiqprhoohkxvjyxojto`
 
-### 3. Rollback dependency order
+Before WU6 mutation, the production migration ledger already contained WU5 dependencies:
 
-CI #224 passed all WU6 behavior tests, then failed only during rollback because `tnc_can_view_social_notification()` was dropped before RLS policies that depended on it.
+- `20260902124423` — `0047_p16_wu5_journey_interaction_v1`
+- `20260902124444` — `0048_p16_wu5_interaction_moderation_actor_privacy`
 
-Correction:
+WU6 tables did not yet exist.
 
-Rollback now uses dependency-safe ordering:
+Pre-migration social baseline:
 
-1. remove external source-table triggers
-2. drop WU6 tables, which removes table-owned policies/triggers
-3. drop WU6 helper functions
-4. drop the carried performance index
+- social identities: 0
+- Journey social presences: 0
+- relationship consents: 0
+- shared-experience edges: 0
+- Journey interactions: 0
+- Appreciations: 0
 
-No `CASCADE` is used.
+Pilot Journey:
 
-CI #225 then passed the complete migration / behavior / rollback gate.
+`19539f36-3ed4-4a22-96b9-c8a9b73c5283`
+
+Pre-migration pilot truth:
+
+- participants: 1
+- attendance unresolved: 1
+- verified no-show: 0
+- verified attended: 0
+- Reflections: 0
+- Reflection publications: 0
+- Contributions: 0
+
+No WU6 migration was allowed to reinterpret any of these facts.
+
+## Production migration execution
+
+The exact canonical source migrations from product `main` were applied in order:
+
+1. `20260902141428` — `0049_p16_wu6_social_notifications_return_loop`
+2. `20260902141453` — `0050_p16_wu6_notification_lifecycle_hardening`
+
+Both controlled production migration operations returned success.
+
+## Final production RLS and grants
+
+Both WU6 public tables have RLS enabled.
+
+### `public.social_notification_preferences`
+
+Anon:
+
+- SELECT: false
+- INSERT: false
+- UPDATE: false
+- DELETE: false
+
+Authenticated:
+
+- SELECT: true
+- INSERT: true
+- UPDATE: true
+- DELETE: false
+
+Verified policies:
+
+- `Social notification preferences own insert`
+- `Social notification preferences own read`
+- `Social notification preferences own update`
+
+Ownership is governed through `private.tnc_social_identity_owned(...)`. UPDATE has both `USING` and `WITH CHECK`.
+
+### `public.social_notifications`
+
+Anon:
+
+- SELECT: false
+- INSERT: false
+- UPDATE: false
+- DELETE: false
+
+Authenticated:
+
+- SELECT: true
+- INSERT: false
+- UPDATE: true
+- DELETE: false
+
+Verified policies:
+
+- `Social notifications recipient read`
+- `Social notifications recipient update`
+
+Both use `private.tnc_can_view_social_notification(id)`. UPDATE has both `USING` and `WITH CHECK`.
+
+Browser clients therefore cannot manufacture or hard-delete notification records.
+
+## Production helper security
+
+WU6 private helper functions were verified with owner `postgres` and explicit empty `search_path`.
+
+Final direct-execute boundary:
+
+- `tnc_can_view_social_notification(uuid)` — SECURITY DEFINER; authenticated execute allowed; anon denied
+- `tnc_guard_social_notification_preference()` — SECURITY INVOKER; no direct anon/auth execute
+- `tnc_guard_social_notification_read()` — SECURITY INVOKER; no direct anon/auth execute
+- `tnc_project_reply_notification()` — SECURITY DEFINER; no direct anon/auth execute
+- `tnc_project_appreciation_notification()` — SECURITY DEFINER; no direct anon/auth execute
+- `tnc_social_notification_category_enabled(uuid,text)` — SECURITY DEFINER; no direct anon/auth execute
+- `tnc_sync_notification_source_state()` — SECURITY DEFINER; no direct anon/auth execute
+
+This preserves the distinction between recipient read-state mutation and server-owned projection lifecycle.
+
+## Production triggers
+
+Direct PostgreSQL catalog verification confirms the following WU6 triggers exist and are enabled:
+
+- `journey_interactions_reply_notification`
+- `journey_appreciations_notification`
+- `journey_interactions_notification_state_sync`
+- `social_notification_preferences_guard`
+- `social_notifications_read_guard`
+
+A prior `information_schema.triggers` query returned no rows because of metadata visibility behavior; direct `pg_trigger` verification is the canonical evidence and confirmed all five triggers.
+
+## Production indexes
+
+Verified WU6 indexes include:
+
+- `social_notifications_recipient_created_idx`
+- `social_notifications_actor_journey_idx`
+- `social_notifications_source_interaction_idx`
+- `social_notifications_source_appreciation_idx`
+- unique dedupe-key index
+
+WU6 also applied the WU5 performance follow-up index:
+
+`private.journey_interaction_moderation_events_interaction_idx`
+
+The previous WU5 Performance Advisor finding for the moderation-event foreign key is therefore resolved.
+
+## Zero-fabrication / Truth Ledger verification after migration
+
+Immediately after 0049 + 0050:
+
+- notification preferences: 0
+- social notifications: 0
+- social identities: 0
+- Journey social presences: 0
+- relationship consents: 0
+- shared-experience edges: 0
+- Journey interactions: 0
+- Appreciations: 0
+
+Pilot Journey remained exactly:
+
+- participants: 1
+- attendance unresolved: 1
+- verified no-show: 0
+- verified attended: 0
+- Reflections: 0
+- Reflection publications: 0
+- Contributions: 0
+
+Therefore WU6 database activation did not fabricate social activity, attendance, real-world evidence, Memory, relationship proof, Contribution or impact.
+
+## Security Advisor after production migration
+
+No WU6-created Security Advisor finding was introduced.
+
+The only Security Advisor warning remains the pre-existing project-level Auth warning:
+
+`auth_leaked_password_protection` — Leaked Password Protection Disabled.
+
+That setting is outside WU6 scope and was not silently changed.
+
+## Performance Advisor after production migration
+
+The prior WU5-specific unindexed foreign-key finding on:
+
+`private.journey_interaction_moderation_events.interaction_id`
+
+is resolved by 0049.
+
+Post-WU6 Performance Advisor reports one new WU6-specific non-blocking INFO:
+
+`public.social_notifications.journey_id` has no standalone covering index for its foreign key.
+
+The existing composite `social_notifications_actor_journey_idx(actor_social_identity_id, journey_id, ...)` does not satisfy the advisor because `journey_id` is not its leading column.
+
+This is a **performance INFO**, not a correctness, privacy or security failure. No production migration 0051 was created or applied because Owner authorization covered 0049/0050 only.
+
+WU6 indexes are also reported as unused while the tables contain zero rows and the feature remains OFF; that is expected at this release stage and is not a removal signal.
+
+Recommended future handling before or with activation:
+
+- add a narrow source migration for a standalone `social_notifications(journey_id)` index;
+- run source/ephemeral DB QA and CI;
+- apply it only under a separate production approval.
+
+## Production release boundary after verification
+
+After successful database verification:
+
+- Social Notifications v1 UX: **OFF**
+- `VITE_APP_SOCIAL_NOTIFICATIONS_V1_ENABLED`: not activated by this migration sequence
+- social email delivery: **OFF / not implemented in WU6 v1**
+- social push delivery: **OFF / not implemented in WU6 v1**
+- Cloudflare Worker deploy: **NONE**
+
+Production currently contains only the verified database foundation. No public or private social notification experience has been activated by this closeout.
 
 ## Truth-boundary conclusion
 
@@ -310,37 +492,17 @@ Canonical:
 >
 > Notification activity != attendance, shared experience, Memory, relationship proof, Contribution or impact.
 
-The Return Loop is therefore intentionally social and navigational, not evidentiary.
+The Return Loop is intentionally social and navigational, not evidentiary.
 
-## Source / architecture closeout
+## Final closeout
 
 P16-WU6 is now:
 
-**SOURCE / ARCHITECTURE COMPLETE / PASS**
+**COMPLETE / PASS — SOURCE, ARCHITECTURE & PRODUCTION DATABASE FOUNDATION**
 
-Production remains unchanged by WU6.
+The production database foundation is verified. UX activation and any external social delivery remain separate future decisions.
 
-## Remaining production gate
-
-Before production foundation can be declared complete:
-
-1. Owner separately approves production migrations 0049 + 0050
-2. verify current production `main` and exact migration blobs
-3. re-confirm production migration ledger and Truth Ledger immediately before DDL
-4. apply exact 0049 followed by 0050
-5. verify RLS, grants, policies, triggers, helper ACLs and WU5 performance index
-6. verify zero notifications/preferences are fabricated automatically
-7. verify Journey truth counts remain unchanged
-8. rerun Security and Performance Advisors
-9. keep Social Notification UX OFF
-10. do not activate social email/push
-11. no Worker deployment unless separately approved
-
-## Recommended production gate wording
-
-> APPROVE P16-WU6 DIRECT PRODUCTION MIGRATION — apply 0049/0050 under controlled QA, preserve all Journey truth, keep Social Notifications v1 UX OFF and keep social email/push OFF until production verification PASS.
-
-## Next product work after production foundation
+## Next product work
 
 P16-WU7 — Memory / Reflection / Contribution Social Continuity.
 
