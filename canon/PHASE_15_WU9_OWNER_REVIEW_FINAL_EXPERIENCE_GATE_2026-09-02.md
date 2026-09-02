@@ -7,282 +7,239 @@ Date: 2026-09-02
 
 **TECHNICAL FINAL GATE: PASS**
 
-**OWNER EXPERIENCE REVIEW: OPEN / PENDING OWNER DECISION**
+**PRODUCTION PARITY / ACTIVATION: PASS — PLATFORM DEPLOYMENT VERIFIED**
+
+**OWNER VISUAL EXPERIENCE REVIEW: OPEN / PENDING OWNER DECISION**
 
 **PHASE 15 FINAL CLOSEOUT: NOT YET DECLARED**
 
-- Product production activation: **NOT VERIFIED / NOT DECLARED**
+- Product `main`: `d9a67f58ef25f650fe2e378683b6d92fb36a0137`
+- Production Worker `tramnucuoi`: version `b2098e23-71af-402d-90ec-6b2762e107f5`
+- Staging Worker `tramnucuoi-staging`: version `0f8a498c-1d0a-4fbb-839e-613fdd5af646`
 - Real populated post-Journey verification: **DEFERRED / PENDING REAL 2026-09-11 EVIDENCE**
 - P14-WU5 real-pilot operational verification: **REMAINS OPEN**
 
-WU9 is a governance and experience-acceptance gate. It does not add a new product feature, mutate Supabase, fabricate post-Journey evidence, or automatically approve the Owner's visual/product judgement.
+WU9 remains an experience-acceptance gate. It does not fabricate post-Journey evidence and it does not auto-approve the Owner's qualitative judgement.
 
-## CANONICAL BASELINE
-
-### Product
+## CANONICAL PRODUCT BASELINE
 
 Repository: `huynhtranhuythinh/tramnucuoi`
 
 Current `main`:
 
-`a430b5d1cfac54d839e0fada354c0c96dc8ad00e`
+`d9a67f58ef25f650fe2e378683b6d92fb36a0137`
 
-This is the P15-WU8 merged main SHA.
+This revision includes P15-WU1 through P15-WU8 plus the WU9 English-content canonicalization migration.
 
-### Canonical docs
+## ENGLISH CONTENT COMPLETION
 
-Repository: `huynhtranhuythinh/tramnucuoi-docs`
+During WU9 the Owner authorized completion of missing English CMS content from the Vietnamese source.
 
-WU9 base `main`:
+Production source-table audit found that Home/About/Involve/Legal/Journey/Post/Media and other inspected bilingual content already had English values. The only genuine remaining source-table gap was `ecosystem_projects.title_en` for four proper-name projects.
 
-`866d14f911c3d05181a0214d6992071fbc9724cc`
+The correct English treatment preserves the proper names:
 
-## TECHNICAL FINAL GATE EVIDENCE
+- `Trúc Sào Xin Chào`
+- `Làng Rong Chơi`
+- `Trạm Nông Sản`
+- `Wander Bamboo`
 
-P15-WU8 already acts as the cross-surface deterministic integration gate for the complete Phase 15 experience.
+Production migration:
 
-Final PR-head CI:
+`20260902021005_p15_wu9_fill_missing_project_english_titles`
 
-- CI #203
-- Run ID: `33580549813`
-- Head: `c57b8e9994e6c5fd11151d1012ada29bfbffa552`
-- Result: **PASS**
+The migration was applied to Supabase production and re-verified. It was then canonicalized in the product repository via PR #50.
 
-Post-main CI:
+No schema, RLS, auth, attendance, Memory, Reflection, Contribution or relationship semantics were changed.
 
-- CI #204
-- Run ID: `33580664232`
-- Main SHA: `a430b5d1cfac54d839e0fada354c0c96dc8ad00e`
-- Result: **PASS**
+## SOURCE / CI FINAL GATE
 
-Confirmed on `main`:
+### PR-head gate
 
-- P9/P10/P13/P14 retained source gates PASS;
-- P15-WU1A through P15-WU8 source/integration QA PASS;
-- retained ephemeral database gates P9/P11/P12/P14 PASS;
+PR #50 head:
+
+`e3cdd22c220f209c78ca3d398f9c6e7e3e8d23af`
+
+CI #205 / Run `33582989567`: **PASS**.
+
+Confirmed:
+
+- retained P9/P10/P13/P14 source gates PASS;
+- P15-WU1A through P15-WU8 QA PASS;
+- retained ephemeral DB gates PASS;
 - build PASS;
 - typecheck PASS;
-- Cloudflare configuration **dry-run only** PASS.
+- Cloudflare configuration dry-run PASS.
 
-The repository CI explicitly states that its Cloudflare command is a configuration dry-run and performs no Worker upload or production deployment.
+### Post-main gate
 
-## PHASE 15 EXPERIENCE DELIVERED FOR OWNER REVIEW
+PR #50 merged by squash to:
 
-### 1. Public Story World
+`d9a67f58ef25f650fe2e378683b6d92fb36a0137`
 
-P15-WU3 elevated Home, About, Ecosystem and Project detail toward the canonical documentary/editorial language:
+CI #206 / Run `33587908887`: **PASS**.
 
-- story-first hierarchy;
-- documentary evidence as content;
-- calmer international social-impact credibility;
-- less SaaS/card-dashboard language;
-- no invented evidence.
+The GitHub `verify` check completed successfully against the merged `main` revision.
 
-### 2. My TNC
+## PRODUCTION PARITY / ACTIVATION EVIDENCE
 
-P15-WU4 reframed My TNC as a private relationship archive rather than an account dashboard.
+The repository is connected to the official **Cloudflare Workers and Pages GitHub App**. The integration automatically builds/deploys Workers on pushes/merges and reports deployments as GitHub check runs.
 
-Canonical idea:
+For product main `d9a67f58ef25f650fe2e378683b6d92fb36a0137`, GitHub recorded three successful checks:
 
-**VI:** `Những lần tôi và Trạm đã gặp nhau.`
+1. `verify` — GitHub Actions — PASS.
+2. `Workers Builds: tramnucuoi-staging` — Cloudflare — PASS.
+3. `Workers Builds: tramnucuoi` — Cloudflare — PASS.
 
-**EN:** `The times Trạm and I have met.`
+### Production
 
-The experience preserves:
+Worker:
 
-- account != participant;
-- account != attendance;
-- registration != attendance;
-- private own-user data boundaries;
-- quiet legitimate empty states.
+`tramnucuoi`
 
-### 3. One Journey, one lifecycle
+Cloudflare Build ID:
 
-P15-WU5 established the coherent lifecycle:
+`7ef4a0d8-8848-4682-9989-1efb06366052`
 
-**BEFORE**
+Version ID:
 
-Discover → trust → understand → register → confirmation → prepare.
+`b2098e23-71af-402d-90ec-6b2762e107f5`
 
-**DURING**
+Result: **SUCCESS**.
 
-Participate → experience → documentary context.
+### Staging / final-preview
 
-**AFTER**
+Worker:
 
-Attendance truth → Memory → Reflection → Contribution → relationship continuity.
+`tramnucuoi-staging`
 
-Date-derived presentation uses the Vietnam calendar authority `Asia/Ho_Chi_Minh`, while explicit attendance truth outranks date-derived lifecycle presentation.
+Cloudflare Build ID:
 
-### 4. Living Community
+`ffeec131-dd22-454e-8bb6-dbe01e65eca4`
 
-P15-WU6 inverted the previous Community IA so public Community comes first and private My TNC becomes the authenticated continuation.
+Version ID:
 
-Canonical public language:
+`0f8a498c-1d0a-4fbb-839e-613fdd5af646`
 
-**VI:** `Cộng đồng hiện ra qua những lần chúng ta cùng đi.`
+Preview URL:
 
-**EN:** `Community becomes visible in the times we journey together.`
+`https://0f8a498c-tramnucuoi-staging.huynhtranhuythinh.workers.dev`
 
-No member directory, leaderboard, points, badges, social feed or vanity activity volume was introduced.
+Main preview alias:
 
-### 5. Post-Journey continuity
+`https://main-tramnucuoi-staging.huynhtranhuythinh.workers.dev`
 
-P15-WU7 aligned Memory, Reflection, Contribution and sourced relationship continuity.
+Result: **SUCCESS**.
 
-Presentation-side evidence-backed Memory requires all three:
+Therefore the earlier WU9 assumption that Cloudflare had only a dry-run path was incomplete: repository CI itself is dry-run-only, but the separate Cloudflare GitHub App performs real Worker deployments.
 
-- `attendance_state === attended`;
-- positive observed `attended_party_size`;
-- canonical `memory_eligible` truth.
+**PRODUCTION PARITY / ACTIVATION GATE = PASS at the deployment-platform level.**
 
-Reflection authoring requires:
+## HTTP / BROWSER RUNTIME BOUNDARY
 
-- completed Journey;
-- evidence-backed Memory.
+The available CTO execution environment could not resolve either `tramnucuoi.com` or `workers.dev` through its DNS path, so it could not independently perform a fresh HTTP route smoke test after deployment.
 
-Reflection submission remains distinct from public publication.
+This is an execution-environment limitation, not a failed Cloudflare deployment signal. The Cloudflare deployment checks for both production and staging are successful and tied to the exact final product SHA.
 
-### 6. Bilingual and mobile integration
-
-P15-WU8 closed concrete cross-surface defects:
-
-- locale-aware global error recovery;
-- bilingual Community sitemap coverage;
-- 44×44 mobile menu/language touch targets;
-- VI/EN route and authored state parity;
-- public/private boundary regression checks;
-- mobile overflow/reduced-motion/responsive editorial contracts.
-
-English CMS fallback remains explicitly temporary and detectable through translation-debt status helpers; WU8 did not fabricate English copy where authored content is missing.
-
-## OWNER REVIEW CHECKLIST
-
-The Owner review is intentionally human and qualitative. The following is the required final experience checklist.
-
-### A. Brand and emotional quality
-
-Owner verifies that the site now feels like:
-
-- the digital home of a living social ecosystem;
-- documentary/editorial rather than charity-template or SaaS;
-- calm, premium, human and trustworthy;
-- emotionally warm without becoming sentimental or promotional-heavy.
-
-### B. Public story flow
-
-Review Home → About → Ecosystem → Project → Journey → Community and confirm:
-
-- hierarchy is understandable without technical context;
-- story leads, system status follows;
-- photography/documentary language feels intentional;
-- public Community feels like presence and shared Journeys, not a social network.
-
-### C. My TNC
-
-Review signed-out and signed-in states and confirm:
-
-- My TNC feels personal rather than administrative;
-- private history is understandable;
-- empty states feel legitimate rather than broken;
-- system truth is communicated without exposing database language.
-
-### D. Journey lifecycle
-
-Review at least one Journey across current BEFORE/DURING/AFTER presentation states and confirm:
-
-- registration is never mistaken for attendance;
-- unresolved attendance remains visibly unresolved;
-- verified no-show remains distinct;
-- Memory and Reflection do not appear prematurely.
-
-### E. English experience
-
-Review English public pages, Community and account/Journey states and confirm:
-
-- English feels authored rather than machine-literal;
-- no critical user journey unexpectedly falls back into Vietnamese without being noticed;
-- any CMS English gaps identified by translation-debt detectors are treated as editorial work, not fabricated translations.
-
-### F. Mobile
-
-Review representative widths around 320 / 360 / 390 / 430 px and confirm:
-
-- no horizontal overflow;
-- typography remains editorial and readable;
-- menu and language controls are comfortable to tap;
-- CTA wrapping remains calm;
-- sections feel deliberately composed for mobile rather than desktop blocks stacked vertically.
-
-## RUNTIME / PRODUCTION GATE
-
-The repository currently contains explicit production deploy scripts, including:
-
-- `cf:prod:deploy`
-- `cf:p14-wu2:activate:deploy`
-
-However the canonical CI workflow executes only `cf:dry-run` and explicitly states that it does not upload or deploy a Worker.
-
-Therefore WU9 must not infer that `tramnucuoi.com` is currently running product main `a430b5d1cfac54d839e0fada354c0c96dc8ad00e`.
-
-During this WU9 review attempt, the available runtime fetch environment could not resolve `tramnucuoi.com`, so no fresh independent production-runtime evidence was obtained.
-
-Consequently:
-
-**PRODUCTION EXPERIENCE GATE = UNVERIFIED**
-
-This is not a source/CI failure. It is a missing runtime/deployment proof boundary.
+Accordingly, browser rendering and interaction now move to the Owner visual review gate using the live production domain and/or the Cloudflare final-preview alias.
 
 ## LOVABLE PREVIEW BOUNDARY
 
-The canonical Lovable project remains:
+Lovable is not accepted as the final P15 review surface.
+
+Canonical Lovable project:
 
 `743468e9-ff94-40ee-9611-4cef7ce5b47f`
 
-Lovable reports its latest project edit/screenshot from 2026-08-31, while canonical GitHub product `main` advanced through P15-WU8 on 2026-09-02.
+Lovable edit history remains at older 2026-08-31 revisions and does not expose the WU9 migration on `main`. Therefore its preview may lag canonical GitHub source.
 
-Therefore Lovable's current published/preview snapshot is not accepted as proof that the final P15 source is being rendered. GitHub/source and CI remain the canonical technical truth until preview/runtime parity is explicitly proven.
+GitHub `main` + Cloudflare production/staging deployments are the final review source of truth.
+
+## EXPERIENCE DELIVERED FOR OWNER REVIEW
+
+### Public Story World
+
+Home, About, Ecosystem and Project detail use the Phase 15 documentary/editorial language: story-first hierarchy, calmer international social-impact credibility, documentary evidence as content, and no invented evidence.
+
+### My TNC
+
+My TNC is framed as a private relationship archive rather than an account dashboard.
+
+VI: **Những lần tôi và Trạm đã gặp nhau.**
+
+EN: **The times Trạm and I have met.**
+
+Account, registration and attendance remain distinct truths.
+
+### One Journey, one lifecycle
+
+BEFORE: discover → trust → understand → register → confirmation → prepare.
+
+DURING: participate → experience → documentary context.
+
+AFTER: attendance truth → Memory → Reflection → Contribution → relationship continuity.
+
+Explicit attendance truth outranks date-derived presentation.
+
+### Living Community
+
+Public Community comes first and private My TNC is the authenticated continuation.
+
+VI: **Cộng đồng hiện ra qua những lần chúng ta cùng đi.**
+
+EN: **Community becomes visible in the times we journey together.**
+
+No member directory, social feed, leaderboard, points or badges were introduced.
+
+### Post-Journey continuity
+
+Evidence-backed Memory requires attended truth, positive observed party size and canonical Memory eligibility.
+
+Reflection authoring requires a completed Journey plus evidence-backed Memory.
+
+No real 2026-09-11 post-Journey evidence is fabricated or claimed here.
+
+### Bilingual / mobile integration
+
+P15-WU8 locked VI/EN route parity, locale-aware recovery, Community sitemap coverage, public/private boundaries, 44×44 touch targets, responsive editorial utilities and reduced-motion behavior.
+
+WU9 removed the remaining known source-table English title debt.
+
+## OWNER VISUAL REVIEW CHECKLIST
+
+The Owner should now review the final production/staging rendering and decide qualitatively on these six areas:
+
+1. **Brand / emotion** — premium, human, calm, documentary/editorial; not NGO-template or SaaS.
+2. **Public story flow** — Home → About → Ecosystem → Project → Journey → Community feels coherent and story-led.
+3. **Journey lifecycle** — registration does not imply attendance; BEFORE/DURING/AFTER feels like one living Journey.
+4. **Community + My TNC** — public Community feels like shared presence, while My TNC feels like a private relationship archive rather than a dashboard.
+5. **English** — reads naturally for foundations, NGOs, donors and international visitors; no obvious Vietnamese fallback remains in the reviewed critical journey.
+6. **Mobile** — deliberate composition, readable typography, comfortable controls, no horizontal overflow or desktop-stacking feel.
+
+For post-Journey Memory/Reflection surfaces, the Owner reviews wording and empty/evidence-gated states only. Populated real-world behavior remains subject to P14-WU5 after the 2026-09-11 Journey.
 
 ## FINAL DECISION MODEL
-
-WU9 has three separate decisions:
 
 ### Gate 1 — Technical source/integration
 
 **PASS**
 
-Evidence: product main + CI #203/#204.
+### Gate 2 — Production parity / activation
 
-### Gate 2 — Owner qualitative experience acceptance
+**PASS — Cloudflare deployment tied to final product SHA**
 
-**PENDING OWNER DECISION**
+### Gate 3 — Owner qualitative experience acceptance
 
-This cannot be auto-approved by the CTO because it is the Owner's brand/product judgement.
-
-### Gate 3 — Production runtime parity
-
-**UNVERIFIED**
-
-No claim is made that production currently matches P15 main.
+**OPEN / PENDING OWNER DECISION**
 
 ## PHASE 15 CLOSEOUT RULE
 
-Phase 15 may be declared **COMPLETE / PASS** only when:
+Phase 15 may be declared **COMPLETE / PASS** when the Owner explicitly approves the final rendered experience.
 
-1. Technical final gate remains PASS;
-2. Owner explicitly accepts the final experience;
-3. the reviewed runtime/preview is proven to correspond to the intended final P15 source revision, or production activation is deliberately deferred with that boundary explicitly accepted.
-
-The real 2026-09-11 Journey evidence remains independent. It does not invalidate Phase 15 source design completion, but P14-WU5 and populated post-Journey operational verification remain open until real attendance and downstream evidence exist.
+The separate P14-WU5 real-pilot gate remains open until real 2026-09-11 attendance and downstream evidence exist; that does not require fabrication and does not invalidate Phase 15 experience completion.
 
 ## CURRENT WU9 DECLARATION
 
-**P15-WU9 = TECHNICAL GATE PASS / OWNER REVIEW OPEN**
+**P15-WU9 = TECHNICAL PASS / PRODUCTION PARITY PASS / OWNER VISUAL REVIEW OPEN**
 
-No product source mutation was required in WU9.
-
-No Supabase mutation was performed.
-
-No Cloudflare production deployment was performed.
-
-No attendance, Memory, Reflection, Contribution or relationship evidence was fabricated.
+No attendance, Memory, Reflection, Contribution or relationship evidence has been fabricated.
