@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU2.1 — LIFECYCLE SCHEMA & SOURCE CONTRACT
 
 Date: 2026-09-22  
-Status: **SOURCE CONTRACT IMPLEMENTED / PR OPEN / CI PENDING**  
+Status: **COMPLETE / PASS — SOURCE & SCHEMA CONTRACT; NO PRODUCTION DDL**  
 Production database mutation: **NONE**  
 Runtime / feature flag mutation: **NONE**  
 Public recruitment: **HOLD**
@@ -213,6 +213,37 @@ Base:
 
 `f78fabb329ab994510f9325ce644a30386b38673`
 
+Pre-merge head:
+
+`2e8a97f7bd7503a450ae5e2b0b008b4f8adfdbae`
+
+Pre-merge evidence:
+
+- generic CI run `35736069369`: **SUCCESS**;
+- dedicated P16-WU10B regression run `35736069423`: **SUCCESS**;
+- P17-WU2.1 source contract QA: PASS;
+- P17-WU2.1 ephemeral PostgreSQL schema contract QA: PASS;
+- all inherited P9–P16 gates: PASS;
+- build: PASS;
+- typecheck: PASS;
+- Cloudflare dry-run: PASS.
+
+PR #67 squash-merged to product `main` as:
+
+`b870525511e346e2f06ed10c0270823c078b7131`
+
+Post-merge main CI:
+
+- workflow: `CI`;
+- run: `35736281689`;
+- event: push;
+- exact head: `b870525511e346e2f06ed10c0270823c078b7131`;
+- conclusion: **SUCCESS**.
+
+Production verification after merge confirmed `public.journeys` still has no
+`lifecycle_phase` or `application_state` columns. Therefore WU2.1 changed no
+production schema or recruitment behavior.
+
 New source contract:
 
 `src/lib/journeys/lifecycle.ts`
@@ -351,3 +382,24 @@ Before any production migration:
 8. Owner approves the production migration sequence.
 
 Public recruitment remains **HOLD**.
+
+
+## 14. Final WU2.1 decision
+
+**P17-WU2.1 — COMPLETE / PASS — SOURCE & SCHEMA CONTRACT; NO PRODUCTION DDL.**
+
+Canonical outcome:
+
+- Journey lifecycle and application window are now separately defined in source;
+- legacy status remains untouched on production;
+- bootstrap is explicitly fail-closed;
+- no date-derived lifecycle truth exists;
+- state-machine rules are CI-enforced;
+- downstream legacy-status couplings are enumerated before cutover;
+- no production migration filename was invented without the Supabase migration workflow.
+
+Next Work Unit:
+
+**P17-WU2.2 — CANONICAL JOURNEY ROUTES & FIELD JOURNAL REDIRECTS**
+
+WU2.2 may change route/source composition but must not apply WU2 lifecycle DDL to production unless a separate production gate is explicitly approved.
