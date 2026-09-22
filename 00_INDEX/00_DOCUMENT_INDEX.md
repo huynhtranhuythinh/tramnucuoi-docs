@@ -286,9 +286,54 @@ Status:
 - Product model: **LOCKED**
 - P16-WU10: **SUSPENDED / PRODUCT REBASE HOLD**
 - Phase 17 direction: **APPROVED AS CANONICAL ROADMAP DIRECTION**
-- Build authorization: **NOT YET GRANTED**
 
 Reading rule:
-- Read this canon before Phase 17 gap audit or implementation.
+- Read this canon before Phase 17 work.
 - Preserve compatible Phase 16 security/privacy/identity invariants.
-- Actual GitHub / Supabase / production truth must be audited in P17-WU1 before code changes.
+- Current GitHub / Supabase / production truth is governed by P17 audit evidence below.
+
+## Phase 17 — Journey Operating System Rebase — OPEN
+
+Canonical chain:
+
+1. `canon/PRODUCT_REASSESSMENT_JOURNEY_OPERATING_MODEL_CANON_2026-09-22.md`
+2. `canon/PHASE_17_WU1_CANONICAL_PRODUCT_MODEL_CURRENT_STATE_GAP_AUDIT_2026-09-22.md`
+3. `canon/PHASE_17_WU2_JOURNEY_LIFECYCLE_INFORMATION_ARCHITECTURE_2026-09-22.md`
+
+### P17-WU1 — Canonical Product Model & Current-State Gap Audit
+
+Status: **COMPLETE / EVIDENCE-BOUNDED**
+
+Important correction:
+- product `main` must be read from the branch ref, not inferred from recent commit search;
+- actual pre-WU2 main was `dc75bf19c15fdf39cf1ad95fdf650b1453ac97f3`;
+- P16-WU10A is an ancestor;
+- WU10B migrations 0052/0053 and rollbacks exist under `database/migrations/`;
+- WU1 correction commit in docs: `145e3420f4a2f9b34c81f77994c43970c030c442`.
+
+### P17-WU2 — Journey Lifecycle & Information Architecture
+
+Status: **OPEN — GATE 0 COMPLETE / PASS**
+
+Gate 0 result:
+- production Supabase TypeScript contract regenerated into source;
+- generic CI now inherits P16-WU10B source + ephemeral DB/Vault QA;
+- P17 source-canonicalization QA added;
+- PR #66 merged;
+- product main baseline after Gate 0:
+  `f78fabb329ab994510f9325ce644a30386b38673`;
+- post-merge main CI run `35733776365`: **SUCCESS**;
+- no production database mutation;
+- no runtime flag change;
+- no Cloudflare deployment;
+- public recruitment remains **HOLD**.
+
+Current WU2 sequence:
+1. WU2.1 Lifecycle schema/source contract
+2. WU2.2 Canonical Journey routes + Field Journal redirects
+3. WU2.3 Journey index/detail composition
+4. WU2.4 Public navigation rebase
+5. WU2.5 Admin lifecycle controls
+6. WU2.6 VI/EN/mobile/regression QA
+
+Production DDL/release remains a separate explicit gate.
