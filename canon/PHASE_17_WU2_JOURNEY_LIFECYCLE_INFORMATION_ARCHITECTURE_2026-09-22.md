@@ -318,10 +318,21 @@ Post-merge main CI:
 Gate 0 therefore closes on the actual production branch source, not only the PR head.
 
 ### WU2.1 — Lifecycle schema/source contract
-- additive, compatibility-first;
-- no destructive legacy status rewrite;
-- application state separated from lifecycle phase;
-- explicit manual transitions.
+Status: **COMPLETE / PASS — SOURCE & SCHEMA CONTRACT; NO PRODUCTION DDL**
+
+Canonical record:
+`canon/PHASE_17_WU2_1_LIFECYCLE_SCHEMA_SOURCE_CONTRACT_2026-09-22.md`
+
+Product evidence:
+- PR #67 merged;
+- product main: `b870525511e346e2f06ed10c0270823c078b7131`;
+- post-merge main CI `35736281689`: **SUCCESS**;
+- lifecycle phase and application state are separately defined;
+- existing-row bootstrap is fail-closed;
+- legacy status remains untouched on production;
+- no date-derived lifecycle transition;
+- no production DDL / feature-flag / runtime mutation.
+
 
 ### WU2.2 — Canonical routes / redirects
 - operational Hành Trình owns VI route;
