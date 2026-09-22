@@ -273,3 +273,22 @@ Phase 15 product-experience work may proceed in parallel, but it does not close 
 - `05_DATABASE_DESIGN/` — Journey database architecture, technical & Supabase plans
 - `06_AUDIT/` — codebase and system audits
 - `07_JOURNEY_MVP/` — Journey MVP spec, operations, engineering, QA/release, implementation
+
+
+## Product Reassessment — Journey Operating Model — CANON LOCKED
+
+Canonical product reference for all future Journey Operating System / Phase 17 implementation work:
+
+1. `canon/PRODUCT_REASSESSMENT_JOURNEY_OPERATING_MODEL_CANON_2026-09-22.md`
+
+Status:
+- Product Review / Reassessment: **COMPLETE**
+- Product model: **LOCKED**
+- P16-WU10: **SUSPENDED / PRODUCT REBASE HOLD**
+- Phase 17 direction: **APPROVED AS CANONICAL ROADMAP DIRECTION**
+- Build authorization: **NOT YET GRANTED**
+
+Reading rule:
+- Read this canon before Phase 17 gap audit or implementation.
+- Preserve compatible Phase 16 security/privacy/identity invariants.
+- Actual GitHub / Supabase / production truth must be audited in P17-WU1 before code changes.
