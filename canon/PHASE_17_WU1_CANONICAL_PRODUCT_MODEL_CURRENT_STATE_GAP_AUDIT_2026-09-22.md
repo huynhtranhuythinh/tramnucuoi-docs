@@ -70,59 +70,53 @@ Current product repository:
 
 `huynhtranhuythinh/tramnucuoi`
 
-Current `main` HEAD at audit time:
+Current `main` HEAD at corrected audit time:
 
-`725303bdc75b0490b8644edb67548e8ba5a4ee76`
+`dc75bf19c15fdf39cf1ad95fdf650b1453ac97f3`
 
 Commit date:
 
-2026-09-16
+2026-09-15
 
-### Critical source-lineage finding
+### Source-lineage correction
 
-The canonical P16-WU10A source closeout recorded product main:
+The initial WU1 audit incorrectly inferred the repository HEAD from a recent-commit search. Direct inspection of `refs/heads/main` shows the actual main head is `dc75bf19…`.
+
+The canonical P16-WU10A source closeout recorded:
 
 `dadff1a2e2ffdaaa5b5a441660133178b9504117`
 
-GitHub comparison against current main reports the histories as **diverged**, with current main:
+GitHub comparison against the actual current main is clean:
 
-- ahead by 97 commits;
-- behind by 289 commits;
-- merge base `03512ac8189ba9cbb77b9a02afcb37d037cc75ee`.
+- status: **ahead**;
+- ahead by 19 commits;
+- behind by 0;
+- merge base = `dadff1a2e2ffdaaa5b5a441660133178b9504117`.
 
-This is not merely cosmetic commit-history debt. The current main contains a mixture of newer P16 source files while also missing production-applied artifacts described below.
+Therefore there is **no P16-WU10A → current-main lineage divergence**.
 
-### Production-applied migration/source drift
+### Production-applied migration/source correction
 
-Current GitHub main contains P16 migrations:
+The initial WU1 audit also searched the wrong migration root for WU10B. Exact production-applied source is present on current main under `database/migrations/`:
 
-- 0042 social identity / consent / safety;
-- 0043 guard hardening;
-- 0044 transition hardening;
-- 0045 production QA;
-- 0046 shared-experience graph;
-- 0047 Journey interactions;
-- 0048 moderation actor privacy;
-- 0049 notifications return loop;
-- 0050 notification lifecycle;
-- 0051 advanced moderation safety.
+- `0052_p16_wu10b_volunteer_application_team_assignment.sql`
+  - blob `e00f49b648cbeae074c01f2b628404536de6dcd6`;
+- `0053_p16_wu10b_full_identity_vault.sql`
+  - blob `94d2e0ec598678bf2733583d9d66db835bd1fe9a`.
 
-Current GitHub main does **not** contain the production-applied migration source files for:
+Matching rollback files and WU10B source/DB QA are also present. P16-WU10B implementation files on current main are byte-identical to the verified HF1 branch artifacts inspected during Gate 0.
 
-- `0052_p16_wu10b_volunteer_application_team_assignment`;
-- `0053_p16_wu10b_full_identity_vault`.
+Therefore current GitHub main **does contain the canonical WU10B migration source needed to reconstruct that production delta**.
 
-Production Supabase has both migrations applied.
+### Generated source / QA inheritance drift
 
-Therefore GitHub main cannot currently reconstruct the full production schema from canonical migration source.
+`src/integrations/supabase/types.ts` on current main is materially stale. It exposes only an early schema subset and omits current Journey/application/social tables present in production.
 
-### Generated source drift
+The committed `src/routeTree.gen.ts` is also stale relative to route source, but this is an expected generated-artifact condition: repository CI explicitly runs `bun run build` before `typecheck` so TanStack Router regenerates the route registry. It is not independently a source-of-truth blocker.
 
-`src/integrations/supabase/types.ts` on current main is materially stale. It only exposes an early schema subset and omits current Journey/application/social tables present in production.
+A real CI inheritance gap remains: WU10B has its own branch-specific workflow and passed there, while generic main CI does not yet rerun WU10B source/DB QA on future main changes.
 
-`src/routeTree.gen.ts` is also inconsistent with current route source: Community route files exist, but the inspected generated route tree does not include the Community routes.
-
-These are source-integrity risks and must be reconciled before Phase 17 schema or routing work.
+Phase 17 Gate 0 should therefore canonicalize generated Supabase types and carry WU10B QA into the inherited main CI gate.
 
 ## 3.3 Production Supabase truth
 
@@ -565,35 +559,33 @@ The rebase is mainly:
 
 # 7. RISK MAP
 
-## R1 — Source-of-truth reconstruction failure — HIGH
+## R1 — Generated schema / inherited QA drift — HIGH
 
-Production DB includes applied migrations absent from GitHub main.
-
-Impact:
-
-- disaster recovery / new environment cannot be reliably reconstructed;
-- future migrations may be authored against incomplete canonical source;
-- rollback/CI evidence becomes ambiguous.
-
-Mitigation:
-
-**WU2 Gate 0: source canonicalization before any schema or route mutation.**
-
-## R2 — Git history divergence — HIGH
-
-Current main diverges from prior canonical P16 main SHAs.
+Canonical WU10B migrations are present on GitHub main, but generated Supabase TypeScript types do not reflect the production schema and generic main CI does not yet inherit the WU10B QA suite.
 
 Impact:
 
-- prior “merged to main” evidence cannot be assumed to be ancestral truth;
-- files may exist by copy/reconciliation rather than canonical history;
-- regression comparison is unreliable.
+- future Phase 17 code may be authored against stale compile-time database contracts;
+- later main changes could regress WU10B privacy/identity behavior without rerunning its dedicated tests;
+- source/database drift becomes harder to detect early.
 
 Mitigation:
 
-reconcile current tree against required P14–P16 artifacts and establish a new Phase 17 baseline SHA.
+**WU2 Gate 0: regenerate production-backed types and carry WU10B source/DB QA into generic CI before lifecycle/schema work.**
 
-Do not attempt history surgery merely for aesthetics; preserve data and current production compatibility first.
+## R2 — HEAD/path verification methodology — CLOSED FINDING
+
+The initial WU1 audit used recent-commit search as a HEAD proxy and searched `db/migrations` instead of the WU10B `database/migrations` root.
+
+Corrected evidence shows:
+
+- actual main = `dc75bf19…`;
+- P16-WU10A is an ancestor;
+- WU10B 0052/0053 source and rollbacks are present.
+
+Mitigation:
+
+Future canonical audits must read the branch ref directly and inspect repository-owned path conventions before declaring source absence.
 
 ## R3 — Lifecycle/public recruitment drift — HIGH
 
@@ -805,15 +797,15 @@ It should not build Event Management, Departments, Donation, Community publishin
 
 Before product mutation:
 
-1. reconcile current main against applied production migrations;
-2. restore canonical migration source for 0052 and 0053 into GitHub;
-3. reconcile the P16 commit-lineage divergence at the tree/artifact level;
-4. regenerate/verify Supabase TypeScript types against production schema;
-5. regenerate/verify TanStack route tree;
+1. verify current `main` directly from `refs/heads/main`;
+2. verify exact 0052/0053 migration and rollback blobs against the WU10B verified branch and production catalog;
+3. regenerate/verify Supabase TypeScript types against production schema;
+4. carry WU10B source and ephemeral DB QA into generic main CI;
+5. rely on the existing build-before-typecheck contract to regenerate TanStack route tree;
 6. establish an exact new Phase 17 baseline SHA;
-7. run existing inherited CI/QA before changing product semantics.
+7. run inherited CI/QA before changing product semantics.
 
-No production DB mutation is required merely to repair repository source truth if exact production-applied migration files can be recovered verbatim.
+No production DB mutation is required for this source-canonicalization gate.
 
 ## WU2.1 — Canonical public route ownership
 
@@ -957,9 +949,9 @@ Phase 17 should:
 
 The highest-priority engineering blocker is:
 
-> **GitHub main is not currently a complete reconstructable source of production truth.**
+> **GitHub main contains the required WU10B migration source, but its generated Supabase type contract and inherited CI coverage are stale.**
 
-This must be repaired before new schema work.
+These must be canonicalized before new Phase 17 schema work.
 
 ## Production operational blocker
 
