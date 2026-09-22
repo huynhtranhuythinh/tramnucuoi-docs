@@ -328,9 +328,18 @@ Gate 0 result:
 - no Cloudflare deployment;
 - public recruitment remains **HOLD**.
 
+WU2.1 canonical record:
+- `canon/PHASE_17_WU2_1_LIFECYCLE_SCHEMA_SOURCE_CONTRACT_2026-09-22.md`
+- status: **COMPLETE / PASS — SOURCE & SCHEMA CONTRACT; NO PRODUCTION DDL**
+- PR #67 merged;
+- product main: `b870525511e346e2f06ed10c0270823c078b7131`;
+- post-merge main CI `35736281689`: **SUCCESS**;
+- production `journeys` still has no `lifecycle_phase` / `application_state`;
+- public recruitment remains **HOLD**.
+
 Current WU2 sequence:
-1. WU2.1 Lifecycle schema/source contract
-2. WU2.2 Canonical Journey routes + Field Journal redirects
+1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
+2. WU2.2 Canonical Journey routes + Field Journal redirects — **NEXT**
 3. WU2.3 Journey index/detail composition
 4. WU2.4 Public navigation rebase
 5. WU2.5 Admin lifecycle controls
