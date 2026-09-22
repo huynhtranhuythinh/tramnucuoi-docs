@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU2 — JOURNEY LIFECYCLE & INFORMATION ARCHITECTURE
 
 Date: 2026-09-22  
-Status: **OPEN — GATE 0 MERGED / POST-MERGE MAIN CI PENDING**  
+Status: **OPEN — GATE 0 COMPLETE / PASS**  
 Owner: Jean Huynh  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when explicitly needed
@@ -303,7 +303,19 @@ Phase 17 must not rely on implicit future Data API grants.
 ## 13. WU2 execution sequence
 
 ### Gate 0 — Source canonicalization
-Status: MERGED; post-main CI verification pending.
+Status: **COMPLETE / PASS**.
+
+Post-merge main:
+`f78fabb329ab994510f9325ce644a30386b38673`
+
+Post-merge main CI:
+- workflow: `CI`
+- run: `35733776365`
+- event: `push`
+- exact head: `f78fabb329ab994510f9325ce644a30386b38673`
+- conclusion: **SUCCESS**
+
+Gate 0 therefore closes on the actual production branch source, not only the PR head.
 
 ### WU2.1 — Lifecycle schema/source contract
 - additive, compatibility-first;
