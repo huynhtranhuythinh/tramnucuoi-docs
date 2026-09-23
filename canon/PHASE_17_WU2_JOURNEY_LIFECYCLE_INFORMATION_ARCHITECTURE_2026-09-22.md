@@ -355,9 +355,23 @@ Product evidence:
 
 
 ### WU2.3 — Journey index/detail composition
-- lifecycle-aware public grouping;
-- correct CTAs from application state;
-- no date-derived truth.
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU2_3_JOURNEY_INDEX_DETAIL_COMPOSITION_2026-09-23.md`
+
+Product evidence:
+- PR #69 merged;
+- product main: `f463302adf98b0d009bbbc1be21e58e4283d129a`;
+- final PR-head generic CI `35806619027`: **SUCCESS**;
+- P16-WU10B regression `35806619166`: **SUCCESS**;
+- post-merge main CI `35806736533`: **SUCCESS**;
+- public index/detail now compose from Phase-17 lifecycle vocabulary;
+- legacy `registration_open` is fail-closed for recruitment presentation;
+- legacy `completed` maps to `closeout_pending`, not Memory;
+- public Impact and Social Continuity are withheld before canonical Memory;
+- no production lifecycle DDL / feature flag / runtime activation.
+
 
 ### WU2.4 — Public navigation rebase
 - Hành Trình becomes primary public participation route;
