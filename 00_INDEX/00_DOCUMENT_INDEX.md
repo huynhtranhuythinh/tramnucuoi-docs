@@ -349,11 +349,22 @@ WU2.2 canonical record:
 - canonical EN Field Journal: `/en/journal/*`;
 - public recruitment remains **HOLD**.
 
+WU2.3 canonical record:
+- `canon/PHASE_17_WU2_3_JOURNEY_INDEX_DETAIL_COMPOSITION_2026-09-23.md`
+- status: **COMPLETE / PASS**
+- PR #69 merged;
+- product main: `f463302adf98b0d009bbbc1be21e58e4283d129a`;
+- post-merge main CI `35806736533`: **SUCCESS**;
+- lifecycle-aware Journey composition is active in source;
+- recruitment presentation remains fail-closed;
+- production lifecycle columns are still unapplied;
+- public recruitment remains **HOLD**.
+
 Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
 2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
-3. WU2.3 Journey index/detail composition — **NEXT**
-4. WU2.4 Public navigation rebase
+3. WU2.3 Journey index/detail composition — **COMPLETE / PASS**
+4. WU2.4 Public navigation rebase — **NEXT**
 5. WU2.5 Admin lifecycle controls
 6. WU2.6 VI/EN/mobile/regression QA
 
