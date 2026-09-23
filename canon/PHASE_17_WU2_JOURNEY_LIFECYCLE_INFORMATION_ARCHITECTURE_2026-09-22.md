@@ -335,10 +335,24 @@ Product evidence:
 
 
 ### WU2.2 — Canonical routes / redirects
-- operational Hành Trình owns VI route;
-- Field Journal moves to Nhật ký;
-- EN operational plural route retained;
-- compatibility redirects/fallback resolver.
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU2_2_CANONICAL_JOURNEY_ROUTES_FIELD_JOURNAL_REDIRECTS_2026-09-23.md`
+
+Product evidence:
+- PR #68 merged;
+- product main: `cb18d0a3a8c030b347f215d9b8df7f7d6be485eb`;
+- final PR-head generic CI `35802506826`: **SUCCESS**;
+- P16-WU10B regression `35802506775`: **SUCCESS**;
+- post-merge main CI `35802626064`: **SUCCESS**;
+- VI operational Journey canonical: `/hanh-trinh/*`;
+- EN operational Journey canonical: `/en/journeys/*`;
+- VI Field Journal canonical: `/nhat-ky/*`;
+- EN Field Journal canonical: `/en/journal/*`;
+- permanent legacy redirects verified;
+- no production DB / feature flag / runtime activation.
+
 
 ### WU2.3 — Journey index/detail composition
 - lifecycle-aware public grouping;
