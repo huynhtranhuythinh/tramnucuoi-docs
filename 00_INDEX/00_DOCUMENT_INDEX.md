@@ -337,10 +337,22 @@ WU2.1 canonical record:
 - production `journeys` still has no `lifecycle_phase` / `application_state`;
 - public recruitment remains **HOLD**.
 
+WU2.2 canonical record:
+- `canon/PHASE_17_WU2_2_CANONICAL_JOURNEY_ROUTES_FIELD_JOURNAL_REDIRECTS_2026-09-23.md`
+- status: **COMPLETE / PASS**
+- PR #68 merged;
+- product main: `cb18d0a3a8c030b347f215d9b8df7f7d6be485eb`;
+- post-merge main CI `35802626064`: **SUCCESS**;
+- canonical VI Journey: `/hanh-trinh/*`;
+- canonical EN Journey: `/en/journeys/*`;
+- canonical VI Field Journal: `/nhat-ky/*`;
+- canonical EN Field Journal: `/en/journal/*`;
+- public recruitment remains **HOLD**.
+
 Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
-2. WU2.2 Canonical Journey routes + Field Journal redirects — **NEXT**
-3. WU2.3 Journey index/detail composition
+2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
+3. WU2.3 Journey index/detail composition — **NEXT**
 4. WU2.4 Public navigation rebase
 5. WU2.5 Admin lifecycle controls
 6. WU2.6 VI/EN/mobile/regression QA
