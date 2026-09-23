@@ -374,8 +374,23 @@ Product evidence:
 
 
 ### WU2.4 — Public navigation rebase
-- Hành Trình becomes primary public participation route;
-- global Community de-emphasized without deleting governed social foundations.
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU2_4_PUBLIC_NAVIGATION_REBASE_2026-09-23.md`
+
+Product evidence:
+- PR #70 merged;
+- product main: `1ed29ff7898a7e03b955a7cf5bde1c930c8540c9`;
+- final PR-head CI `35808307142`: **SUCCESS**;
+- WU10B regression `35808307185`: **SUCCESS**;
+- post-merge main CI `35808410110`: **SUCCESS**;
+- Journey is primary participation navigation;
+- Impact has bilingual public routes;
+- Field Journal is secondary editorial navigation;
+- Community is de-emphasized globally; authenticated My TNC remains governed;
+- no production DB / recruitment activation.
+
 
 ### WU2.5 — Admin lifecycle controls
 - separate phase and application-window controls;
