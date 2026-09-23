@@ -364,8 +364,8 @@ Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
 2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
 3. WU2.3 Journey index/detail composition — **COMPLETE / PASS**
-4. WU2.4 Public navigation rebase — **NEXT**
-5. WU2.5 Admin lifecycle controls
+4. WU2.4 Public navigation rebase — **COMPLETE / PASS**
+5. WU2.5 Admin lifecycle controls — **IN PROGRESS**
 6. WU2.6 VI/EN/mobile/regression QA
 
 Production DDL/release remains a separate explicit gate.
