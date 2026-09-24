@@ -412,10 +412,20 @@ Product evidence:
 
 
 ### WU2.6 — VI/EN / mobile / regression QA
-- reciprocal routes;
-- redirect compatibility;
-- no truth-boundary regression;
-- no recruitment side effect.
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU2_6_BILINGUAL_MOBILE_REGRESSION_QA_2026-09-24.md`
+
+Product evidence:
+- PR #72 merged;
+- product main: `3647bf8e55249dcba5f3d9e8d88ff26065f5d95f`;
+- final PR-head generic CI `35946055673`: **SUCCESS**;
+- WU10B regression `35946055686`: **SUCCESS**;
+- post-merge main CI `35946234628`: **SUCCESS**;
+- VI/EN reciprocal routes, permanent redirects, mobile navigation, lifecycle truth boundaries and fail-closed recruitment are locked;
+- no production DB / recruitment activation.
+
 
 ## 14. Production gate
 
