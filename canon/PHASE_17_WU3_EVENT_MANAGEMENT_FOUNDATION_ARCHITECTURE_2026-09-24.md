@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 / WU3.6 COMPLETE / PASS**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 / WU3.6 / WU3.7 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -577,18 +577,28 @@ Product evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU3.7 — Security / Regression / Mobile Admin QA
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Verify:
+Canonical record:
+`canon/PHASE_17_WU3_7_SECURITY_REGRESSION_MOBILE_ADMIN_QA_2026-09-24.md`
 
-- RLS/grants;
-- no PII leakage;
-- inherited WU2 gates;
-- no attendance/Memory regression;
-- no recruitment activation;
-- responsive Control Center.
+Product / production evidence:
+- PR #84 merged;
+- product main: `5a31cab2378a63bed6e541cbf8dcfe3a4396c208`;
+- exact-head generic CI `36000781333`: **SUCCESS**;
+- dedicated P16-WU10B gate `36000781342`: **SUCCESS**;
+- post-merge main CI `36000958750`: **SUCCESS**;
+- migration `p17_wu3_7_identity_reveal_rpc_hardening` applied production;
+- public identity reveal RPC is now SECURITY INVOKER;
+- privileged Vault decrypt helper moved to non-exposed `private` schema and retains Admin self-authorization;
+- Supabase advisor no longer reports exposed authenticated SECURITY DEFINER RPC;
+- Control Center / Closeout narrow-screen metric layouts hardened;
+- production Event Management tables remain 0/4;
+- non-closed application windows remain 0;
+- recruitment remains HOLD / CLOSED.
 
 ### WU3.Final — Production Foundation Cutover & Canonical Closeout
+Status: **NEXT**
 
 Only after source/ephemeral DB/full CI/security evidence PASS.
 
