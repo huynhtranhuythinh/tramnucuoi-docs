@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 COMPLETE / PASS**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 / WU3.6 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -556,11 +556,28 @@ Product evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU3.6 — Existing Journey Admin Recomposition
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Move/reuse existing Journey tools into the Control Center context without rewriting their truth models.
+Canonical record:
+`canon/PHASE_17_WU3_6_EXISTING_JOURNEY_ADMIN_RECOMPOSITION_2026-09-24.md`
+
+Product evidence:
+- PR #83 merged;
+- product main: `b47033de09b5cb642bc45100d32720e474e0c969`;
+- exact-head generic CI `35997471137`: **SUCCESS**;
+- dedicated P16-WU10B gate `35997471158`: **SUCCESS**;
+- post-merge main CI `35997651998`: **SUCCESS**;
+- `/admin/journeys` is now the Journey Portfolio entry surface;
+- existing Journey tools are recomposed inside the selected Journey Control Center;
+- existing managers/source truth/RLS/business semantics are reused rather than rewritten;
+- People & Applications and Closeout remain Admin-only in the composition layer;
+- WU2 lifecycle/application authority remains canonical and Application OPEN remains protected;
+- Field Update remains distinct from Official Update;
+- production Event Management tables remain unapplied;
+- recruitment remains HOLD / CLOSED.
 
 ### WU3.7 — Security / Regression / Mobile Admin QA
+Status: **NEXT**
 
 Verify:
 
