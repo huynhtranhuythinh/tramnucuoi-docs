@@ -427,17 +427,44 @@ Product evidence:
 - no production DB / recruitment activation.
 
 
-## 14. Production gate
+### WU2.Final — Production lifecycle cutover & closeout
+Status: **COMPLETE / PASS**
 
-No WU2 production DB mutation is authorized merely by this design record.
+Canonical record:
+`canon/PHASE_17_WU2_FINAL_PRODUCTION_LIFECYCLE_CUTOVER_CLOSEOUT_2026-09-24.md`
 
-Required before production migration:
+Final production evidence:
+- PR #75 merged: `f9445a87491a6bad658897a2256ac1a02796e046`;
+- production migration `0054_p17_wu2_final_journey_lifecycle_cutover`: **APPLIED / PASS**;
+- lifecycle/application authority active in production;
+- every production application window bootstrapped and remains `closed`;
+- legacy completed bootstrapped `closeout_pending`, never Memory;
+- cutoff/closeout gates preserved.
 
-1. source migration complete;
-2. ephemeral DB QA;
+Post-cutover defense-in-depth:
+- PR #76 merged: `47bf6591cc1ec170de9aaa0574fd6040e5992a1c`;
+- migration `0055_p17_wu2_final_memory_authority_hardening`: **APPLIED / PASS**;
+- Impact/Reflection DB publication paths require canonical `memory`;
+- public/publication policies using legacy completed: **0**.
+
+Production type reconciliation:
+- PR #77 merged;
+- final product main: `2c37673680450c12742512945f870e2bece6e653`;
+- final post-merge CI `35972476693`: **SUCCESS**.
+
+## 14. Production gate — CLOSED
+
+The WU2 production gate was executed on 2026-09-24 after:
+
+1. source migration COMPLETE;
+2. ephemeral DB QA PASS;
 3. full inherited CI PASS;
-4. security review/advisors;
-5. exact migration reviewed against current production truth;
-6. explicit production migration gate.
+4. security/performance advisor review;
+5. exact production migration review;
+6. post-DDL production verification;
+7. HF1 defense-in-depth Memory publication audit;
+8. generated production TypeScript types reconciliation.
 
-Public recruitment remains HOLD throughout WU2 until later activation criteria are satisfied.
+**P17-WU2 is COMPLETE / PASS.**
+
+Public recruitment remains **HOLD / CLOSED** after WU2 closeout. Opening an application window is a later explicit operational decision through the protected Admin activation path.
