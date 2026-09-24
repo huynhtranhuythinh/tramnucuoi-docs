@@ -417,13 +417,23 @@ Production lifecycle DDL is active. Recruitment remains **HOLD / CLOSED** until 
 
 ### P17-WU3 — Event Management Foundation
 
-Canonical record:
+Canonical records:
 - `canon/PHASE_17_WU3_EVENT_MANAGEMENT_FOUNDATION_ARCHITECTURE_2026-09-24.md`
+- `canon/PHASE_17_WU3_1_OPERATIONAL_SCHEMA_SOURCE_CONTRACT_2026-09-24.md`
+- `canon/PHASE_17_WU3_2_JOURNEY_CONTROL_CENTER_ROUTE_OVERVIEW_2026-09-24.md`
 
 Status:
-- **STARTED**
+- **IN PROGRESS**
 - WU3.0 Current-State Audit & Architecture Lock — **COMPLETE / PASS**
-- WU3.1 Operational Schema Source Contract — **NEXT**
+- WU3.1 Operational Schema Source Contract — **COMPLETE / PASS**
+- WU3.2 Journey Control Center Route & Overview — **COMPLETE / PASS**
+- WU3.3 Department / Team Structure Management — **NEXT**
+
+Current product main after WU3.2:
+`7ae0c3452bbf3e02a4d533ab0b7e307199420bcf`
+
+WU3.2 post-merge CI:
+`35987238110` — **SUCCESS**
 
 Locked WU3 foundation:
 - one Journey Control Center;
