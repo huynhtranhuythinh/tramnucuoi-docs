@@ -360,12 +360,21 @@ WU2.3 canonical record:
 - production lifecycle columns are still unapplied;
 - public recruitment remains **HOLD**.
 
+WU2.5 canonical record:
+- `canon/PHASE_17_WU2_5_ADMIN_LIFECYCLE_CONTROLS_2026-09-24.md`
+- status: **COMPLETE / PASS**
+- PR #71 merged;
+- product main: `4c4691f8de65138d1dad08bfe56e5051ac51a567`;
+- post-merge main CI `35945795145`: **SUCCESS**;
+- source/runtime is lifecycle-ready but production lifecycle DDL remains unapplied;
+- public recruitment remains **HOLD**.
+
 Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
 2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
 3. WU2.3 Journey index/detail composition — **COMPLETE / PASS**
 4. WU2.4 Public navigation rebase — **COMPLETE / PASS**
-5. WU2.5 Admin lifecycle controls — **IN PROGRESS**
-6. WU2.6 VI/EN/mobile/regression QA
+5. WU2.5 Admin lifecycle controls — **COMPLETE / PASS**
+6. WU2.6 VI/EN/mobile/regression QA — **NEXT**
 
 Production DDL/release remains a separate explicit gate.
