@@ -360,6 +360,15 @@ WU2.3 canonical record:
 - production lifecycle columns are still unapplied;
 - public recruitment remains **HOLD**.
 
+WU2.4 canonical record:
+- `canon/PHASE_17_WU2_4_PUBLIC_NAVIGATION_REBASE_2026-09-23.md`
+- status: **COMPLETE / PASS**
+- PR #70 merged;
+- product main: `1ed29ff7898a7e03b955a7cf5bde1c930c8540c9`;
+- post-merge main CI `35808410110`: **SUCCESS**;
+- Journey is primary public participation navigation;
+- public recruitment remains **HOLD**.
+
 WU2.5 canonical record:
 - `canon/PHASE_17_WU2_5_ADMIN_LIFECYCLE_CONTROLS_2026-09-24.md`
 - status: **COMPLETE / PASS**
@@ -378,6 +387,19 @@ WU2.6 canonical record:
 - production lifecycle DDL remains unapplied;
 - public recruitment remains **HOLD**.
 
+WU2.Final canonical record:
+- `canon/PHASE_17_WU2_FINAL_PRODUCTION_LIFECYCLE_CUTOVER_CLOSEOUT_2026-09-24.md`
+- status: **COMPLETE / PASS — PRODUCTION LIFECYCLE AUTHORITY ACTIVE**
+- PR #75 production cutover merged;
+- production migration `0054_p17_wu2_final_journey_lifecycle_cutover`: **APPLIED / PASS**
+- PR #76 HF1 Memory DB hardening merged;
+- production migration `0055_p17_wu2_final_memory_authority_hardening`: **APPLIED / PASS**
+- PR #77 production generated types sync merged;
+- final product main: `2c37673680450c12742512945f870e2bece6e653`;
+- final post-merge CI `35972476693`: **SUCCESS**;
+- all application windows: **CLOSED**;
+- public recruitment: **HOLD**.
+
 Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
 2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
@@ -385,6 +407,10 @@ Current WU2 sequence:
 4. WU2.4 Public navigation rebase — **COMPLETE / PASS**
 5. WU2.5 Admin lifecycle controls — **COMPLETE / PASS**
 6. WU2.6 VI/EN/mobile/regression QA — **COMPLETE / PASS**
-7. WU2.Final Production lifecycle cutover & closeout — **NEXT**
+7. WU2.Final Production lifecycle cutover & closeout — **COMPLETE / PASS**
+8. WU2.Final HF1 Memory authority hardening — **COMPLETE / PASS**
+9. Production generated types reconciliation — **COMPLETE / PASS**
 
-Production DDL/release remains a separate explicit gate.
+**P17-WU2 — CLOSED / COMPLETE / PASS.**
+
+Production lifecycle DDL is active. Recruitment remains **HOLD / CLOSED** until a later explicit operational activation decision.
