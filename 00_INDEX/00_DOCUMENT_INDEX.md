@@ -421,19 +421,21 @@ Canonical records:
 - `canon/PHASE_17_WU3_EVENT_MANAGEMENT_FOUNDATION_ARCHITECTURE_2026-09-24.md`
 - `canon/PHASE_17_WU3_1_OPERATIONAL_SCHEMA_SOURCE_CONTRACT_2026-09-24.md`
 - `canon/PHASE_17_WU3_2_JOURNEY_CONTROL_CENTER_ROUTE_OVERVIEW_2026-09-24.md`
+- `canon/PHASE_17_WU3_3_DEPARTMENT_TEAM_STRUCTURE_MANAGEMENT_2026-09-24.md`
 
 Status:
 - **IN PROGRESS**
 - WU3.0 Current-State Audit & Architecture Lock — **COMPLETE / PASS**
 - WU3.1 Operational Schema Source Contract — **COMPLETE / PASS**
 - WU3.2 Journey Control Center Route & Overview — **COMPLETE / PASS**
-- WU3.3 Department / Team Structure Management — **NEXT**
+- WU3.3 Department / Team Structure Management — **COMPLETE / PASS**
+- WU3.4 Runbook Foundation — **NEXT**
 
-Current product main after WU3.2:
-`7ae0c3452bbf3e02a4d533ab0b7e307199420bcf`
+Current product main after WU3.3:
+`61a1c8b052546b418518bf0cf08017ca2d6da848`
 
-WU3.2 post-merge CI:
-`35987238110` — **SUCCESS**
+WU3.3 post-merge CI:
+`35989990911` — **SUCCESS**
 
 Locked WU3 foundation:
 - one Journey Control Center;
