@@ -393,9 +393,23 @@ Product evidence:
 
 
 ### WU2.5 — Admin lifecycle controls
-- separate phase and application-window controls;
-- explicit transition guards;
-- past open Journey reconciliation.
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU2_5_ADMIN_LIFECYCLE_CONTROLS_2026-09-24.md`
+
+Product evidence:
+- PR #71 merged;
+- product main: `4c4691f8de65138d1dad08bfe56e5051ac51a567`;
+- final PR-head generic CI `35945656693`: **SUCCESS**;
+- WU10B regression `35945656692`: **SUCCESS**;
+- post-merge main CI `35945795145`: **SUCCESS**;
+- lifecycle phase and application-window controls are separate;
+- generic content editing no longer owns lifecycle authority;
+- OPEN application is protected by the lifecycle-aware activation path;
+- pre-DDL capability is fail-closed;
+- no production DDL / recruitment activation.
+
 
 ### WU2.6 — VI/EN / mobile / regression QA
 - reciprocal routes;
