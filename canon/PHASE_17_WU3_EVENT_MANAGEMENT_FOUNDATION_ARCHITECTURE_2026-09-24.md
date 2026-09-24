@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 COMPLETE / PASS**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -502,13 +502,22 @@ Product evidence:
 - no WU3 production DDL / recruitment activation.
 
 ### WU3.3 — Department / Team Structure Management
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Admin-only management of Journey-specific structure.
+Canonical record:
+`canon/PHASE_17_WU3_3_DEPARTMENT_TEAM_STRUCTURE_MANAGEMENT_2026-09-24.md`
 
-No volunteer assignment migration yet.
+Product evidence:
+- PR #80 merged;
+- product main: `61a1c8b052546b418518bf0cf08017ca2d6da848`;
+- post-merge main CI `35989990911`: **SUCCESS**;
+- Journey-scoped Admin Department / Team management is source-ready;
+- hard delete is intentionally absent; deactivate/reactivate preserves structure history;
+- production Event Management tables remain unapplied and capability is fail-closed;
+- no volunteer assignment migration / recruitment activation.
 
 ### WU3.4 — Runbook Foundation
+Status: **NEXT**
 
 Admin-only lightweight planning and chronological operations.
 
