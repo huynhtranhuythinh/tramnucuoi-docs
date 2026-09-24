@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 COMPLETE / PASS**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -535,13 +535,28 @@ Product evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU3.5 — Official Update Foundation
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Admin-only compose/publish operational updates.
+Canonical record:
+`canon/PHASE_17_WU3_5_OFFICIAL_UPDATE_FOUNDATION_2026-09-24.md`
 
-No participant-facing delivery yet.
+Product evidence:
+- PR #82 merged;
+- product main: `9df3676d85edb612ca691cba85f93b0cac9f13fe`;
+- exact-head generic CI `35996114164`: **SUCCESS**;
+- dedicated P16-WU10B gate `35996114159`: **SUCCESS**;
+- post-merge main CI `35996283738`: **SUCCESS**;
+- Journey-scoped Admin Official Update management is source-ready;
+- Official Update remains distinct from Community content;
+- audience scopes cover all participants / BTC / TNV / Bản địa / Department / Team;
+- save-as-Draft and explicit Publish / Return-to-Draft authority are enforced;
+- Published records must return to Draft before content editing;
+- participant-facing delivery remains deferred;
+- production Event Management tables remain unapplied and fail-closed;
+- recruitment remains HOLD / CLOSED.
 
 ### WU3.6 — Existing Journey Admin Recomposition
+Status: **NEXT**
 
 Move/reuse existing Journey tools into the Control Center context without rewriting their truth models.
 
