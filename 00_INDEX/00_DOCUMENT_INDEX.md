@@ -369,12 +369,22 @@ WU2.5 canonical record:
 - source/runtime is lifecycle-ready but production lifecycle DDL remains unapplied;
 - public recruitment remains **HOLD**.
 
+WU2.6 canonical record:
+- `canon/PHASE_17_WU2_6_BILINGUAL_MOBILE_REGRESSION_QA_2026-09-24.md`
+- status: **COMPLETE / PASS**
+- PR #72 merged;
+- product main: `3647bf8e55249dcba5f3d9e8d88ff26065f5d95f`;
+- post-merge main CI `35946234628`: **SUCCESS**;
+- production lifecycle DDL remains unapplied;
+- public recruitment remains **HOLD**.
+
 Current WU2 sequence:
 1. WU2.1 Lifecycle schema/source contract — **COMPLETE / PASS**
 2. WU2.2 Canonical Journey routes + Field Journal redirects — **COMPLETE / PASS**
 3. WU2.3 Journey index/detail composition — **COMPLETE / PASS**
 4. WU2.4 Public navigation rebase — **COMPLETE / PASS**
 5. WU2.5 Admin lifecycle controls — **COMPLETE / PASS**
-6. WU2.6 VI/EN/mobile/regression QA — **NEXT**
+6. WU2.6 VI/EN/mobile/regression QA — **COMPLETE / PASS**
+7. WU2.Final Production lifecycle cutover & closeout — **NEXT**
 
 Production DDL/release remains a separate explicit gate.
