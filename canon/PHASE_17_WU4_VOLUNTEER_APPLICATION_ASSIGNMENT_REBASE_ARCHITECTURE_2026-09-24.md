@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0 CURRENT-STATE AUDIT & ARCHITECTURE LOCK COMPLETE / PASS**
+Status: **IN PROGRESS — WU4.0 / WU4.1 COMPLETE / PASS**
 
 ## 1. Objective
 
@@ -380,12 +380,24 @@ Conditional skill/experience questions are deferred unless a concrete staffing n
 Status: **COMPLETE / PASS**
 
 ### WU4.1 — Staffing / Preference / Assignment Schema Source Contract
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Source-only contract. No production DDL.
+Canonical record:
+`canon/PHASE_17_WU4_1_STAFFING_PREFERENCE_ASSIGNMENT_SCHEMA_SOURCE_CONTRACT_2026-09-24.md`
+
+Evidence:
+- PR #86 merged;
+- final PR head `5d6027179c366e1328822b10b2dbe25ab57dccc3`;
+- exact-head generic CI `36006509038`: **SUCCESS**;
+- dedicated P16-WU10B gate `36006509051`: **SUCCESS**;
+- product main `0a967b091d8214d34d0313df3756794eda63acdf`;
+- post-merge main CI `36006719456`: **SUCCESS**;
+- production WU4 schema still absent;
+- non-closed application windows remain 0;
+- recruitment remains HOLD / CLOSED.
 
 ### WU4.2 — Dynamic Staffing Needs + Volunteer Application Rebase
-Status: PLANNED
+Status: **NEXT**
 
 - Admin staffing needs management;
 - public staffing need read;
