@@ -313,7 +313,7 @@ Important correction:
 
 ### P17-WU2 — Journey Lifecycle & Information Architecture
 
-Status: **OPEN — GATE 0 COMPLETE / PASS**
+Status: **CLOSED / COMPLETE / PASS**
 
 Gate 0 result:
 - production Supabase TypeScript contract regenerated into source;
@@ -414,3 +414,32 @@ Current WU2 sequence:
 **P17-WU2 — CLOSED / COMPLETE / PASS.**
 
 Production lifecycle DDL is active. Recruitment remains **HOLD / CLOSED** until a later explicit operational activation decision.
+
+### P17-WU3 — Event Management Foundation
+
+Canonical record:
+- `canon/PHASE_17_WU3_EVENT_MANAGEMENT_FOUNDATION_ARCHITECTURE_2026-09-24.md`
+
+Status:
+- **STARTED**
+- WU3.0 Current-State Audit & Architecture Lock — **COMPLETE / PASS**
+- WU3.1 Operational Schema Source Contract — **NEXT**
+
+Locked WU3 foundation:
+- one Journey Control Center;
+- Journey-scoped Department / Team structure;
+- lightweight Runbook;
+- Official Update foundation separate from Community;
+- operational Overview signals;
+- reuse existing Journey managers without rewriting attendance/claim/Memory truth.
+
+Explicitly deferred:
+- volunteer application/assignment rebase → WU4;
+- Participant Workspace → WU5;
+- Community rebase → WU6;
+- Donation/Resource Operations → WU7;
+- Day-of/Attendance redesign → WU8;
+- Closeout/Results/Memory expansion → WU9.
+
+Public recruitment remains **HOLD / CLOSED**.
+
