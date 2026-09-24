@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **STARTED — WU3.0 CURRENT-STATE AUDIT & ARCHITECTURE LOCKED**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -485,12 +485,24 @@ Design and QA source contracts for:
 No production DDL yet.
 
 ### WU3.2 — Journey Control Center Route & Overview
+Status: **COMPLETE / PASS**
 
-Create the per-Journey Admin route/shell and overview.
+Canonical record:
+`canon/PHASE_17_WU3_2_JOURNEY_CONTROL_CENTER_ROUTE_OVERVIEW_2026-09-24.md`
 
-Reuse lifecycle/application authority from WU2.
+Product evidence:
+- PR #79 merged;
+- product main: `7ae0c3452bbf3e02a4d533ab0b7e307199420bcf`;
+- post-merge main CI `35987238110`: **SUCCESS**;
+- `/admin/journeys` remains the Journey portfolio;
+- dedicated `/admin/journeys/:journeyId` Control Center is active in source;
+- Overview uses existing production truth only;
+- RLS-hidden Admin metrics are never represented as zero;
+- WU2 lifecycle/application authority is reused;
+- no WU3 production DDL / recruitment activation.
 
 ### WU3.3 — Department / Team Structure Management
+Status: **NEXT**
 
 Admin-only management of Journey-specific structure.
 
