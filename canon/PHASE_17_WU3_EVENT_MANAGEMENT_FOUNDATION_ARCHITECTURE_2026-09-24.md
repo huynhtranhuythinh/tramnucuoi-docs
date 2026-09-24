@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 / WU3.5 / WU3.6 / WU3.7 COMPLETE / PASS**  
+Status: **COMPLETE / CLOSED / PASS — WU3.0–WU3.Final COMPLETE; PRODUCTION FOUNDATION ACTIVE**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -598,11 +598,33 @@ Product / production evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU3.Final — Production Foundation Cutover & Canonical Closeout
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Only after source/ephemeral DB/full CI/security evidence PASS.
+Canonical record:
+`canon/PHASE_17_WU3_FINAL_PRODUCTION_FOUNDATION_CUTOVER_CLOSEOUT_2026-09-24.md`
 
-Production migration is a separate final gate.
+Evidence:
+- PR #85 merged;
+- final PR head `685af0eeef536ed083e2020ce48d6f59e932f42a`;
+- exact-head generic CI `36002419718`: **SUCCESS**;
+- dedicated P16-WU10B gate `36002419767`: **SUCCESS**;
+- product main `3ad24711c3fbbc473f821042968fae835dcf5edc`;
+- post-merge main CI `36002611763`: **SUCCESS**;
+- migration `p17_wu3_final_event_management_foundation` applied production;
+- production Event Management tables: **4/4**;
+- RLS enabled on all four tables;
+- anon direct SELECT: **none**;
+- Admin-only policies: **16**;
+- same-Journey hierarchy foreign keys: **5**;
+- four WU3 tables initialized empty;
+- non-closed application windows: **0**;
+- recruitment remains HOLD / CLOSED.
+
+WU3 is now **COMPLETE / CLOSED / PASS**.
+
+Next canonical work unit:
+
+**P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE**.
 
 ---
 
