@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU3 — EVENT MANAGEMENT FOUNDATION
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 COMPLETE / PASS**  
+Status: **IN PROGRESS — WU3.0 / WU3.1 / WU3.2 / WU3.3 / WU3.4 COMPLETE / PASS**  
 Owner: Jean / Owner  
 CTO / Product Architect / QA Lead: ChatGPT  
 Builder: Lovable only when needed
@@ -517,11 +517,25 @@ Product evidence:
 - no volunteer assignment migration / recruitment activation.
 
 ### WU3.4 — Runbook Foundation
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-Admin-only lightweight planning and chronological operations.
+Canonical record:
+`canon/PHASE_17_WU3_4_RUNBOOK_FOUNDATION_2026-09-24.md`
+
+Product evidence:
+- PR #81 merged;
+- product main: `e715dd5f0f40a472873f3c32a199ab3d25e0dc73`;
+- exact-head generic CI `35994354911`: **SUCCESS**;
+- dedicated P16-WU10B gate `35994354853`: **SUCCESS**;
+- post-merge main CI `35994580462`: **SUCCESS**;
+- Journey-scoped Admin lightweight Runbook is source-ready;
+- task / schedule, VI/EN, optional Department / Team, scheduled/due time and todo/doing/done are supported;
+- no hard delete, assignee or staffing truth was introduced;
+- production Event Management tables remain unapplied and fail-closed;
+- recruitment remains HOLD / CLOSED.
 
 ### WU3.5 — Official Update Foundation
+Status: **NEXT**
 
 Admin-only compose/publish operational updates.
 
