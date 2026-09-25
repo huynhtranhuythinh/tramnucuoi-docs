@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0 / WU4.1 COMPLETE / PASS**
+Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 COMPLETE / PASS**
 
 ## 1. Objective
 
@@ -397,16 +397,24 @@ Evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU4.2 — Dynamic Staffing Needs + Volunteer Application Rebase
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-- Admin staffing needs management;
-- public staffing need read;
-- ranked Department preference submission;
-- remove browser hardcoded-team authority;
-- lifecycle authority from WU2.
+Canonical record:
+`canon/PHASE_17_WU4_2_DYNAMIC_STAFFING_NEEDS_VOLUNTEER_APPLICATION_REBASE_2026-09-25.md`
+
+Evidence:
+- PR #87 merged;
+- final PR head `3b9b402ed6605b100312c0ef16b37ea02787c007`;
+- exact-head generic CI `36080159902`: **SUCCESS**;
+- dedicated P16-WU10B gate `36080159916`: **SUCCESS**;
+- product main `8e497c2e4de625f7c3f21dad22f92f9ed893cdce`;
+- post-merge main CI `36080307053`: **SUCCESS**;
+- no WU4 production DDL;
+- non-closed application windows remain 0;
+- recruitment remains HOLD / CLOSED.
 
 ### WU4.3 — Review / Waitlist / Approval Workflow Rebase
-Status: PLANNED
+Status: **NEXT**
 
 - waitlist;
 - approval independent of assignment;
