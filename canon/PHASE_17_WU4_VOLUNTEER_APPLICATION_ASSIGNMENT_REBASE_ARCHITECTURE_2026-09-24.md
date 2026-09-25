@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 COMPLETE / PASS**
+Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 / WU4.3 COMPLETE / PASS**
 
 ## 1. Objective
 
@@ -414,14 +414,27 @@ Evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU4.3 — Review / Waitlist / Approval Workflow Rebase
-Status: **NEXT**
+Status: **COMPLETE / PASS**
+
+Canonical record:
+`canon/PHASE_17_WU4_3_REVIEW_WAITLIST_APPROVAL_WORKFLOW_REBASE_2026-09-25.md`
+
+Evidence:
+- PR #88 merged;
+- final PR head `83b6390045e1b81500bc80fb45f8c2e8ecd31ba0`;
+- exact-head CI `36081022951`: **SUCCESS**;
+- dedicated P16-WU10B `36081023049`: **SUCCESS**;
+- product main `c2b4b2fc0e48e708e39f3d87e16e6c38ff2ebb16`;
+- post-merge main CI `36081155906`: **SUCCESS**;
+- no WU4 production DDL;
+- recruitment remains HOLD / CLOSED.
 
 - waitlist;
 - approval independent of assignment;
 - generic + volunteer Admin semantics.
 
 ### WU4.4 — Participant Role + Assignment Operations
-Status: PLANNED
+Status: **NEXT**
 
 - TNV role bootstrap;
 - Department / optional Team assignment;
