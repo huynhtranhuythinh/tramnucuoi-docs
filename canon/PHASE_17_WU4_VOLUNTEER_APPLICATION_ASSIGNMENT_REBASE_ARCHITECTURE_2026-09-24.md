@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 / WU4.3 / WU4.4 COMPLETE / PASS**
+Status: **IN PROGRESS — WU4.0–WU4.6 COMPLETE / PASS; WU4.Final NEXT**
 
 ## 1. Objective
 
@@ -472,20 +472,34 @@ Evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU4.6 — Security / Privacy / Mobile Regression QA
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-- RLS / grants;
-- PII;
-- lifecycle;
-- attendance;
-- Memory;
-- recruitment HOLD;
-- mobile form/Admin.
+Canonical record:
+`canon/PHASE_17_WU4_6_SECURITY_PRIVACY_MOBILE_REGRESSION_QA_2026-09-25.md`
+
+Evidence:
+- PR #92 merged;
+- final PR head `2f6f375fdb59c6f8d95a3301faf652f98291204b`;
+- exact-head generic CI `36095392567`: **SUCCESS**;
+- exact-head dedicated P16-WU10B gate `36095392549`: **SUCCESS**;
+- progressive VI/EN mobile volunteer application now uses four validated steps;
+- RLS / grants / PII / Vault / lifecycle / attendance / Memory / legacy compatibility regressions: **PASS**;
+- product main `24ca60628ba1289dc523b730d53cd7723c3498b6`;
+- post-merge main CI `36095579285`: **SUCCESS**;
+- no WU4 production tables/RPCs exist yet;
+- non-closed application windows remain 0;
+- recruitment remains HOLD / CLOSED.
+
+Security Advisor observation retained separately:
+- `auth_leaked_password_protection`: Leaked Password Protection Disabled;
+- existing project-level Auth warning, not introduced or resolved by WU4.6.
 
 ### WU4.Final — Production Cutover & Canonical Closeout
-Status: PLANNED
+Status: **NEXT**
 
-Production DDL only after exact-head/full inherited gates PASS.
+Production DDL only after explicit migration/rollback construction, full ephemeral verification, exact production precondition verification and inherited gates PASS.
+
+WU4.Final must not open a Journey application window or activate the real recruitment pilot.
 
 ## 12. Explicit non-goals
 
@@ -513,10 +527,12 @@ Throughout WU4 until WU4.Final:
 - attendance truth is untouched;
 - Memory/claim/shared-experience truth is untouched.
 
-## 14. WU4.0 decision
+## 14. Current WU4 decision
 
-**P17-WU4.0 — COMPLETE / PASS.**
+**P17-WU4.0–WU4.6 — COMPLETE / PASS.**
+
+Production remains pre-WU4-cutover and recruitment remains HOLD / CLOSED.
 
 Proceed to:
 
-**P17-WU4.1 — STAFFING / PREFERENCE / ASSIGNMENT SCHEMA SOURCE CONTRACT**
+**P17-WU4.Final — PRODUCTION CUTOVER & CANONICAL CLOSEOUT**
