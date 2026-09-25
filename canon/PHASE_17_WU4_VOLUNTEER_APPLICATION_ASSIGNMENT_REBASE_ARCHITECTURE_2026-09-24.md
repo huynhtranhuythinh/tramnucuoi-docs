@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0–WU4.6 COMPLETE / PASS; WU4.Final NEXT**
+Status: **COMPLETE / CLOSED / PASS — WU4 PRODUCTION FOUNDATION ACTIVE; RECRUITMENT HOLD / CLOSED**
 
 ## 1. Objective
 
@@ -495,11 +495,27 @@ Security Advisor observation retained separately:
 - existing project-level Auth warning, not introduced or resolved by WU4.6.
 
 ### WU4.Final — Production Cutover & Canonical Closeout
-Status: **NEXT**
+Status: **COMPLETE / CLOSED / PASS**
 
-Production DDL only after explicit migration/rollback construction, full ephemeral verification, exact production precondition verification and inherited gates PASS.
+Canonical record:
+`canon/PHASE_17_WU4_FINAL_PRODUCTION_CUTOVER_CANONICAL_CLOSEOUT_2026-09-25.md`
 
-WU4.Final must not open a Journey application window or activate the real recruitment pilot.
+Evidence:
+- PR #93 merged;
+- final PR head `88501c1fb95d76134c67e801dfe1de1fe2e33940`;
+- exact-head generic CI `36097116259`: **SUCCESS**;
+- dedicated P16-WU10B gate `36097116266`: **SUCCESS**;
+- product main `a47c099c4b5f1af6c162e75a0f16c5059222a7cb`;
+- post-merge main CI `36097236961`: **SUCCESS**;
+- production migration `p17_wu4_final_volunteer_staffing_assignment_cutover`: **SUCCESS**;
+- production migration version `20260925050939`;
+- WU4 staffing / assignment / waitlist / preference / RPC foundation: active;
+- staffing rows: 0;
+- assignment rows: 0;
+- P17 structured application rows: 0;
+- legacy P16 volunteer truth preserved;
+- non-closed Application Windows: 0;
+- recruitment remains HOLD / CLOSED.
 
 ## 12. Explicit non-goals
 
@@ -518,21 +534,27 @@ WU4 does not implement:
 
 ## 13. Production invariants
 
-Throughout WU4 until WU4.Final:
+After WU4.Final:
 
-- WU3 Event Management tables remain active;
-- WU4 source tables do not exist production;
-- application windows remain closed;
+- WU3 Event Management foundation remains active;
+- WU4 staffing / participant assignment foundation is active;
+- P17 ranked Department preference columns are active;
+- explicit `waitlisted` workflow state is active;
+- public staffing projection is active but returns operational options only when lifecycle/application authority allows;
+- all current Journey application windows remain closed;
 - public recruitment remains HOLD / CLOSED;
-- attendance truth is untouched;
-- Memory/claim/shared-experience truth is untouched.
+- attendance truth remains untouched;
+- Memory/claim/shared-experience truth remains untouched;
+- no WU4 operational rows were seeded by cutover.
 
-## 14. Current WU4 decision
+## 14. WU4 final decision
 
-**P17-WU4.0–WU4.6 — COMPLETE / PASS.**
+# **P17-WU4 — COMPLETE / CLOSED / PASS**
 
-Production remains pre-WU4-cutover and recruitment remains HOLD / CLOSED.
+Canonical closeout:
+
+`canon/PHASE_17_WU4_FINAL_PRODUCTION_CUTOVER_CANONICAL_CLOSEOUT_2026-09-25.md`
 
 Proceed to:
 
-**P17-WU4.Final — PRODUCTION CUTOVER & CANONICAL CLOSEOUT**
+# **P17-WU5 — PARTICIPANT PERSONAL JOURNEY WORKSPACE**
