@@ -45,6 +45,12 @@ Squash-merged product main:
 
 `ade399456fbf50de4e3649483532abd7b3dd0859`
 
+Post-merge evidence:
+
+- main CI `36106064276`: **SUCCESS**;
+- Cloudflare production build: **SUCCESS**;
+- Cloudflare staging build: **SUCCESS**.
+
 ## 3. Policy model
 
 Canonical table:
