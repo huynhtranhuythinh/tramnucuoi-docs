@@ -3,7 +3,7 @@
 # ARCHITECTURE & CANONICAL WORK PLAN
 
 Date: 2026-09-25  
-Status: **WU5.0 COMPLETE / PASS — ARCHITECTURE LOCKED; SOURCE IMPLEMENTATION NEXT**
+Status: **COMPLETE / CLOSED / PASS — PRODUCTION ACTIVE**
 
 ## 1. Purpose
 
@@ -427,19 +427,25 @@ WU5 does not:
 **COMPLETE / PASS**
 
 ### WU5.1 — Participant Access / Projection Source Contract
-Next.
+**COMPLETE / PASS**
 
 ### WU5.2 — My Journey Entry / Journey Workspace Shell
+**COMPLETE / PASS**
 
 ### WU5.3 — My Role / Department / Team
+**COMPLETE / PASS**
 
 ### WU5.4 — Participant-safe Plan / Runbook Projection
+**COMPLETE / PASS**
 
 ### WU5.5 — Participant Official Update Delivery / Read Model
+**COMPLETE / PASS**
 
 ### WU5.6 — Mobile / Privacy / Security Regression QA
+**COMPLETE / PASS**
 
 ### WU5.Final — Production Cutover & Canonical Closeout
+**COMPLETE / CLOSED / PASS**
 
 ## 14. Release strategy
 
@@ -469,12 +475,29 @@ Until WU5.Final cutover:
 - Memory / Reflection / Impact remain untouched;
 - no fake participant, Department, Team, Runbook or Official Update data is seeded.
 
-## 16. WU5.0 decision
+## 16. Final decision
 
-# **P17-WU5.0 — COMPLETE / PASS**
+# **P17-WU5 — COMPLETE / CLOSED / PASS**
 
-Architecture is locked.
+Production-active participant capability:
 
-Proceed directly to:
+- My Journey workspace;
+- current Journey Role / Department / optional Team context;
+- participant-safe Plan projection;
+- participant-safe Official Update delivery.
 
-# **P17-WU5.1 — PARTICIPANT ACCESS / PROJECTION SOURCE CONTRACT**
+Production cutover migration:
+
+`20260925062925 / p17_wu5_final_participant_workspace_projections`
+
+Product main closeout SHA:
+
+`f63e6a5657c20ff2b8f46d9f89b580c52e98f566`
+
+Recruitment remains:
+
+**HOLD / CLOSED**
+
+The detailed production evidence is recorded in:
+
+`canon/PHASE_17_WU5_FINAL_PARTICIPANT_WORKSPACE_PRODUCTION_CUTOVER_CLOSEOUT_2026-09-25.md`
