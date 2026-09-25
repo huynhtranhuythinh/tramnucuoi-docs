@@ -455,14 +455,24 @@ Evidence:
 - recruitment remains HOLD / CLOSED.
 
 ### WU4.5 — Legacy P16 Compatibility
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-- preserve legacy values;
-- no automatic semantic migration;
-- Admin compatibility presentation.
+Canonical record:
+`canon/PHASE_17_WU4_5_LEGACY_P16_COMPATIBILITY_2026-09-25.md`
+
+Evidence:
+- PR #90 merged;
+- final PR head `a72ab23fc3f1d07a79707d9cd9ff84a4148b21ee`;
+- exact-head generic CI `36086103120`: **SUCCESS**;
+- dedicated P16-WU10B gate `36086103144`: **SUCCESS**;
+- product main `a993980d5984a7725a1ecacde0a7a0c694070b33`;
+- post-merge main CI `36087373624`: **SUCCESS**;
+- historical P16 values preserved;
+- no automatic semantic migration into P17 Journey Role / Department / Team truth;
+- recruitment remains HOLD / CLOSED.
 
 ### WU4.6 — Security / Privacy / Mobile Regression QA
-Status: PLANNED
+Status: **NEXT**
 
 - RLS / grants;
 - PII;
