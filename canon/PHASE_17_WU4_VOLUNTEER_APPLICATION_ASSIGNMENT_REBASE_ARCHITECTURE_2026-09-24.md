@@ -2,7 +2,7 @@
 # PHASE 17 / P17-WU4 — VOLUNTEER APPLICATION & ASSIGNMENT REBASE
 
 Date: 2026-09-24  
-Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 / WU4.3 COMPLETE / PASS**
+Status: **IN PROGRESS — WU4.0 / WU4.1 / WU4.2 / WU4.3 / WU4.4 COMPLETE / PASS**
 
 ## 1. Objective
 
@@ -434,15 +434,28 @@ Evidence:
 - generic + volunteer Admin semantics.
 
 ### WU4.4 — Participant Role + Assignment Operations
-Status: **NEXT**
+Status: **COMPLETE / PASS**
 
-- TNV role bootstrap;
-- Department / optional Team assignment;
-- assignment history;
-- current-assignment management.
+Canonical record:
+`canon/PHASE_17_WU4_4_PARTICIPANT_ROLE_ASSIGNMENT_OPERATIONS_2026-09-25.md`
+
+Evidence:
+- PR #89 merged;
+- final PR head `ca4541fd17c8d5f26e87d285c2a9f23acf70bac4`;
+- exact-head generic CI `36085608835`: **SUCCESS**;
+- dedicated P16-WU10B gate `36085608881`: **SUCCESS**;
+- product main `85eb570a015b300212f2d586006309d79c6e73a9`;
+- post-merge main CI `36085735594`: **SUCCESS**;
+- atomic append-history participant assignment operations ready in source;
+- idempotent volunteer TNV-role bootstrap ready in source;
+- Department/Team assignment remains Admin-controlled;
+- assignment remains distinct from attendance;
+- no WU4 production DDL;
+- non-closed application windows remain 0;
+- recruitment remains HOLD / CLOSED.
 
 ### WU4.5 — Legacy P16 Compatibility
-Status: PLANNED
+Status: **NEXT**
 
 - preserve legacy values;
 - no automatic semantic migration;
