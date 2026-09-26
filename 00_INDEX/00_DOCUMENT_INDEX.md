@@ -455,3 +455,28 @@ Explicitly deferred:
 
 Public recruitment remains **HOLD / CLOSED**.
 
+
+
+## Social Home / Journey-Based Social Network UX Rebase — COMPLETE / LOCKED
+
+Canonical product/UX reference:
+1. `canon/SOCIAL_HOME_JOURNEY_SOCIAL_UX_CANON_V1_2026-09-26.md`
+
+Canonical implementation roadmap:
+2. `04_ROADMAP/SOCIAL_HOME_JOURNEY_SOCIAL_BUILD_PLAN_2026-09-26.md`
+
+Status:
+- Social Home Product / UX Rebase: **COMPLETE / LOCKED**
+- Approved Social Home direction: **Hybrid TNC Social World**
+- Approved mobile visual direction: **Social Home — Phương án 4**
+- Journey Social Room Before / During / After: **APPROVED**
+- Glass Navigation System: **LOCKED across all Social mobile surfaces**
+- Feed Grammar / Journey Card / Companion relationship / Composer / Interaction / access-state models: **LOCKED**
+- Community & Companion, Profile / My Journey Identity, Desktop adaptation, System States and Social Design Language V1: **APPROVED**
+- Implementation: **NOT YET STARTED under this rebase**
+- Next build gate: **WU1 — Current Social Surface & Capability Reconciliation**
+
+Reading rule:
+- Read the Social UX Canon before any new Social Home / Journey Social implementation.
+- Do not reopen the approved product model during implementation unless evidence exposes a real blocker.
+- Preserve Journey operational truth, participant approval truth, Shared Experience verification, privacy, consent and publication boundaries.
