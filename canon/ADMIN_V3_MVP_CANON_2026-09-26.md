@@ -4,9 +4,10 @@
 **Status:** CANONICAL / OWNER-ACCEPTED MVP  
 **Product repo:** `huynhtranhuythinh/tramnucuoi`  
 **Docs repo:** `huynhtranhuythinh/tramnucuoi-docs`  
-**Canonical product commit:** `9d4741d9b8b9612fd43ed3d2de03b4f1b901c156`  
+**Canonical product commit:** `f2195b84b5092e3632550b0fcbf04de1a4579df0`  
 **Preview:** `https://id-preview--743468e9-ff94-40ee-9611-4cef7ce5b47f.lovable.app/admin`  
-**Production deploy:** NOT performed in this closeout.
+**Production deploy:** COMPLETED / OWNER UAT PASS
+**Production Worker version:** `b18d2ffb-c99f-42a6-ad07-2235ff90dacd`
 
 ---
 
@@ -376,7 +377,7 @@ Final closeout status:
 
 **Admin V3 MVP = OWNER ACCEPTED / CANONICAL.**
 
-This does **not** mean production deployment has occurred.
+Production deployment, smoke verification, and final Owner UAT have now been completed. Owner confirmed the production Admin is stable and accepted the final compact explanation/tooltip pattern.
 
 ---
 
@@ -384,14 +385,16 @@ This does **not** mean production deployment has occurred.
 
 Canonical product SHA:
 
-`9d4741d9b8b9612fd43ed3d2de03b4f1b901c156`
+`f2195b84b5092e3632550b0fcbf04de1a4579df0`
 
 Final verification before canonical close:
-- TypeScript check: PASS
 - Production build: PASS
-- Admin route compilation: PASS
-- 21 Admin route files present in build output
-- No production deployment performed
+- Production cutover: PASS
+- Cloudflare Worker deploy: PASS
+- Production Owner smoke/UAT: PASS
+- Final explanation → tooltip sweep verified in production
+- No database/schema/auth/business-rule changes were introduced by the tooltip sweep
+- Known technical debt: generated Admin V3 route-tree typing remains a separate follow-up; it did not block production build or Owner UAT
 
 Preview:
 `https://id-preview--743468e9-ff94-40ee-9611-4cef7ce5b47f.lovable.app/admin`
@@ -413,6 +416,22 @@ The following are explicitly deferred and must not be treated as regressions:
 
 ---
 
+## 9A. Final production UX refinement — explanation → tooltip pattern
+
+Final production UAT established an additional canonical UX rule:
+
+- Long explanatory paragraphs should not occupy the main operating surface when they are supporting/help content.
+- Keep the primary label, status, warning, decision, and next action visible.
+- Move contextual definitions and usage explanations behind a small accessible information control `(i)`.
+- The information control must work with hover/focus and click/touch.
+- Do not hide blockers, required actions, important warnings, or operational state inside tooltips.
+
+This pattern was applied across relevant Admin V3 surfaces including Journey operations, attendance, tasks, content/settings/integration explanations and other explanatory-heavy areas. Dashboard and other surfaces intentionally retain information that Owner needs to see immediately.
+
+Owner reviewed the production result on 2026-09-26 and confirmed it is satisfactory.
+
+---
+
 ## 10. Change control / no-reopen rule
 
 From this closeout forward:
@@ -427,9 +446,11 @@ From this closeout forward:
 
 ---
 
-## 11. Next release gate
+## 11. Final release state
 
-The next step after this canonical close is **Production Cutover / smoke QA**, not another redesign cycle.
+**ADMIN V3 MVP = PRODUCTION / OWNER ACCEPTED / CANONICAL CLOSED.**
+
+Production Cutover, smoke QA, final tooltip refinement, and Owner UAT are complete. Further work is incremental product evolution only; it must not reopen the Admin V3 foundation without explicit Owner decision or production evidence of a blocker.
 
 Required before calling Admin V3 production-released:
 - Owner approval to deploy;
